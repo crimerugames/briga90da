@@ -124,31 +124,36 @@ meter::-webkit-meter-optimum-value{background:#b5c29b}
 meter::-moz-meter-bar{background:#b5c29b}
 #armor-meter::-moz-meter-bar{background:#8da8b5}
 #hero-perk{display:block;color:var(--gold);font-size:10px;margin-top:6px;text-transform:uppercase;letter-spacing:.18em}
-.mission-panel{max-width:420px}
+.mission-panel{max-width:340px;padding:8px 12px}
 .mission-panel:has(#mission-title:empty){display:none}
-#mission-title{color:var(--gold);margin:0 0 4px;font-size:14px;text-transform:uppercase;letter-spacing:.08em}
-#mission-objective{font-size:12px;margin:0}
-.resources-panel{text-align:right;min-width:170px}
-.resources-panel p{margin:4px 0 0}
-#wanted-stars{color:var(--gold);font-size:22px;letter-spacing:.1em;line-height:1}
+#mission-title{color:var(--gold);margin:0 0 2px;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+#mission-objective{font-size:11px;margin:0}
+.resources-panel{text-align:right;min-width:110px}
+.resources-panel p{margin:0}
+/* Левая колонка: панель героя, под ней компактный блок розыска и оружия. */
+.hud-left{display:flex;flex-direction:column;align-items:flex-start;gap:7px}
+.loadout-panel{display:flex;align-items:baseline;gap:10px;padding:4px 10px;background:color-mix(in srgb,var(--ink) 92%,#000);border:1px solid var(--line)}
+#wanted-stars{color:var(--gold);font-size:14px;letter-spacing:.08em;line-height:1}
+.loadout-weapon{display:flex;gap:5px;font-size:11px;white-space:nowrap}
+#weapon-name{font-size:11px}
+#ammo-value{font-size:11px;color:var(--muted)}
 #money-value{font-variant-numeric:tabular-nums}
-#weapon-name,#ammo-value{font-size:12px}
 .radar-panel{padding:6px}
 #minimap{width:180px;height:180px;background:#141b20}
-#district-name{font-size:10px;display:block;text-align:center;margin-top:5px;text-transform:uppercase;letter-spacing:.12em;color:#c0c8cb}
+#district-name{font-size:10px;display:block;text-align:center;margin-top:5px;text-transform:uppercase;letter-spacing:.12em;color:#c0c8cb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
 .squad-status{display:flex;gap:20px;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
 .squad-status span{color:var(--muted)}
 .squad-status .active{color:var(--gold)}
 .hud-shortcuts{display:flex;gap:6px;pointer-events:auto}
 .hud-shortcuts button{font-size:12px;background:color-mix(in srgb,var(--ink) 92%,#000);text-transform:uppercase;letter-spacing:.12em}
 /* Компактная панель автомобиля: скорость слева, состояние справа, всё в одном блоке. */
-.vehicle-panel{position:absolute;right:calc(22px + env(safe-area-inset-right,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));width:214px;padding:9px 11px;display:grid;grid-template-columns:56px 1fr;grid-template-areas:"speed head" "speed hull" "speed crashes" "state state";gap:3px 10px;align-items:center;background:color-mix(in srgb,var(--ink) 92%,#000);border:1px solid var(--line);animation:panel-in .18s ease-out}
+.vehicle-panel{position:absolute;right:calc(22px + env(safe-area-inset-right,0px));bottom:calc(64px + env(safe-area-inset-bottom,0px));width:196px;padding:7px 9px;display:grid;grid-template-columns:48px 1fr;grid-template-areas:"speed head" "speed hull" "speed crashes" "state state";gap:2px 9px;align-items:center;background:color-mix(in srgb,var(--ink) 92%,#000);border:1px solid var(--line);animation:panel-in .18s ease-out}
 .vehicle-panel[hidden]{display:none}
 .vehicle-head{grid-area:head;display:flex;justify-content:space-between;align-items:baseline;gap:6px;min-width:0}
 #vehicle-name{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #vehicle-class{font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);white-space:nowrap}
 .vehicle-speed{grid-area:speed;display:flex;align-items:baseline;gap:3px;line-height:1}
-#vehicle-speed{font-size:26px;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+#vehicle-speed{font-size:23px;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
 .vehicle-speed small{font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
 .vehicle-panel label{display:grid;grid-template-columns:42px 1fr 30px;gap:6px;align-items:center;font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .vehicle-panel label:nth-of-type(1){grid-area:hull}
@@ -204,10 +209,20 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
 .touch-button{pointer-events:auto;touch-action:none;min-width:0;min-height:52px;padding:10px 8px;text-align:center;background:color-mix(in srgb,var(--ink) 88%,#000);border:1px solid #465058;color:var(--text);font-weight:800;letter-spacing:.08em}
 .touch-button:active{transform:translateY(1px);background:#2a343b}
 #touch-hero{grid-area:hero}
-#touch-pause{grid-area:pause;font-size:18px;line-height:1}
+#touch-pause{grid-area:pause}
 #touch-weapon{grid-area:weapon}
 #touch-interact{grid-area:interact}
-#touch-fire{grid-area:fire;min-height:64px;font-size:15px;letter-spacing:.14em;border-color:var(--gold);background:color-mix(in srgb,var(--gold) 20%,var(--ink))}
+#touch-fire{grid-area:fire;min-height:64px;border-color:var(--gold);background:color-mix(in srgb,var(--gold) 20%,var(--ink))}
+/* Подписи кнопок — мелким шрифтом, чтобы не занимать лишнюю площадь. */
+.touch-button .tb-label{display:block;font-size:10px;letter-spacing:.06em;font-weight:600;line-height:1.15}
+/* За рулём: газ, назад (тормоз), действие и меню. */
+#touch-gas,#touch-back{display:none}
+.touch-buttons.driving{grid-template-areas:"menu back" "action gas"}
+.touch-buttons.driving #touch-fire,.touch-buttons.driving #touch-weapon,.touch-buttons.driving #touch-hero{display:none}
+.touch-buttons.driving #touch-gas{display:block;grid-area:gas;min-height:64px;border-color:var(--gold);background:color-mix(in srgb,var(--gold) 20%,var(--ink))}
+.touch-buttons.driving #touch-back{display:block;grid-area:back}
+.touch-buttons.driving #touch-interact{grid-area:action}
+.touch-buttons.driving #touch-pause{grid-area:menu}
 @media(pointer:coarse){
   .touch-button{border-color:#53616a}
   /* Левая зона: джойстик закреплён на месте и не «всплывает» под пальцем. */
@@ -219,7 +234,9 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
 @media(max-width:760px){
   .touch-buttons{right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(176px,48vw)}
   .touch-button{min-height:50px;font-size:13px}
+  .touch-button .tb-label{font-size:9px}
   #touch-fire{min-height:60px}
+  .touch-buttons.driving #touch-gas{min-height:60px}
 }
 /* --- Кросс-платформенная адаптация: iPhone / iPad / Mac --- */
 @media(pointer:coarse){
@@ -235,12 +252,14 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
   .status-panel label{grid-template-columns:48px 1fr 22px;font-size:9px;letter-spacing:.06em}
   meter{height:9px}
   #hero-perk{font-size:8px;margin-top:3px}
+  .hud-left{gap:6px;max-width:100%}
+  .loadout-panel{padding:3px 8px;gap:8px}
   .mission-panel{max-width:36vw;padding:8px 10px}
   #mission-title{font-size:11px;margin-bottom:2px}
   #mission-objective{font-size:10px;line-height:1.35}
-  .resources-panel{min-width:0;padding:8px 10px}
-  #wanted-stars{font-size:16px}
-  #money-value{font-size:13px;margin-top:2px}
+  .resources-panel{min-width:0;padding:7px 9px}
+  #wanted-stars{font-size:13px}
+  #money-value{font-size:13px;margin:0}
   #weapon-name,#ammo-value{font-size:10px}
   .radar-panel{padding:4px}
   #minimap{width:110px;height:110px}
@@ -250,7 +269,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
 }
 @media(max-width:760px) and (orientation:portrait){
   .hud-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px;align-items:start}
-  .status-panel{grid-area:1/1;max-width:none}
+  .hud-left{grid-area:1/1;max-width:none}
+  .status-panel{max-width:none}
   .resources-panel{grid-area:1/2}
   .mission-panel{grid-area:2/1/3/3;max-width:none}
   .hud-bottom{display:grid;grid-template-columns:auto minmax(0,1fr);gap:6px;align-items:end}
@@ -315,14 +335,14 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
   .squad-status{position:fixed;left:calc(10px + env(safe-area-inset-left,0px));bottom:calc(162px + env(safe-area-inset-bottom,0px));z-index:4;flex-direction:column;gap:2px;padding:6px 9px;font-size:8px;max-width:46vw}
   .hud-shortcuts{display:none!important}
   #interaction-prompt{bottom:calc(224px + env(safe-area-inset-bottom,0px));max-width:64vw}
-  /* Панель машины — в правой колонке под ресурсами, чтобы не наезжать на кнопки. */
-  .vehicle-panel{position:fixed;top:calc(232px + env(safe-area-inset-top,0px));right:calc(8px + env(safe-area-inset-right,0px));bottom:auto;width:min(168px,44vw);padding:7px 9px;gap:2px 8px;grid-template-columns:44px 1fr}
-  .vehicle-panel label{grid-template-columns:32px 1fr 24px;font-size:7px}
-  .vehicle-panel meter{height:5px}
-  .vehicle-panel output{font-size:7px}
-  #vehicle-speed{font-size:22px}
-  #vehicle-name{font-size:9px}
-  #vehicle-class{font-size:7px}
+  /* Панель машины — компактная, ровно над экранными кнопками действий. */
+  .vehicle-panel{position:fixed;top:auto;right:calc(10px + env(safe-area-inset-right,0px));bottom:calc(196px + env(safe-area-inset-bottom,0px));width:min(152px,42vw);padding:5px 8px;gap:1px 6px;grid-template-columns:34px 1fr}
+  .vehicle-panel label{grid-template-columns:26px 1fr 20px;font-size:6px}
+  .vehicle-panel meter{height:4px}
+  .vehicle-panel output{font-size:6px}
+  #vehicle-speed{font-size:18px}
+  #vehicle-name{font-size:8px}
+  #vehicle-class{font-size:6px}
 }
 @media(pointer:coarse) and (orientation:landscape) and (max-height:520px){
   #hud{padding:calc(6px + env(safe-area-inset-top,0px)) calc(8px + env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) calc(8px + env(safe-area-inset-left,0px))}
@@ -332,18 +352,20 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
   .resources-panel{position:fixed;top:calc(124px + env(safe-area-inset-top,0px));right:calc(8px + env(safe-area-inset-right,0px));z-index:4;min-width:86px;padding:6px 8px}
   .squad-status{position:fixed;left:50%;bottom:calc(8px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:4;padding:5px 8px;font-size:8px;gap:10px}
   #interaction-prompt{bottom:calc(96px + env(safe-area-inset-bottom,0px));max-width:52vw}
-  .vehicle-panel{position:fixed;top:calc(198px + env(safe-area-inset-top,0px));right:calc(8px + env(safe-area-inset-right,0px));bottom:auto;width:min(150px,36vw);padding:6px 8px;gap:2px 6px;grid-template-columns:40px 1fr}
-  .vehicle-panel label{grid-template-columns:30px 1fr 22px;font-size:6px}
+  .vehicle-panel{position:fixed;top:auto;right:calc(10px + env(safe-area-inset-right,0px));bottom:calc(168px + env(safe-area-inset-bottom,0px));width:min(138px,38vw);padding:4px 7px;gap:1px 5px;grid-template-columns:32px 1fr}
+  .vehicle-panel label{grid-template-columns:24px 1fr 18px;font-size:6px}
   .vehicle-panel meter{height:4px}
   .vehicle-panel output{font-size:6px}
-  #vehicle-speed{font-size:18px}
-  #vehicle-name{font-size:8px}
+  #vehicle-speed{font-size:16px}
+  #vehicle-name{font-size:7px}
   #vehicle-class{font-size:6px}
   #joy-left{left:calc(10px + env(safe-area-inset-left,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));width:112px;height:112px}
   #joy-left .joy-knob{width:50px;height:50px;margin:-25px 0 0 -25px}
   .touch-buttons{right:calc(10px + env(safe-area-inset-right,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));width:min(154px,40vw);gap:6px}
   .touch-button{min-height:44px;font-size:11px;padding:6px}
-  #touch-fire{min-height:52px;font-size:13px}
+  .touch-button .tb-label{font-size:8px}
+  #touch-fire{min-height:52px}
+  .touch-buttons.driving #touch-gas{min-height:52px}
 }
 </style>
 </head>
@@ -381,14 +403,20 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
 
   <section id="hud" hidden aria-label="Игровой интерфейс" data-aria-i18n="hud">
     <div class="hud-top">
-      <div class="status-panel">
-        <p id="hero-name">Саша Белый</p>
-        <label><span data-i18n="health">Здоровье</span><meter id="health-meter" min="0" max="100" value="100"></meter><output id="health-value">100</output></label>
-        <label id="armor-row" hidden><span data-i18n="armor">Броня</span><meter id="armor-meter" min="0" max="100" value="0"></meter><output id="armor-value">0</output></label>
-        <span id="hero-perk"></span>
+      <div class="hud-left">
+        <div class="status-panel">
+          <p id="hero-name">Саша Белый</p>
+          <label><span data-i18n="health">Здоровье</span><meter id="health-meter" min="0" max="100" value="100"></meter><output id="health-value">100</output></label>
+          <label id="armor-row" hidden><span data-i18n="armor">Броня</span><meter id="armor-meter" min="0" max="100" value="0"></meter><output id="armor-value">0</output></label>
+          <span id="hero-perk"></span>
+        </div>
+        <div class="loadout-panel">
+          <div id="wanted-stars" aria-label="Нет розыска">☆☆☆☆☆</div>
+          <span class="loadout-weapon"><span id="weapon-name"></span><span id="ammo-value"></span></span>
+        </div>
       </div>
       <div class="mission-panel"><p id="mission-title"></p><p id="mission-objective"></p></div>
-      <div class="resources-panel"><div id="wanted-stars" aria-label="Нет розыска">☆☆☆☆☆</div><p id="money-value">0 ₽</p><p><span id="weapon-name"></span> <span id="ammo-value"></span></p></div>
+      <div class="resources-panel"><p id="money-value">0 ₽</p></div>
     </div>
     <div class="hud-bottom">
       <div class="radar-panel"><canvas id="minimap" width="180" height="180" data-aria-i18n="minimap" aria-label="Миникарта"></canvas><span id="district-name"></span></div>
@@ -408,12 +436,14 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
   <div id="touch-ui" hidden aria-hidden="true">
     <div id="touch-left" class="touch-zone"><div id="joy-left" class="joy"><span class="joy-knob"></span></div></div>
     <div id="touch-right" class="touch-zone"><div id="joy-right" class="joy"><span class="joy-knob"></span></div></div>
-    <div class="touch-buttons">
-      <button id="touch-fire" class="touch-button">FIRE</button>
-      <button id="touch-interact" class="touch-button">E</button>
-      <button id="touch-weapon" class="touch-button">Q</button>
-      <button id="touch-hero" class="touch-button">1–4</button>
-      <button id="touch-pause" class="touch-button">≡</button>
+    <div class="touch-buttons" id="touch-buttons">
+      <button id="touch-fire" class="touch-button"><span class="tb-label" data-i18n="touchFire">Огонь</span></button>
+      <button id="touch-interact" class="touch-button"><span class="tb-label" data-i18n="touchAction">Действие</span></button>
+      <button id="touch-weapon" class="touch-button"><span class="tb-label" data-i18n="touchWeapon">Оружие</span></button>
+      <button id="touch-hero" class="touch-button"><span class="tb-label" data-i18n="touchHero">Персонаж</span></button>
+      <button id="touch-pause" class="touch-button"><span class="tb-label" data-i18n="touchMenu">Меню</span></button>
+      <button id="touch-gas" class="touch-button"><span class="tb-label" data-i18n="touchGas">Газ</span></button>
+      <button id="touch-back" class="touch-button"><span class="tb-label" data-i18n="touchBrake">Назад</span></button>
     </div>
   </div>
 
@@ -960,6 +990,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         readyNotice:'Москва ждёт. Начните новую историю или продолжите сохранённую.',
         brothers:'БЕЛЫЙ / КОСМОС / ПЧЁЛА / ФИЛ', byline:'BY KOLOSOV',
         hud:'Игровой интерфейс', health:'Здоровье', armor:'Броня', map:'Карта Москвы', pause:'Пауза', minimap:'Миникарта', gameWorld:'Игровой мир',
+        touchFire:'Огонь', touchAction:'Действие', touchWeapon:'Оружие', touchHero:'Персонаж', touchMenu:'Меню', touchGas:'Газ', touchBrake:'Назад',
         vehicleHull:'Кузов', vehicleCrashes:'Аварии', kmh:'км/ч',
         hold:'ВРЕМЯ ОСТАНОВЛЕНО', resume:'Вернуться в игру', returnMenu:'В главное меню', saveNotice:'Сохранение прогресса доступно в безопасных зонах.',
         preferences:'ЛИЧНОЕ ДЕЛО / ПАРАМЕТРЫ', back:'Назад', sound:'Звук', music:'Музыка', effects:'Эффекты',
@@ -998,6 +1029,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         readyNotice:'Moscow awaits. Begin a new story or continue your saved game.',
         brothers:'BELY / KOSMOS / PCHYOLA / PHIL', byline:'BY KOLOSOV',
         hud:'Game interface', health:'Health', armor:'Armor', map:'Moscow map', pause:'Paused', minimap:'Minimap', gameWorld:'Game world',
+        touchFire:'Fire', touchAction:'Action', touchWeapon:'Weapon', touchHero:'Hero', touchMenu:'Menu', touchGas:'Gas', touchBrake:'Back',
         vehicleHull:'Body', vehicleCrashes:'Crashes', kmh:'km/h',
         hold:'TIME STANDS STILL', resume:'Return to game', returnMenu:'Main menu', saveNotice:'Progress can be saved in safe zones.',
         preferences:'PERSONAL FILE / PREFERENCES', back:'Back', sound:'Audio', music:'Music', effects:'Effects',
@@ -1244,6 +1276,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       const veh = s.vehicle;
       const panel = $('vehicle-panel');
       panel.hidden = !veh;
+      // За рулём экранные кнопки меняются на «газ / назад / действие / меню».
+      $('touch-buttons').classList.toggle('driving', Boolean(veh));
       if (veh) {
         $('vehicle-name').textContent = localized(veh.name);
         $('vehicle-class').textContent = localized(veh.className);
@@ -1355,7 +1389,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         const c = $('world-map'), ctx = c.getContext('2d'); ctx.strokeStyle = '#f1dfb7'; ctx.lineWidth = 2;
         ctx.strokeRect(mapCursor.x * c.width - 6, mapCursor.y * c.height - 6, 12, 12);
       }
-      if (['+','=','-'].includes(e.key)) { e.preventDefault(); game.zoomMap(e.key === '-' ? -1 : 1); game.drawMap($('world-map')); }
+      if (['+','=','-'].includes(e.key)) { e.preventDefault(); e.stopPropagation(); game.zoomMap(e.key === '-' ? -1 : 1); game.drawMap($('world-map')); }
     });
     $('clear-waypoint').addEventListener('click', () => { game?.setWaypoint(null); $('clear-waypoint').disabled = true; game?.drawMap($('world-map')); });
     document.addEventListener('keydown', e => {
@@ -1368,6 +1402,11 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         else if (screen !== 'main-menu') back();
       } else if (e.code === 'KeyM' && playing) {
         e.preventDefault(); if (screen === 'map-screen') back(); else showScreen('map-screen');
+      } else if (screen === 'map-screen' && game && ['+','=','-','_'].includes(e.key)) {
+        // +/− приближают и уменьшают карту, даже если фокус не на самом полотне.
+        e.preventDefault();
+        game.zoomMap(e.key === '-' || e.key === '_' ? -1 : 1);
+        game.drawMap($('world-map'));
       }
     });
     document.addEventListener('visibilitychange', () => { if (document.hidden && playing && !screen) showScreen('pause-screen', false); });
@@ -2141,7 +2180,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     const HEROES = [
       {name:{ru:'Саша Белый',en:'Sasha Bely'}, coat:'#3b4654', shirt:'#d3cdbf', skin:'#d7aa82', hair:'#15181c', hairStyle:'short',  glasses:false, build:1.02, maxHp:100, speed:158, perk:'authority', car:'kabina',  carColor:'#14181c'},
       {name:{ru:'Космос',en:'Kosmos'},         coat:'#44505c', shirt:'#cbc5b7', skin:'#e0b78f', hair:'#161519', hairStyle:'slick',  glasses:true,  build:1.09, maxHp:100, speed:163, perk:'hotshot',   car:'lincoln', carColor:'#cfc9bb'},
-      {name:{ru:'Пчёла',en:'Pchyola'},         coat:'#4a423c', shirt:'#d8d2c4', skin:'#c99a70', hair:'#4a3222', hairStyle:'part',   glasses:false, build:0.94, maxHp:100, speed:152, perk:'dealer',    car:'volvo',   carColor:'#333b36'},
+      {name:{ru:'Пчёла',en:'Pchyola'},         coat:'#4a423c', shirt:'#d8d2c4', skin:'#c08a5e', hair:'#2a2018', hairStyle:'short',  glasses:false, build:1.03, maxHp:100, speed:152, perk:'dealer',    car:'volvo',   carColor:'#333b36'},
       {name:{ru:'Фил',en:'Phil'},              coat:'#454f46', shirt:'#d0cabd', skin:'#d2a47a', hair:'#624d32', hairStyle:'crop',   glasses:false, build:1.24, maxHp:100, speed:146, perk:'boxer',     car:'w124',    carColor:'#2e3436'}
     ];
 
@@ -2189,21 +2228,30 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     const SQUAD_CHAT = [
       [{ru:'Сейчас не до разговоров, брат. Но если что — я рядом.', en:'Not much time for talk, brother. But I’m here if you need me.'},
        {ru:'Держимся вместе. Так спокойнее.', en:'We stick together. It’s calmer that way.'},
-       {ru:'Двор помнит всех. И нас тоже.', en:'The yard remembers everyone. Us too.'}],
+       {ru:'Двор помнит всех. И нас тоже.', en:'The yard remembers everyone. Us too.'},
+       {ru:'Ты сегодня долго не спишь. Думаешь о своём?', en:'You’ve been up late. Thinking about something?'},
+       {ru:'Что бы ни было — сначала семья, потом всё остальное.', en:'Whatever happens — family first, everything else after.'}],
       [{ru:'Слышал, на рынке опять делят точки.', en:'Heard they’re splitting spots at the market again.'},
        {ru:'Машина на ходу, стволы на месте. Живём.', en:'The car runs, the guns are here. We’re alive.'},
-       {ru:'В девяностые выживает тот, кто первым думает.', en:'In the nineties the one who thinks first survives.'}],
+       {ru:'В девяностые выживает тот, кто первым думает.', en:'In the nineties the one who thinks first survives.'},
+       {ru:'Я бы сейчас на речку, да кто ж отпустит.', en:'I’d hit the river now, but who’d let me go.'},
+       {ru:'Помнишь, как мы на «девятке» от ментов уходили? Вот было время.', en:'Remember how we ran from the cops in the “nine”? Those were the days.'}],
       [{ru:'Товар есть, деньги будут. Что ещё нужно?', en:'Goods are here, money will come. What else is there?'},
        {ru:'Я по делам. Но для тебя время найдётся.', en:'I’m busy. But I’ve always got time for you.'},
-       {ru:'Не люблю пустые разговоры. Давай по существу.', en:'I don’t like empty talk. Get to the point.'}],
+       {ru:'Не люблю пустые разговоры. Давай по существу.', en:'I don’t like empty talk. Get to the point.'},
+       {ru:'Схема простая: не жадничать и не подставляться.', en:'The scheme is simple: don’t get greedy and don’t get set up.'},
+       {ru:'Слушай, а давай после дел посидим, как раньше. По-человечески.', en:'Listen, let’s sit down after work like before. Like people.'}],
       [{ru:'Кулаки — тоже аргумент. Проверено.', en:'Fists are an argument too. Proven.'},
        {ru:'Я лучше в зале постою, чем под пули.', en:'I’d rather stand in the gym than under bullets.'},
-       {ru:'Скажи, если что — прикрою.', en:'Say the word and I’ll cover you.'}]
+       {ru:'Скажи, если что — прикрою.', en:'Say the word and I’ll cover you.'},
+       {ru:'Не бери в голову. Прорвёмся, как всегда.', en:'Don’t take it to heart. We’ll get through, as always.'},
+       {ru:'Я своё дело знаю. Бита не подведёт.', en:'I know my trade. The bat won’t let you down.'}]
     ];
     const SQUAD_REPLY = [
       {ru:'Держись рядом, поговорим позже.', en:'Stay close, we’ll talk later.'},
       {ru:'Хорошо, что ты здесь.', en:'Good to have you here.'},
-      {ru:'Работаем. Всё остальное — потом.', en:'We work. Everything else comes later.'}
+      {ru:'Работаем. Всё остальное — потом.', en:'We work. Everything else comes later.'},
+      {ru:'Понял тебя. Не подведу.', en:'Understood. I won’t let you down.'}
     ];
     // Реплики в тему, которые всплывают над бригадой во время миссии.
     const SQUAD_MISSION_LINES = [
@@ -2253,7 +2301,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     const CIVIL_CAR_COLORS = ['#6d3a30', '#2c3742', '#3f4a3d', '#5a5245', '#2b2f33', '#4a3a44', '#6a6252', '#37474f', '#513b2e', '#3a4b52'];
 
     const keys = new Set();
-    const input = {mx:0, my:0, fire:false, autoAim:false, touchMove:{x:0,y:0}, touchAim:null, padMove:{x:0,y:0}, padAim:null, padFire:false, padHandbrake:false};
+    const input = {mx:0, my:0, fire:false, autoAim:false, touchMove:{x:0,y:0}, touchAim:null, touchGas:false, touchBack:false, padMove:{x:0,y:0}, padAim:null, padFire:false, padHandbrake:false};
     const view = {w:960, h:540};
     const camera = {x:WORLD/2, y:WORLD/2, zoom:1, shake:0, sx:0, sy:0};
     const pointer = {x:0, y:0};
@@ -2262,7 +2310,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     let maxParticles = 900;
     let activeHero = 0, squad = [];
     let wanted = 0, crimeHeat = 0;
-    let worldTime = 7.5, weather = {type:'clear', intensity:0, timer:25, storm:false, season:null};
+    let worldTime = 9, weather = {type:'clear', intensity:0, timer:25, storm:false, season:null};
     let stat = {kills:0, cash:0, deaths:0};
     let gameTime = 0;
 
@@ -2324,18 +2372,55 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       jailTimer = 0; arrestCooldown = 0; arrestPending = false;
     }
     // ---------- Squad inventory and perks ----------
-    const loadout = {ammo:{}, grenades:3};
+    // Общий склад оставлен только для совместимости сохранений. Боезапас у каждого героя свой.
+    const loadout = {ammo:{}, grenades:0};
     const ownedGuns = new Set();
     const meleeOwned = {knife:false, knuckles:false, bat:false};
     let money = 0;
     function currentHero() { return squad[activeHero] || null; }
+    // Кто из бригады сейчас под управлением игрока. Флаг нужен стрельбе, подсказкам и ручнику.
+    function syncPlayerFlags() {
+      for (const u of squad) if (u) u.isPlayer = (u.hero === activeHero);
+    }
+    // Личный арсенал героя: стволы, которые есть именно у него.
+    function heroArsenal(u) {
+      if (!u) return ['fists'];
+      if (!Array.isArray(u.arsenal) || !u.arsenal.length) u.arsenal = ['fists'];
+      return u.arsenal;
+    }
+    // Личный запас патронов героя по каждому стволу.
+    function heroAmmo(u, id) { return (u && u.ammoPool && u.ammoPool[id]) || 0; }
+    function addHeroAmmo(u, id, n) {
+      if (!u) return;
+      if (!u.ammoPool) u.ammoPool = {};
+      u.ammoPool[id] = Math.max(0, (u.ammoPool[id] || 0) + n);
+    }
     // Герой вне сюжетного состава не участвует в текущей главе: его не видно и на него нельзя переключиться.
     function heroActive(i) { const u = squad[i]; return Boolean(u && !u.inactive); }
     function heroAlive(i) { const u = squad[i]; return Boolean(u && !u.dead && !u.down && !u.inactive); }
+    // Финальная серия — единственная, где по сюжету гибнут герои.
+    function finaleAllowsHeroDeath() { return Boolean(progress) && progress.act >= STORY.length - 1; }
+    // Кого сейчас можно убить. Напарник под управлением ИИ неуязвим, пока игрок
+    // не переключится на него; Саша Белый не погибает никогда.
+    function heroVulnerable(u) {
+      if (!u || u.team !== 'squad') return true;
+      if (u.hero === 0) return false;
+      return Boolean(u.isPlayer) || finaleAllowsHeroDeath();
+    }
     function squadHasPerk(id) { return HEROES.some((h, i) => h.perk === id && heroAlive(i)); }
     function perkOf(u) { return (u && u.hero >= 0 && HEROES[u.hero]) ? HEROES[u.hero].perk : null; }
-    function ammoOf(id) { return loadout.ammo[id] || 0; }
-    function addAmmo(id, n) { loadout.ammo[id] = Math.max(0, ammoOf(id) + n); }
+    function ammoOf(id) { return heroAmmo(currentHero(), id); }
+    function addAmmo(id, n) { addHeroAmmo(currentHero(), id, n); }
+    // Пополнение боезапаса всей бригады: каждому герою — в его личный запас.
+    function restockSquadAmmo(factor) {
+      for (const u of squad) {
+        if (!u || u.dead) continue;
+        for (const id of heroArsenal(u)) {
+          const w = WEAPONS[id];
+          if (w && !w.melee) addHeroAmmo(u, id, (w.mag || 8) * factor);
+        }
+      }
+    }
 
     // В свободном режиме бригада стоит на своих местах и не ходит за игроком.
     function freeRoamMode() { return campaignFinished && !mission; }
@@ -2363,6 +2448,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         if (first !== undefined) activeHero = first;
         else if (party.length) activeHero = party[0];
       }
+      syncPlayerFlags();
     }
     // Пост героя в свободном режиме — у его места в городе.
     function heroPostPoint(i) {
@@ -2403,25 +2489,32 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           build:h.build, kind:'squad', r:13, home:{x, y}, outfit:'original'
         });
         u.mag = 0;
+        u.arsenal = ['fists'];
+        u.ammoPool = {};
         squad.push(u);
       }
       activeHero = 0;
+      syncPlayerFlags();
       applyEraOutfits();
       if (!starterKit) return squad;
-      // У каждого свой ствол, как в сериале: Белый — ПМ, Космос — ТТ,
-      // Пчёла — Наган, Фил-боксёр — кастет.
-      const kit = [['pm', 32], ['tt', 24], ['nagan', 21], [null, 0]];
+      // Изначально у бригады только кастет, бита, пистолет и наган — и у каждого свой.
+      // Саша — ПМ, Космос — наган, Пчёла — кастет, Фил — бита. Всё остальное — после 4-й главы.
+      const kit = [['pm', 32], ['nagan', 21], ['knuckles', 0], ['bat', 0]];
       for (let i = 0; i < kit.length; i++) {
         const u = squad[i];
         if (!u) continue;
         const gun = kit[i][0];
-        if (!gun) { u.weapon = 'fists'; u.mag = 0; continue; }
-        u.weapon = gun; u.mag = WEAPONS[gun].mag;
-        ownedGuns.add(gun); loadout.ammo[gun] = kit[i][1];
+        const gw = WEAPONS[gun];
+        // В руках только кулаки: ствол лежит в арсенале и достаётся по Q.
+        u.weapon = 'fists';
+        u.mag = 0;
+        u.arsenal = ['fists', gun];
+        if (!gw.melee) { ownedGuns.add(gun); addHeroAmmo(u, gun, kit[i][1]); }
       }
-      meleeOwned.knife = true;
+      meleeOwned.knife = false;
       meleeOwned.knuckles = true;
-      loadout.grenades = 3;
+      meleeOwned.bat = true;
+      loadout.grenades = 0;
       return squad;
     }
     function switchHero(index) {
@@ -2432,6 +2525,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       // В свободном режиме оставленный герой остаётся стоять там, где его бросили.
       if (freeRoamMode() && prev) prev.post = {x:prev.x, y:prev.y};
       activeHero = index;
+      syncPlayerFlags();
       const u = currentHero();
       // Переключились на героя на другом конце карты — камера переезжает сразу.
       if (freeRoamMode() && u) { camera.x = u.x; camera.y = u.y; }
@@ -2440,12 +2534,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       Audio.play('confirm', {x:u.x, y:u.y, gain:0.5});
     }
     function ownedWeapons() {
-      const list = ['fists'];
-      if (meleeOwned.knife) list.push('knife');
-      if (meleeOwned.knuckles) list.push('knuckles');
-      if (meleeOwned.bat) list.push('bat');
-      for (const id of WEAPON_ORDER) if (!WEAPONS[id].melee && ownedGuns.has(id)) list.push(id);
-      return list;
+      const have = heroArsenal(currentHero());
+      return WEAPON_ORDER.filter(id => have.includes(id));
     }
     function switchWeapon(dir = 1) {
       const u = currentHero();
@@ -2458,16 +2548,36 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       u.weapon = next;
       u.reloading = 0;
       u.pendingLoad = 0;
-      if (!WEAPONS[next].melee && u.mag > (WEAPONS[next].mag ?? 0)) u.mag = WEAPONS[next].mag ?? 0;
+      const nw = WEAPONS[next];
+      // Достал ствол по Q — сразу досылаем патрон из личного запаса,
+      // чтобы оружие в руках было готово к бою.
+      if (!nw.melee && u.mag <= 0) {
+        const take = Math.min(nw.mag ?? 0, heroAmmo(u, next));
+        if (take > 0) { u.mag = take; addHeroAmmo(u, next, -take); }
+      }
+      if (!nw.melee && u.mag > (nw.mag ?? 0)) u.mag = nw.mag ?? 0;
       B.notify(B.localized(WEAPONS[next].name));
       Audio.play('ui', {gain:0.5});
     }
     function giveWeapon(id, ammo) {
       if (!WEAPONS[id]) return;
-      if (WEAPONS[id].melee) meleeOwned[id] = true;
-      else { ownedGuns.add(id); addAmmo(id, ammo ?? (WEAPONS[id].mag ?? 8) * 3); }
+      const w = WEAPONS[id];
+      if (w.melee) meleeOwned[id] = true;
+      else ownedGuns.add(id);
+      const amount = ammo ?? (w.mag ?? 8) * 3;
+      // Ствол выдаётся каждому герою в личный арсенал — но патроны у каждого свои.
+      for (const m of squad) {
+        if (!m) continue;
+        const list = heroArsenal(m);
+        if (!list.includes(id)) list.push(id);
+        if (w.melee) continue;
+        addHeroAmmo(m, id, amount);
+        // Если в руках было только холодное оружие — герой берёт новый ствол.
+        const cur = WEAPONS[m.weapon];
+        if (!cur || cur.melee) { m.weapon = id; m.mag = w.mag ?? 0; }
+      }
       const u = currentHero();
-      if (u && (u.weapon === 'fists' || WEAPONS[u.weapon] === undefined)) { u.weapon = id; u.mag = WEAPONS[id].mag ?? 0; }
+      if (u && (u.weapon === 'fists' || WEAPONS[u.weapon] === undefined)) { u.weapon = id; u.mag = w.mag ?? 0; }
     }
 
     // ---------- Combat ----------
@@ -2477,7 +2587,6 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     function canSee(ax, ay, bx, by) { return lineOfSight(ax, ay, bx, by); }
 
     function fireWeapon(u, angle) {
-      if (!combatAt(u.x, u.y)) return;
       const w = unitWeapon(u);
       if (u.cool > 0 || u.reloading > 0 || u.dead || u.down) return;
       u.cool = w.rate;
@@ -2502,7 +2611,15 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         }
         return;
       }
-      if (u.mag <= 0) { reloadUnit(u); return; }
+      if (u.mag <= 0) {
+        // Патроны у героя закончились — подсказываем, что их покупают в магазине.
+        if (u.hero >= 0 && heroAmmo(u, u.weapon) <= 0 && u.isPlayer) {
+          u.emptyHint = (u.emptyHint || 0) + 1;
+          if (u.emptyHint % 3 === 1) B.notify(B.localized({ru:'Патроны кончились — купи в магазине', en:'Out of ammo — buy more at the shop'}));
+        }
+        reloadUnit(u);
+        return;
+      }
       u.mag--;
       u.muzzle = 0.06;
       const marksman = perkOf(u) === 'hotshot'; // Космос бьёт точнее и ровнее держит ствол.
@@ -2530,10 +2647,10 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       if (w.melee || u.reloading > 0) return;
       const need = (w.mag ?? 0) - u.mag;
       const isHero = u.hero >= 0;
-      const pool = isHero ? ammoOf(u.weapon) : u.reserve;
+      const pool = isHero ? heroAmmo(u, u.weapon) : u.reserve;
       if (need <= 0 || pool <= 0) return;
       const take = Math.min(need, pool);
-      if (isHero) loadout.ammo[u.weapon] = pool - take; else u.reserve = pool - take;
+      if (isHero) addHeroAmmo(u, u.weapon, -take); else u.reserve = pool - take;
       u.pendingLoad = take;
       u.reloading = (w.reload ?? 1.5) * (perkOf(u) === 'hotshot' ? 0.7 : 1);
       Audio.play('reload', {x:u.x, y:u.y, gain:0.7});
@@ -2545,6 +2662,9 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
 
     function damageUnit(u, amount, source, angle) {
       if (u.dead) return;
+      // Пока героем управляет ИИ, убить его нельзя: урон не проходит, остаётся
+      // только вспышка попадания. Исключение — финальная серия (см. heroVulnerable).
+      if (u.team === 'squad' && !heroVulnerable(u)) { u.hitTimer = 0.14; return; }
       let dmg = amount;
       if (u.armor > 0) { const absorbed = Math.min(u.armor, dmg * 0.7); u.armor -= absorbed; dmg -= absorbed; }
       u.hp -= dmg;
@@ -2593,11 +2713,14 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       Audio.play('hit', {x:c.x, y:c.y, gain:0.9});
       if (u.team === 'squad') {
         u.down = true; u.hp = 0;
-        B.notify(B.localized({ru:`${HEROES[u.hero].name.ru} ранен`, en:`${HEROES[u.hero].name.en} is down`}));
+        B.notify(B.localized(finaleAllowsHeroDeath()
+          ? {ru:`${HEROES[u.hero].name.ru} погиб`, en:`${HEROES[u.hero].name.en} is dead`}
+          : {ru:`${HEROES[u.hero].name.ru} ранен`, en:`${HEROES[u.hero].name.en} is down`}));
         if (u.hero === activeHero) {
           const next = [1, 2, 3, 0].map(i => (activeHero + i) % 4).find(heroAlive);
           if (typeof next === 'number') { activeHero = next; B.notify(B.localized(HEROES[next].name)); }
         }
+        syncPlayerFlags();
         return;
       }
       if (u.team === 'police') { commitCrime(28, c.x, c.y); stat.kills++; }
@@ -2649,7 +2772,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       v.hp = 0; v.wrecked = true; v.burn = 0.001; v.speed = 0; v.vx = 0; v.vy = 0;
       v.siren = 0;
       if (v.driver) { const d = v.driver; v.driver = null; d.inVehicle = null; damageUnit(d, 400, null, 0); d.x = v.x + 40; d.y = v.y + 40; }
-      for (const p of v.passengers) { p.inVehicle = null; p.x = v.x + 30 + Math.random() * 30; p.y = v.y + 30; p.down = true; }
+      for (const p of v.passengers) { p.inVehicle = null; p.x = v.x + 30 + Math.random() * 30; p.y = v.y + 30; if (heroVulnerable(p)) p.down = true; }
       v.passengers.length = 0;
       explode(v.x, v.y, 160, 90, null);
       commitCrime(22, v.x, v.y, true);
@@ -2680,17 +2803,22 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     function blockedDirection(x, y, dx, dy, len) {
       return blockedAt(x + dx * len, y + dy * len) || blockedAt(x + dx * len * 0.55, y + dy * len * 0.55);
     }
-    function steerUnit(u, tx, ty, speed, dt) {
+    function steerUnit(u, tx, ty, speed, dt, check) {
+      // check — своя проверка проходимости. Пешеходам она нужна, потому что тротуар
+      // в тайловой сетке помечен «твёрдым» (здание занимает целые тайлы), хотя идти по нему можно.
+      const blocked = (dx, dy) => check
+        ? (check(u.x + dx * 26, u.y + dy * 26) || check(u.x + dx * 14.3, u.y + dy * 14.3))
+        : blockedDirection(u.x, u.y, dx, dy, 26);
       const dx = tx - u.x, dy = ty - u.y;
       const d = Math.hypot(dx, dy) || 1;
       let dirX = dx / d, dirY = dy / d;
-      if (blockedDirection(u.x, u.y, dirX, dirY, 26)) {
+      if (blocked(dirX, dirY)) {
         const base = Math.atan2(dirY, dirX);
         let found = false;
         for (const off of [0.6, -0.6, 1.1, -1.1, 1.6, -1.6, 2.4, -2.4]) {
           const a = base + off;
           const cx = Math.cos(a), cy = Math.sin(a);
-          if (!blockedDirection(u.x, u.y, cx, cy, 26)) { dirX = cx; dirY = cy; found = true; break; }
+          if (!blocked(cx, cy)) { dirX = cx; dirY = cy; found = true; break; }
         }
         // Упёрлись в стену — останавливаемся, а не разворачиваемся рывком назад.
         if (!found) { dirX = 0; dirY = 0; }
@@ -2816,11 +2944,11 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       const u = v.driver;
       if (!u) { v.throttle = lerp(v.throttle, 0, 1 - Math.exp(-6 * dt)); v.steer = lerp(v.steer, 0, 1 - Math.exp(-8 * dt)); return; }
       if (u.isPlayer) {
-        const pad = input.padMove;
-        const up = keys.has('KeyW') || keys.has('ArrowUp') || pad.y < -0.25;
-        const down = keys.has('KeyS') || keys.has('ArrowDown') || pad.y > 0.25;
-        const left = keys.has('KeyA') || keys.has('ArrowLeft') || pad.x < -0.25;
-        const right = keys.has('KeyD') || keys.has('ArrowRight') || pad.x > 0.25;
+        const pad = input.padMove, stick = input.touchMove;
+        const up = keys.has('KeyW') || keys.has('ArrowUp') || pad.y < -0.25 || stick.y < -0.3 || input.touchGas;
+        const down = keys.has('KeyS') || keys.has('ArrowDown') || pad.y > 0.25 || stick.y > 0.3 || input.touchBack;
+        const left = keys.has('KeyA') || keys.has('ArrowLeft') || pad.x < -0.25 || stick.x < -0.25;
+        const right = keys.has('KeyD') || keys.has('ArrowRight') || pad.x > 0.25 || stick.x > 0.25;
         v.throttle = (up ? 1 : 0) - (down ? 1 : 0);
         // Руль доворачивается с лёгкой инерцией — аркадная манера GTA 1–2.
         v.steer = lerp(v.steer, (right ? 1 : 0) - (left ? 1 : 0), 1 - Math.exp(-11 * dt));
@@ -2937,16 +3065,24 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       // Vehicle against vehicle.
       for (const o of vehicles) {
         if (o === v) continue;
-        const min = (v.def.w + o.def.w) * 0.3;
-        const dx = o.x - v.x, dy = o.y - v.y;
-        const dd = Math.hypot(dx, dy);
-        if (dd > min || dd < 0.001) continue;
-        const nx = dx / dd, ny = dy / dd;
-        const overlap = (min - dd) * 0.5;
+        // Границы удара — по всему периметру кузова (капсула вдоль оси),
+        // а не по одной окружности в центре: бампер и борт упираются честно.
+        const hit = carOverlap(v, o);
+        if (!hit) continue;
+        const nx = hit.px, ny = hit.py;
+        const overlap = hit.depth * 0.5;
         const mSum = v.def.mass + o.def.mass;
         v.x -= nx * overlap * (o.def.mass / mSum) * 2; v.y -= ny * overlap * (o.def.mass / mSum) * 2;
         o.x += nx * overlap * (v.def.mass / mSum) * 2; o.y += ny * overlap * (v.def.mass / mSum) * 2;
         const rel = Math.hypot(v.vx - o.vx, v.vy - o.vy);
+        // Только игрок может «оглушить» гражданскую машину: после удара её водитель
+        // стоит пять секунд и потом спокойно трогается. Повторный толчок продлевает
+        // остановку. Аварии между самими НПС к этому не приводят — они разъезжаются.
+        const byPlayer = !!(v.driver && v.driver.isPlayer);
+        if (byPlayer && movesOnOwn(o) && (rel > 18 || o.stun > 0)) {
+          o.stun = 5;
+          o.speed = 0; o.jam = 0;
+        }
         if (rel > 90) {
           const dmg = rel * 0.02;
           damageVehicle(v, dmg * (o.def.mass / v.def.mass), v.x, v.y);
@@ -3004,7 +3140,12 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           if (removed) break;
           for (const v of vehicles) {
             if (v.wrecked) continue;
-            if (dist2(b.x, b.y, v.x, v.y) > (v.def.w * 0.4) * (v.def.w * 0.4)) continue;
+            // Пуля бьёт по всему кузову, а не в точку в центре: капсула вдоль оси.
+            const vca = Math.cos(v.angle), vsa = Math.sin(v.angle);
+            const vrad = v.def.h * 0.5, voff = Math.max(0, v.def.w * 0.5 - vrad);
+            const vt = clamp((b.x - v.x) * vca + (b.y - v.y) * vsa, -voff, voff);
+            const vdx = b.x - (v.x + vca * vt), vdy = b.y - (v.y + vsa * vt);
+            if (vdx * vdx + vdy * vdy > (vrad + 3) * (vrad + 3)) continue;
             damageVehicle(v, b.damage * 0.55, b.x, b.y);
             if (b.team !== 'squad') commitCrime(0.6, undefined, undefined, true);
             bullets.splice(i, 1); removed = true; break;
@@ -3158,14 +3299,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       const followSpeed = Math.max(u.speed * 0.85, leadSpeed * 1.04);
       steerUnit(u, tx, ty, followSpeed * (d > 260 ? 1.3 : 1), dt);
       faceVelocity(u, dt, 6);
-      // Followers return fire.
-      if (!combatAt(u.x,u.y) || mission.def.duel) return;
-      const threat = nearestThreat(u, 460);
-      if (threat && canSee(u.x, u.y, threat.x, threat.y) && u.cool <= 0 && !unitWeapon(u).melee) {
-        const a = Math.atan2(threat.y - u.y, threat.x - u.x);
-        u.angle = a;
-        if (Math.random() < (u.hero === 3 ? 0.3 : 0.7)) fireWeapon(u, a);
-      }
+      // Напарники сами не стреляют — огонь ведёт только игрок за выбранного героя.
     }
     // The nearest car actually bearing down on this pedestrian.
     function nearestLaneCar(u) {
@@ -3179,6 +3313,47 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         bd = d2; best = v;
       }
       return best;
+    }
+    // Тротуар — узкая полоса сразу за кромкой асфальта (дорога — 2 тайла,
+    // то есть ±64 px от оси). Пешеходы идут вдоль своей улицы, а не по проезжей части.
+    const WALK_OFF = TILE * 1.12;
+    // Тротуар в тайловой сетке помечен «твёрдым»: дома и заборы занимают целые тайлы.
+    // Пешеходам нужна честная проверка по точным габаритам домов, деревьев и воды.
+    const walkScratch = [];
+    function pedBlocked(x, y, r = 6) {
+      if (x < 24 || y < 24 || x > WORLD - 24 || y > WORLD - 24) return true;
+      if (waterAt(x, y)) return true;
+      nearObstacles(x, y, r, walkScratch);
+      for (const o of walkScratch) {
+        const cx = clamp(x, o.x, o.x + o.w), cy = clamp(y, o.y, o.y + o.h);
+        const dx = x - cx, dy = y - cy;
+        if (dx * dx + dy * dy < r * r) return true;
+      }
+      return false;
+    }
+    function sidewalkGoal(u) {
+      const ai = u.ai;
+      const ax = closestAxis(u.x, XC), ay = closestAxis(u.y, YC);
+      if (ai.alongY === undefined) ai.alongY = Math.abs(u.x - ax) <= Math.abs(u.y - ay);
+      // На перекрёстке пешеход иногда сворачивает за угол — один раз и не всегда.
+      if (Math.abs(u.x - ax) < TILE * 1.4 && Math.abs(u.y - ay) < TILE * 1.4) {
+        const key = (ax | 0) + ':' + (ay | 0);
+        if (ai.cornerKey !== key) {
+          ai.cornerKey = key;
+          if (hash(ax | 0, ay | 0, 27) < 0.5) { ai.alongY = !ai.alongY; ai.side = undefined; }
+        }
+      }
+      if (ai.alongY) {
+        if (!ai.side) ai.side = u.x >= ax ? 1 : -1;
+        if (!ai.dir) ai.dir = Math.random() < 0.5 ? -1 : 1;
+        // Упирается в конец улицы — разворачивается вдоль тротуара.
+        if (!roadAt(ax, u.y + ai.dir * 150) && roadAt(ax, u.y - ai.dir * 150)) ai.dir = -ai.dir;
+        return {x: ax + ai.side * WALK_OFF, y: u.y + ai.dir * 150};
+      }
+      if (!ai.side) ai.side = u.y >= ay ? 1 : -1;
+      if (!ai.dir) ai.dir = Math.random() < 0.5 ? -1 : 1;
+      if (!roadAt(u.x + ai.dir * 150, ay) && roadAt(u.x - ai.dir * 150, ay)) ai.dir = -ai.dir;
+      return {x: u.x + ai.dir * 150, y: ay + ai.side * WALK_OFF};
     }
     function updatePeds(dt) {
       // Раз в полторы–три минуты один гопник может докопаться до игрока — и то не всегда.
@@ -3215,28 +3390,43 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         if (closeShot || u.aiFlee) {
           u.aiFlee = Math.max(0, (u.aiFlee || 0) - dt);
           const away = Math.atan2(u.y - camera.y, u.x - camera.x);
-          steerUnit(u, u.x + Math.cos(away) * 200, u.y + Math.sin(away) * 200, 190, dt);
+          steerUnit(u, u.x + Math.cos(away) * 200, u.y + Math.sin(away) * 200, 190, dt, pedBlocked);
           faceVelocity(u, dt, 8);
           continue;
         }
         // A pedestrian with any sense steps off the lane when a car bears down on him.
-        const car = nearestLaneCar(u);
+        // На тротуаре уступать некому — уворачиваемся, только если стоим на асфальте.
+        const car = roadAt(u.x, u.y) ? nearestLaneCar(u) : null;
         if (car) {
           const side = Math.sign(Math.cos(car.angle) * (u.y - car.y) - Math.sin(car.angle) * (u.x - car.x)) || 1;
           const nx = -Math.sin(car.angle) * side, ny = Math.cos(car.angle) * side;
-          steerUnit(u, u.x + nx * 80, u.y + ny * 80, u.speed * 1.3, dt);
+          steerUnit(u, u.x + nx * 80, u.y + ny * 80, u.speed * 1.3, dt, pedBlocked);
           faceVelocity(u, dt, 6);
           ai.timer = Math.max(ai.timer, 0.6);
           continue;
         }
+        // Оказался на асфальте (переход, паника, объезд машины) — спокойно
+        // возвращается на кромку тротуара. На перекрёстке переход не отменяем.
+        if (!u.storyNpc && roadAt(u.x, u.y)) {
+          const ax = closestAxis(u.x, XC), ay = closestAxis(u.y, YC);
+          const nearCross = Math.abs(u.x - ax) < TILE * 1.6 && Math.abs(u.y - ay) < TILE * 1.6;
+          if (!nearCross) {
+            const g = sidewalkGoal(u);
+            steerUnit(u, g.x, g.y, Math.min(u.speed, 92), dt, pedBlocked);
+            faceVelocity(u, dt, 6);
+            continue;
+          }
+        }
         if (ai.timer <= 0) {
-          ai.timer = 3 + Math.random() * 5;
-          ai.wander = Math.random() * TAU;
-          ai.pause = Math.random() < 0.4;
+          ai.timer = 4 + Math.random() * 6;
+          ai.pause = Math.random() < 0.3;
+          if (Math.random() < 0.45) ai.dir = Math.random() < 0.5 ? -1 : 1;
         }
         if (ai.pause) { const k = Math.exp(-9 * dt); u.vx *= k; u.vy *= k; }
         else {
-          steerUnit(u, u.x + Math.cos(ai.wander) * 120, u.y + Math.sin(ai.wander) * 120, 46, dt);
+          // Обычная жизнь: размеренным шагом вдоль тротуара своей улицы.
+          const g = sidewalkGoal(u);
+          steerUnit(u, g.x, g.y, Math.min(u.speed, 82), dt, pedBlocked);
           faceVelocity(u, dt, 4);
         }
       }
@@ -3269,6 +3459,16 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         const c = unitCenter(hero);
         if (dist(c.x, c.y, fx, fy) < (hero.inVehicle ? 96 : 58)) return true;
       }
+      // Машина прямо по курсу — даже поперёк на перекрёстке — повод притормозить.
+      // Соседняя и встречная полосы (боковое смещение > 50 px) не в счёт.
+      for (const o of vehicles) {
+        if (o === v) continue;
+        const dx = o.x - v.x, dy = o.y - v.y;
+        const lat = Math.abs(-dx * hy + dy * hx);
+        const fwd = dx * hx + dy * hy;
+        if (lat > 50 || fwd < 8 || fwd > 110) continue;
+        if (dist(o.x, o.y, v.x + hx * 60, v.y + hy * 60) < 54) return true;
+      }
       // Drivers yield to anyone standing in the street, but a pedestrian off the lane
       // gets dodged instead of stopping the whole column.
       for (const u of units) {
@@ -3286,8 +3486,10 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         if (o === v) continue;
         const dx = o.x - v.x, dy = o.y - v.y;
         const fwd = dx * hx + dy * hy;
-        if (fwd <= 0 || fwd > 210) continue;
-        if (Math.abs(-dx * hy + dy * hx) > 66) continue; // a car in another lane is none of our business
+        if (fwd <= 0 || fwd > 460) continue;
+        // 58 px — это «своя» полоса. Припаркованные у обочины машины стоят дальше
+        // и не должны заставлять поток тормозить.
+        if (Math.abs(-dx * hy + dy * hx) > 58) continue; // a car in another lane is none of our business
         if (!o.wrecked && o.role === 'traffic' && Math.cos(o.angle) * hx + Math.sin(o.angle) * hy < -0.2) continue; // oncoming
         if (fwd < best) best = fwd;
       }
@@ -3298,11 +3500,16 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     function trafficYields(v, icx, icy) {
       const hx = Math.cos(v.angle), hy = Math.sin(v.angle);
       const dV = Math.hypot(v.x - icx, v.y - icy);
+      // При почти равном подходе к центру право проезда получает только один —
+      // по устойчивому «жребию», иначе две машины одновременно едут в одну точку.
+      const rightOfWay = v.rightOfWay ?? (hash(v.x | 0, v.y | 0, 9) < 0.5);
       for (const o of vehicles) {
-        if (o === v || o.wrecked || o.speed < 24 || o.role !== 'traffic') continue;
+        if (o === v || o.wrecked || o.speed < 20 || o.role !== 'traffic') continue;
         if (Math.abs(hx * Math.cos(o.angle) + hy * Math.sin(o.angle)) > 0.55) continue; // only cross traffic
-        if (Math.abs(o.x - icx) > 100 || Math.abs(o.y - icy) > 100) continue;
-        if (Math.hypot(o.x - icx, o.y - icy) < dV - 4) return true;
+        if (Math.abs(o.x - icx) > 110 || Math.abs(o.y - icy) > 110) continue;
+        const dO = Math.hypot(o.x - icx, o.y - icy);
+        if (dO < dV - 6) return true;
+        if (Math.abs(dO - dV) <= 12 && !rightOfWay) return true;
       }
       return false;
     }
@@ -3352,7 +3559,9 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     // пересёкшиеся машины. Припаркованные, разбитые и брошенные машины неподвижны —
     // от них отталкивается только поток.
     function trafficSeparation() {
-      const cars = vehicles.filter(movesOnOwn);
+      // Оглушённая ударом машина стоит как припаркованная: поток объезжает её,
+      // а не тащит за собой.
+      const cars = vehicles.filter(v => movesOnOwn(v) && !(v.stun > 0));
       for (let i = 0; i < cars.length; i++) {
         const a = cars[i];
         for (let j = i + 1; j < cars.length; j++) {
@@ -3372,7 +3581,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       // Поток против неподвижных машин: стоит упереться — тормозит, а не проезжает насквозь.
       for (const a of cars) {
         for (const b of vehicles) {
-          if (b === a || movesOnOwn(b)) continue;
+          if (b === a || (movesOnOwn(b) && !(b.stun > 0))) continue;
           const hit = carOverlap(a, b);
           if (!hit) continue;
           const push = Math.min(hit.depth, 4);
@@ -3404,12 +3613,24 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         const hero = currentHero();
         const cpos = hero ? unitCenter(hero) : {x:camera.x, y:camera.y};
         if (dist(v.x, v.y, cpos.x, cpos.y) > 2900) { v.vx = 0; v.vy = 0; v.speed = 0; continue; }
+        // Игрок врезался — водитель НПС приходит в себя пять секунд и стоит,
+        // после чего снова плавно трогается.
+        if (v.stun > 0) {
+          v.stun -= dt;
+          v.speed = lerp(v.speed, 0, 1 - Math.exp(-8 * dt));
+          v.vx = Math.cos(v.angle) * v.speed;
+          v.vy = Math.sin(v.angle) * v.speed;
+          v.x += v.vx * dt; v.y += v.vy * dt;
+          v.x = clamp(v.x, 20, WORLD - 20); v.y = clamp(v.y, 20, WORLD - 20);
+          continue;
+        }
         if (v.turnCooldown === undefined) v.turnCooldown = 0;
         v.turnCooldown -= dt;
         // Drivers are not robots: gunfire nearby makes them bolt and honk.
         if (v.panic > 0) v.panic -= dt;
         else if (units.some(o => !o.dead && o.muzzle > 0 && o.team !== 'ped' && dist(o.x, o.y, v.x, v.y) < 520)) v.panic = 3.5;
-        const targetSpeed = v.panic > 0 ? 232 : 158;
+        // Городской поток едет спокойно: без гонок и резких манёвров.
+        const targetSpeed = v.panic > 0 ? 170 : 112;
         const lane = trafficLane(v);
         // Свежезаспавненная машина выравнивается по оси дороги, а не по диагонали.
         if (v.turnTo === undefined) {
@@ -3417,9 +3638,29 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         }
         const icx = closestAxis(v.x, XC), icy = closestAxis(v.y, YC);
         const atIntersection = Math.abs(v.x - icx) < 38 && Math.abs(v.y - icy) < 38;
+        // Решение на перекрёстке фиксируется один раз за подъезд: иначе «жребий»
+        // пересчитывался каждый кадр, и машина дёргалась между поворотом и прямо.
+        const icKey = (icx | 0) + ':' + (icy | 0);
+        if (Math.abs(v.x - icx) < 150 && Math.abs(v.y - icy) < 150 && v.icKey !== icKey) {
+          v.icKey = icKey;
+          v.turnRoll = hash(v.x | 0, v.y | 0, 22);
+          v.rightOfWay = hash(v.x | 0, v.y | 0, 9) < 0.5;
+        }
         const aligned = Math.abs(wrap(v.angle - v.turnTo)) < 0.2;
+        // Дорога впереди обрывается (край карты, тупик) — разворачиваемся,
+        // а не упираемся в стену. Перед обычным перекрёстком разворота нет:
+        // там есть поперечная дорога.
+        if (aligned && !atIntersection) {
+          const hx = Math.cos(v.angle), hy = Math.sin(v.angle);
+          const fx = v.x + hx * 140, fy = v.y + hy * 140;
+          const side = TILE * 1.6;
+          if (!roadAt(fx, fy) && !roadAt(fx - hy * side, fy + hx * side) && !roadAt(fx + hy * side, fy - hx * side)) {
+            v.turnTo = wrap(v.angle + Math.PI);
+            v.turnCooldown = 2;
+          }
+        }
         if (atIntersection && v.turnCooldown <= 0 && aligned) {
-          const r = hash(v.x | 0, v.y | 0, 22);
+          const r = v.turnRoll ?? 0.5;
           const options = lane.horiz
             ? [{a:Math.PI / 2, x:icx, y:icy + 160}, {a:-Math.PI / 2, x:icx, y:icy - 160}]
             : [{a:0, x:icx + 160, y:icy}, {a:Math.PI, x:icx - 160, y:icy}];
@@ -3447,11 +3688,14 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           if (laneNow.horiz) v.y += (laneNow.pos - v.y) * Math.min(1, 3.4 * dt);
           else v.x += (laneNow.pos - v.x) * Math.min(1, 3.4 * dt);
         }
-        // Комфортная дистанция растёт со скоростью: на ходу колонна не липнет к бамперу.
+        // Комфортная дистанция: корпус 106 px плюс запас на тормозной путь.
+        // Считаем между центрами машин, поэтому «пустой» зазор — это gap минус корпус.
         let want = targetSpeed;
         const gap = trafficGapAhead(v);
-        const keep = 48 + v.speed * 0.32;
-        if (gap < 260) want = Math.min(want, Math.max(0, (gap - keep) * 1.2));
+        const keep = 124 + v.speed * 0.32;
+        if (gap < 420) want = Math.min(want, Math.max(0, (gap - keep) * 1.6));
+        // В повороте поток сбрасывает скорость — так машины не режут друг друга.
+        if (Math.abs(wrap(v.turnTo - v.angle)) > 0.12) want = Math.min(want, 64);
         // Let the car with the right of way cross first.
         if (Math.abs(v.x - icx) < 150 && Math.abs(v.y - icy) < 150 && trafficYields(v, icx, icy)) want = 0;
         const blocked = trafficBlockedAhead(v);
@@ -3459,15 +3703,16 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         // A car that has stood still far too long was unlucky, not obedient — let it creep
         // out, unless it is genuinely queued behind someone.
         if (want < 6 && v.speed < 14) v.jam = (v.jam || 0) + dt; else v.jam = 0;
-        if (v.jam > 4.5 && gap > 120 && !blocked) want = Math.max(want, targetSpeed * 0.35);
+        if (v.jam > 4.5 && gap > 210 && !blocked) want = Math.max(want, targetSpeed * 0.35);
         // Тормозим резче, чем разгоняемся — так поток выглядит живым.
         const rate = want < v.speed ? 4.6 : 1.8;
         v.speed = lerp(v.speed, want, 1 - Math.exp(-rate * dt));
         if (blocked) {
           v.honkTimer = (v.honkTimer || 0) - dt;
           if (v.honkTimer <= 0) {
-            v.honkTimer = v.panic > 0 ? 0.8 + Math.random() : 4 + Math.random() * 6;
-            if (dist(v.x, v.y, cpos.x, cpos.y) < 900) Audio.play('horn', {x:v.x, y:v.y, gain:0.45});
+            // Гудят редко: поток спокойный, без нервотрёпки.
+            v.honkTimer = v.panic > 0 ? 1.2 + Math.random() : 9 + Math.random() * 9;
+            if (dist(v.x, v.y, cpos.x, cpos.y) < 900) Audio.play('horn', {x:v.x, y:v.y, gain:0.35});
           }
         }
         v.vx = Math.cos(v.angle) * v.speed;
@@ -3481,7 +3726,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
             if (v.speed > 40) {
               Audio.play('crash', {x:v.x, y:v.y, gain:0.25});
               damageVehicle(v, Math.abs(v.speed) * 0.04, v.x, v.y);
-              v.speed *= -0.2;
+              v.speed = 0;
             } else v.speed = 0;
           }
         }
@@ -3571,6 +3816,28 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         const tx = x / TILE | 0, ty = y / TILE | 0;
         if (!road[ty * MAP + tx] && !road[clamp(ty + 1, 0, MAP - 1) * MAP + tx]) continue;
         return {x, y};
+      }
+      return null;
+    }
+    // Точка на тротуаре: у кромки улицы, рядом с дорогой, но не на асфальте.
+    function sidewalkPointNear(cx, cy, minR, maxR) {
+      for (let i = 0; i < 80; i++) {
+        const a = Math.random() * TAU;
+        const r = minR + Math.random() * (maxR - minR);
+        const x = clamp(cx + Math.cos(a) * r, 40, WORLD - 40), y = clamp(cy + Math.sin(a) * r, 40, WORLD - 40);
+        const ax = closestAxis(x, XC), ay = closestAxis(y, YC);
+        const dx = Math.abs(x - ax), dy = Math.abs(y - ay);
+        const alongY = dx <= dy;
+        const px = alongY ? ax + (x >= ax ? WALK_OFF : -WALK_OFF) : x;
+        const py = alongY ? y : ay + (y >= ay ? WALK_OFF : -WALK_OFF);
+        if (px < 30 || py < 30 || px > WORLD - 30 || py > WORLD - 30) continue;
+        // Тротуар в тайловой сетке «твёрдый», поэтому проверяем точные препятствия.
+        // Радиус щадящий: свободная кромка между асфальтом и стеной бывает всего ~16 px.
+        if (pedBlocked(px, py, 7)) continue;
+        // Рядом должна быть сама улица — это тротуар, а не пустырь.
+        if (!(alongY ? roadAt(ax, py) : roadAt(px, ay))) continue;
+        const along = (Math.random() - 0.5) * 14;
+        return alongY ? {x:px, y:py + along} : {x:px + along, y:py};
       }
       return null;
     }
@@ -3673,16 +3940,14 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         if (u.isPlayer || u.hero >= 0) {
           const v = u.inVehicle;
           if (v.driver === u) { u.angle = v.angle; continue; }
-          if (!v.wrecked) {
-            const w = unitWeapon(u);
-            if (!w.melee && u.cool <= 0 && u.reloading <= 0) {
-              const threat = nearestThreat(u, 620);
-              if (threat && canSee(u.x, u.y, threat.x, threat.y)) {
-                const a = Math.atan2(threat.y - u.y, threat.x - u.x);
-                u.angle = a;
-                if (Math.random() < 0.5) fireWeapon(u, a);
-              }
-            }
+          // Из машины стреляет только игрок и только сам — ЛКМ или сенсорной кнопкой.
+          // Пассажиры-напарники огонь не открывают.
+          const w = unitWeapon(u);
+          if (u.isPlayer && !v.wrecked && !w.melee && u.cool <= 0 && u.reloading <= 0) {
+            if (!(fireHeld || touchFire || input.padFire)) continue;
+            updateAim(u);
+            if (w.auto) fireWeapon(u, u.angle);
+            else if (firePressed) { fireWeapon(u, u.angle); firePressed = false; }
           }
         }
       }
@@ -3774,6 +4039,21 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           if (roadAt(cx - GAP, a + 1) || roadAt(cx + GAP, a + 1) || roadAt(cx - GAP, b - 1) || roadAt(cx + GAP, b - 1)) continue;
           c.fillRect(cx - LW / 2, a, LW, b - a);
         }
+      }
+      // Тротуарная кромка: бетонная полоса вдоль асфальта. Рисуется по тайлам,
+      // поэтому на перекрёстках не перекрывает проезжую часть.
+      const CURB = 13;
+      const tx0 = Math.max(1, Math.floor(x0 / TILE)), tx1 = Math.min(MAP - 2, Math.floor(x1 / TILE));
+      const ty0 = Math.max(1, Math.floor(y0 / TILE)), ty1 = Math.min(MAP - 2, Math.floor(y1 / TILE));
+      c.fillStyle = darknessLevel() > 0.4 ? 'rgba(70,78,82,0.75)' : 'rgba(108,116,120,0.72)';
+      for (let ty = ty0; ty <= ty1; ty++) for (let tx = tx0; tx <= tx1; tx++) {
+        const i = ty * MAP + tx;
+        if (road[i] || water[i]) continue;
+        const px = tx * TILE, py = ty * TILE;
+        if (road[i - MAP]) c.fillRect(px, py, TILE, CURB);
+        if (road[i + MAP]) c.fillRect(px, py + TILE - CURB, TILE, CURB);
+        if (road[i - 1]) c.fillRect(px, py, CURB, TILE);
+        if (road[i + 1]) c.fillRect(px + TILE - CURB, py, CURB, TILE);
       }
     }
     function drawGround(c, x0, y0, x1, y1) {
@@ -4022,7 +4302,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       const armSwing = moving ? Math.sin(time * 11 + u.hero * 2 + 1.4) * 3 : 0;
       c.fillStyle = coat;
       const w = unitWeapon(u);
-      const gunLen = w.melee || !combatAt(u.x,u.y) ? 0 : w.pellets ? 20 : w.auto ? 26 : 18;
+      // Оружие в руках видно всегда, а не только в зоне боя.
+      const gunLen = w.melee ? 0 : w.pellets ? 20 : w.auto ? 26 : 18;
       c.fillRect(-10 * build, -14 * build + armSwing, 5 * build, 22 * build);
       c.fillRect(5 * build, -14 * build - armSwing, 5 * build, 22 * build);
       // Спортивка — светлые полоски по рукавам, кожанка — блик по плечам, пальто — обшлаги.
@@ -4046,6 +4327,24 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         c.fillRect(-2.5, -26 - gunLen, 5, gunLen + 12);
         c.fillStyle = '#2b2f33';
         c.fillRect(-2, -26 - gunLen * 0.55, 4, gunLen * 0.5);
+      } else if (u.weapon === 'bat') {
+        // Бита в руке.
+        c.fillStyle = '#7a5a34';
+        c.fillRect(6 * build, -34, 3.4, 30);
+        c.fillStyle = '#8c6a40';
+        c.fillRect(5.4 * build, -42, 4.6, 10);
+      } else if (u.weapon === 'knife') {
+        // Нож: клинок и рукоять.
+        c.fillStyle = '#c9ced3';
+        c.fillRect(6.6 * build, -36, 2.2, 14);
+        c.fillStyle = '#2a2118';
+        c.fillRect(6.6 * build, -23, 2.4, 6);
+      } else if (u.weapon === 'knuckles') {
+        // Кастет на кулаке.
+        c.fillStyle = '#6d6f72';
+        c.fillRect(5.4 * build, -21, 5.4, 7);
+        c.fillStyle = '#8d9095';
+        c.fillRect(5.9 * build, -22.6, 4.4, 2);
       }
       c.fillStyle = coat;
       c.beginPath(); c.ellipse(0, 14 * build, 8 * build, 9 * build, 0, 0, TAU); c.fill();
@@ -4057,13 +4356,17 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       // Основной объём головы — волосы (смотрим сзади-сверху), лицо лишь узкой полосой спереди.
       c.fillStyle = hair;
       if (u.hairStyle === 'long') {
-        // Длинные пряди спадают по спине — силуэт читается даже сверху.
+        // Волосы-капюшон в геймплее: плотный объём вокруг головы, спадает
+        // только до плеч. Длинных прядей по спине больше нет.
         c.beginPath();
-        c.moveTo(-7.4 * build, 15 * build);
-        c.quadraticCurveTo(-10.5 * build, 26 * build, -6.4 * build, 36 * build);
-        c.quadraticCurveTo(0, 39 * build, 6.4 * build, 36 * build);
-        c.quadraticCurveTo(10.5 * build, 26 * build, 7.4 * build, 15 * build);
-        c.closePath(); c.fill();
+        c.ellipse(0, 19.2 * build, 9.7 * build, 9.4 * build, 0, 0, TAU);
+        c.fill();
+        // Тёмная кромка капюшона спереди — читается как отворот, а не «лысина».
+        c.fillStyle = 'rgba(0,0,0,0.20)';
+        c.beginPath();
+        c.ellipse(0, 12.4 * build, 8.2 * build, 2.6 * build, 0, Math.PI, TAU);
+        c.fill();
+        c.fillStyle = hair;
       }
       c.beginPath(); c.arc(0, 19 * build, 7 * build, 0, TAU); c.fill();
       if (u.hairStyle === 'cap') {
@@ -4354,13 +4657,16 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       c.globalAlpha = 1;
     }
     function drawBullets(c) {
-      c.strokeStyle = 'rgba(255,232,170,0.85)'; c.lineWidth = 2;
-      c.beginPath();
+      // Летящие пули: короткий трассер и светящаяся головка — видно, что стреляют.
       for (const b of bullets) {
+        c.strokeStyle = 'rgba(255,232,170,0.85)'; c.lineWidth = 2;
+        c.beginPath();
         c.moveTo(b.x, b.y);
         c.lineTo(b.x - b.vx * 0.014, b.y - b.vy * 0.014);
+        c.stroke();
+        c.fillStyle = '#fff3c4';
+        c.beginPath(); c.arc(b.x, b.y, 2, 0, TAU); c.fill();
       }
-      c.stroke();
     }
     function drawGrenades(c, time) {
       for (const g of grenades) {
@@ -4734,10 +5040,6 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         const held = territoryHeld[d] || 0;
         ctx.fillStyle = held === 2 ? 'rgba(196,150,60,0.20)' : held === 1 ? 'rgba(120,140,110,0.14)' : 'rgba(70,90,110,0.10)';
         ctx.fillRect(toX(dx), toY(dy), (WORLD / 3) * scale, (WORLD / 3) * scale);
-        ctx.fillStyle = 'rgba(230,220,190,0.5)';
-        ctx.font = `${Math.max(10, 13 * mapView.zoom)}px system-ui, sans-serif`;
-        ctx.textAlign = 'center';
-        ctx.fillText(B.localized(DISTRICTS[d]), toX(dx + WORLD / 6), toY(dy + 34));
       }
       for (const r of roadRects) {
         ctx.fillStyle = '#2f383e';
@@ -4745,17 +5047,63 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       }
       ctx.fillStyle = '#454d52';
       for (const b of buildings) ctx.fillRect(toX(b.x), toY(b.y), Math.max(1, b.w * scale), Math.max(1, b.h * scale));
+      // Подписи рисуем поверх карты и аккуратно расставляем: каждая следующая
+      // проверяет, не легла ли она на уже занятое место. Лучше пропустить
+      // подпись, чем налепить одну на другую.
+      const labelRects = [];
+      const fitsLabel = (x, y, w, h) => {
+        if (x < 2 || y < 2 || x + w > cw - 2 || y + h > ch - 2) return false;
+        for (const r of labelRects) {
+          if (x < r.x + r.w + 4 && x + w + 4 > r.x && y < r.y + r.h + 4 && y + h + 4 > r.y) return false;
+        }
+        return true;
+      };
+      const drawChip = (text, x, y, font, color) => {
+        ctx.font = font;
+        const tw = ctx.measureText(text).width, th = 15;
+        ctx.fillStyle = 'rgba(8,11,14,0.55)';
+        ctx.fillRect(x - 4, y, tw + 8, th);
+        ctx.fillStyle = color;
+        ctx.textAlign = 'left';
+        ctx.fillText(text, x, y + th - 3);
+        return {x:x - 4, y, w:tw + 8, h:th};
+      };
+      const districtFont = `${Math.max(10, 13 * mapView.zoom)}px system-ui, sans-serif`;
+      for (let d = 0; d < DISTRICTS.length; d++) {
+        const dx = (d % 3) * (WORLD / 3), dy = ((d / 3) | 0) * (WORLD / 3);
+        const text = B.localized(DISTRICTS[d]);
+        ctx.font = districtFont;
+        const tw = ctx.measureText(text).width;
+        const lx = toX(dx + WORLD / 6) - tw / 2, ly = toY(dy) + 8;
+        if (!fitsLabel(lx - 4, ly, tw + 8, 15)) continue;
+        labelRects.push(drawChip(text, lx, ly, districtFont, 'rgba(232,223,196,0.72)'));
+      }
+      const poiFont = `${Math.max(9, 12 * mapView.zoom)}px system-ui, sans-serif`;
       for (const id in POI) {
         const p = POI[id];
         if (!p.x) continue;
         if (p.afterStory && !(storyBeaten || campaignFinished)) continue;
         const unlocked = !p.lockAct || p.lockAct <= progress.act + 1;
+        const mx = toX(p.x), my = toY(p.y);
         ctx.fillStyle = unlocked ? (p.safe ? '#6fa8c8' : '#c9b26a') : '#4d5257';
-        ctx.fillRect(toX(p.x) - 5, toY(p.y) - 5, 10, 10);
-        ctx.fillStyle = unlocked ? 'rgba(240,232,205,0.85)' : 'rgba(150,150,150,0.5)';
-        ctx.font = `${Math.max(9, 12 * mapView.zoom)}px system-ui, sans-serif`;
-        ctx.textAlign = 'left';
-        ctx.fillText(B.localized(p.name), toX(p.x) + 9, toY(p.y) + 4);
+        ctx.fillRect(mx - 5, my - 5, 10, 10);
+        const text = B.localized(p.name);
+        ctx.font = poiFont;
+        const tw = ctx.measureText(text).width;
+        // Пробуем по очереди: справа, слева, сверху, снизу и по диагоналям.
+        const spots = [
+          [mx + 10, my - 7], [mx - 10 - tw - 8, my - 7],
+          [mx - tw / 2, my - 22], [mx - tw / 2, my + 9],
+          [mx + 10, my - 22], [mx - 10 - tw - 8, my - 22],
+          [mx + 10, my + 9], [mx - 10 - tw - 8, my + 9]
+        ];
+        let spot = null;
+        for (const s of spots) {
+          if (fitsLabel(s[0] - 4, s[1], tw + 8, 15)) { spot = s; break; }
+        }
+        if (!spot) continue;
+        labelRects.push(drawChip(text, spot[0], spot[1], poiFont,
+          unlocked ? 'rgba(240,232,205,0.92)' : 'rgba(150,150,150,0.55)'));
       }
       for (const u of units) {
         if (u.dead) continue;
@@ -4816,19 +5164,22 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         ctx.fillRect(w * .32, h * .3, w * .36, h * .095);
         ctx.fillRect(w * .35, h * .265, w * .30, h * .065);
       } else if (hero.hairStyle === 'long') {
-        // Масса волос за головой и пряди по бокам до плеч.
-        ctx.beginPath(); ctx.ellipse(w / 2, h * 0.44, w * 0.245, h * 0.19, 0, 0, TAU); ctx.fill();
-        for (const side of [-1, 1]) {
-          ctx.beginPath();
-          ctx.moveTo(w * (0.5 + side * 0.19), h * 0.34);
-          ctx.quadraticCurveTo(w * (0.5 + side * 0.255), h * 0.55, w * (0.5 + side * 0.205), h * 0.72);
-          ctx.lineTo(w * (0.5 + side * 0.115), h * 0.71);
-          ctx.quadraticCurveTo(w * (0.5 + side * 0.145), h * 0.52, w * (0.5 + side * 0.12), h * 0.34);
-          ctx.closePath(); ctx.fill();
-        }
-        ctx.beginPath(); ctx.ellipse(w / 2, h * 0.34, w * 0.215, h * 0.15, 0, Math.PI, TAU); ctx.fill();
+        // Длинные волосы-капюшон: одна плотная масса обтекает голову, полностью
+        // закрывая макушку, и спадает на плечи. Просвета сверху нет — «лысины» нет.
+        ctx.beginPath();
+        ctx.moveTo(w * 0.5, h * 0.13);
+        ctx.bezierCurveTo(w * 0.74, h * 0.12, w * 0.85, h * 0.3, w * 0.82, h * 0.56);
+        ctx.bezierCurveTo(w * 0.81, h * 0.74, w * 0.75, h * 0.87, w * 0.62, h * 0.93);
+        ctx.quadraticCurveTo(w * 0.5, h * 0.86, w * 0.38, h * 0.93);
+        ctx.bezierCurveTo(w * 0.25, h * 0.87, w * 0.19, h * 0.74, w * 0.18, h * 0.56);
+        ctx.bezierCurveTo(w * 0.15, h * 0.3, w * 0.26, h * 0.12, w * 0.5, h * 0.13);
+        ctx.closePath(); ctx.fill();
+        // Лицо — овал в проёме капюшона, ниже линии волос.
         ctx.fillStyle = hero.skin || HERO_SKIN;
-        ctx.beginPath(); ctx.ellipse(w / 2, h * 0.45, w * 0.165, h * 0.185, 0, 0, TAU); ctx.fill();
+        ctx.beginPath(); ctx.ellipse(w / 2, h * 0.49, w * 0.145, h * 0.155, 0, 0, TAU); ctx.fill();
+        // Волосы мягко падают на лоб, обрамляя лицо.
+        ctx.fillStyle = hero.hair;
+        ctx.beginPath(); ctx.ellipse(w / 2, h * 0.365, w * 0.155, h * 0.068, 0, Math.PI, TAU); ctx.fill();
       } else {
         ctx.beginPath(); ctx.ellipse(w / 2, h * 0.36, w * 0.21, h * 0.14, 0, Math.PI, TAU); ctx.fill();
       }
@@ -4845,7 +5196,10 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     }
     // ================= Part II + III: player, living world, story, saves =================
     const SAVE_KEY = 'save.episodes.v2';
-    const CIVIL_MODELS = ['nine', 'nine', 'wagon', 'bmw', 'volga', 'audi', 'niva', 'w124', 'volvo'];
+    // На улицах девяностых простых машин заметно больше, чем «крутых» иномарок:
+    // «девятки», «Волги», «Нивы» и универсалы — фон улицы, BMW/Audi/W124/Volvo — редкость.
+    const CIVIL_COMMON = ['nine', 'nine', 'wagon', 'volga', 'niva', 'nine', 'wagon', 'volga'];
+    const CIVIL_COOL = ['bmw', 'audi', 'w124', 'volvo'];
     const CIVIL_COATS = ['#3a3f46', '#4a4038', '#2f3a3a', '#5a4a3a', '#42484e', '#3d3340', '#54443a'];
     const HAIR_STYLES = ['short', 'slick', 'cap', 'crop'];
     const FEMALE_HAIR = ['#2a1c14', '#3b2b21', '#4a3222', '#5a4030', '#6b4a2f', '#241a14', '#7a5a3a'];
@@ -4864,7 +5218,10 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       {ru:'Машин развелось — не пройти.', en:'So many cars now, you can’t get through.'},
       {ru:'Всё, я пошёл, дела.', en:'Right, I’m off, got things to do.'}
     ];
-    const pickCivilianModel = () => CIVIL_MODELS[(Math.random() * CIVIL_MODELS.length) | 0];
+    // Каждая четвёртая гражданская машина — иномарка, остальные — простые.
+    const pickCivilianModel = () => Math.random() < 0.24
+      ? CIVIL_COOL[(Math.random() * CIVIL_COOL.length) | 0]
+      : CIVIL_COMMON[(Math.random() * CIVIL_COMMON.length) | 0];
     const VOICE = {ru:'ГОЛОС', en:'VOICE'};
     const line = (who, ru, en) => ({who, name:who >= 0 ? HEROES[who].name : VOICE, text:{ru, en}});
     // Реплики персонажей сериала: своё имя и внешность, отдельно от управляемых героев.
@@ -4948,22 +5305,113 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       ['1999–2000','Прощание','Farewell','Больница, похороны и последний долг — финал истории Бригады.','A hospital, a funeral and one last debt — the final chapter of the crew’s story.','station','port','duel','Фила и Тамару убивают в больнице, а Макс оказывается человеком Каверина. Иншаков помогает Саше инсценировать гибель и вернуться за последним долгом.','Phil and Tamara are killed in hospital, and Maks turns out to be Kaverin’s man. Inshakov helps Sasha fake his death and come back for a final debt.']
     ];
     // Реплики сериальных персонажей в начале глав — по годам и событиям сериала.
+    // Каждая кат-сцена развёрнутая: герои, свидетели и противники говорят по несколько реплик.
     const SCENE_CAST = [
-      [line(1,'Белый! Живой! А говорили, тебя там… ну, это самое.','Bely! Alive! They said you were… well, you know.'), line(2,'Двор без тебя скучал, командир.','The yard missed you, chief.'), say('lena','Саша… Ты вернулся. А я уже… не одна. Прости.','Sasha… You’re back. And I’m… not alone anymore. I’m sorry.')],
-      [say('kaverin','Белов. Запомнил я тебя. Надолго запомнил.','Belov. I’ve remembered you. For a long time.')],
-      [say('olga','Вы всегда так шумите? Я тут рядом, у соседей.','Do you always make this much noise? I’m right next door.')],
-      [line(0,'Клянусь. Что бы ни случилось — мы вместе.','I swear. Whatever happens — we’re together.')],
-      [say('arthurg','Работаем, Белый. Ты мне нравишься, пока не мешаешь.','Let’s work, Bely. I like you as long as you don’t get in the way.')],
-      [say('vvedensky','Александр Николаевич, вы слишком заметны. Это и хорошо, и плохо.','Aleksandr Nikolaevich, you’re too visible. That’s both good and bad.')],
-      [say('farhad','Саша, старейшины прислали меня. Дело серьёзное.','Sasha, the elders sent me. This is serious.')],
-      [say('luka','Молодой, дерзкий. Мне такие нужны. Пока нужны.','Young, bold. I need men like you. For now.')],
-      [say('kaverin','Ты думал, я исчез? Я всегда рядом, Белов.','You thought I was gone? I’m always near, Belov.')],
-      [line(1,'Это я стрелял тогда. На арене. Я не хотел… так вышло.','That was me shooting at the arena. I didn’t want it… it just happened.')],
-      [line(2,'Белый, я не подкладывал бомбу. Хочешь — Оля подтвердит.','Bely, I didn’t plant that bomb. Olga can back me up.')],
-      [say('olga','Я вернулась. И лучше бы мне не знать того, что я узнала.','I came back. I wish I didn’t know what I’ve learned.')],
-      [say('kaverin','Твои друзья — твоя слабость. Я это использую.','Your friends are your weakness. I’ll use it.'), say('maks','Всё чисто, Белый. Можешь ехать.','All clear, Bely. You can go.')],
-      [say('zorin','Кампания — это война без выстрелов. Пока без выстрелов.','A campaign is war without shots. For now without shots.')],
-      [say('kaverin','Всё кончится здесь, Белов. Между нами.','It ends here, Belov. Between us.'), say('vvedensky','Александр Николаевич, Макс с девяносто первого работал на Каверина. Девять лет.','Aleksandr Nikolaevich, Maks has worked for Kaverin since ninety-one. Nine years.')]
+      // 1. «Возвращение» — двор, друзья и Лена, которая уже не одна.
+      [line(2,'Белый! Живой! А говорили, тебя там… ну, это самое.','Bely! Alive! They said you were… well, you know.'),
+       line(1,'Двор без тебя скучал, командир. Мы тут без тебя и футбол гоняли, и выживали по мелочи.','The yard missed you, chief. We played football without you — and scraped by.'),
+       line(3,'Саш, а ты здорово загорел. И плечи шире стали. Армия тебе, что ли, пошла на пользу?','Sash, you got a good tan. And your shoulders are wider. Did the army suit you?'),
+       line(0,'Пошла, не пошла — а домой вернулся. Это главное.','Suited me or not — I came home. That’s what matters.'),
+       line(2,'Только не смотри так на Лену, Саш. Пока ты служил, тут многое поменялось.','Just don’t look at Lena like that, Sash. A lot changed while you were serving.'),
+       say('lena','Саша… Ты вернулся. А я уже… не одна. Прости.','Sasha… You’re back. And I’m… not alone anymore. I’m sorry.')],
+      // 2. «Подстава» — Каверин, ринг и погибший Муха.
+      [say('kaverin','Белов. Запомнил я тебя. Надолго запомнил.','Belov. I’ve remembered you. For a long time.'),
+       line(1,'Этот Каверин не прощает. У него на арене брат был. Муха его брат.','Kaverin doesn’t forgive. His brother was at the arena. Mukha was his brother.'),
+       line(3,'Значит, выйдем на ринг и объясним, кто тут прав.','Then we step into the ring and explain who’s right.'),
+       line(0,'Фил, это не твой бой. Это моя драка, и я её закончу.','Phil, this isn’t your fight. It’s mine, and I’ll finish it.'),
+       line(3,'Мой, Белый. Я уже перчатки надел.','It is, Bely. I’ve already got the gloves on.'),
+       say('kaverin','Брат мой любил этот ринг. Пусть теперь и он тебя запомнит.','My brother loved this ring. Let it remember you too now.')],
+      // 3. «Дача» — Оля, соседи и первый разговор.
+      [say('olga','Вы всегда так шумите? Я тут рядом, у соседей.','Do you always make this much noise? I’m right next door.'),
+       line(1,'Дача большая, места хватит. Только за ворота пока не выходи.','The dacha is big, room for everyone. Just don’t go past the gate yet.'),
+       line(0,'Простите за шум. Мы тут… ненадолго.','Sorry about the noise. We’re here… not for long.'),
+       say('olga','«Ненадолго» тут у всех. Соседи тоже так говорили. А потом остались на годы.','“Not for long” is what everyone says here. The neighbours said the same. Then they stayed for years.'),
+       line(1,'Оля, а вы правда на скрипке играете? Или это так, для соседей?','Olga, do you really play the violin? Or is it just for the neighbours?'),
+       say('olga','Правда. А вы, я смотрю, больше по другой части. Оружие — тяжёлое, музыка — нет.','I do. And you, I see, are more into another line of work. Weapons are heavy — music isn’t.')],
+      // 4. «Клятва» — Воробьёвы горы и клятва бригады.
+      [line(0,'Клянусь. Что бы ни случилось — мы вместе.','I swear. Whatever happens — we’re together.'),
+       line(1,'До конца. И после. Пока кто-то из нас стоит — стоит и бригада.','To the end. And after. While one of us stands, the crew stands.'),
+       line(2,'Если кто-то оступится — остальные вытащат. Без вопросов.','If one of us stumbles, the others pull him out. No questions.'),
+       line(3,'И назад дороги не будет. Мы уже не те пацаны из двора.','And there’ll be no way back. We’re not the yard kids anymore.'),
+       line(0,'ОМОН ушёл, дело закрыли. Значит, теперь наша очередь задавать правила в этом городе.','OMON’s gone, the case is closed. So now it’s our turn to set the rules in this city.')],
+      // 5. «Свадебный подарок» — Лапшин, квартира на Котельнической и Оля.
+      [say('arthurg','Работаем, Белый. Ты мне нравишься, пока не мешаешь.','Let’s work, Bely. I like you as long as you don’t get in the way.'),
+       line(0,'Я не мешаю. Я просто делаю свою работу. И делаю её хорошо.','I don’t get in the way. I just do my job. And I do it well.'),
+       line(3,'Квартира на Котельнической. Ключи уже у меня, ремонт закончили.','The flat on Kotelnicheskaya. I’ve got the keys already, the renovation is done.'),
+       line(1,'Сначала проверим каждый угол. Подарки в этом городе бывают с сюрпризом.','We check every corner first. Gifts in this city come with surprises.'),
+       say('olga','Саша, если это всё из-за меня… нам не нужна такая квартира. Нам нужно спокойно.','Sasha, if this is all because of me… we don’t need a flat like that. We need peace.'),
+       line(0,'Это не подарок. Это наша жизнь. Просто по-другому её не получить.','It’s not a gift. It’s our life. It just can’t be had any other way.')],
+      // 6. «Старый сослуживец» — Введенский и предложение без выбора.
+      [say('vvedensky','Александр Николаевич, вы слишком заметны. Это и хорошо, и плохо.','Aleksandr Nikolaevich, you’re too visible. That’s both good and bad.'),
+       line(0,'Я не просил делать меня заметным. Я жил как умел.','I didn’t ask to be made visible. I lived the best I could.'),
+       say('vvedensky','Заметных либо убирают, либо приближают. Я предлагаю второе.','The visible are either removed or brought close. I’m offering the latter.'),
+       line(1,'А если мы откажемся? У нас тоже есть свои условия.','And if we refuse? We have our own conditions too.'),
+       say('vvedensky','Тогда вас просто не станет. Это не угроза, это расписание.','Then you simply cease to exist. It’s not a threat, it’s a schedule.'),
+       line(0,'Значит, будем решать сами, когда и с кем. Это наш город.','Then we decide ourselves when and with whom. This is our city.')],
+      // 7. «Октябрь» — Фархад, Бутырка и старая дружба.
+      [say('farhad','Саша, старейшины прислали меня. Дело серьёзное.','Sasha, the elders sent me. This is serious.'),
+       line(0,'Фархад, мы с тобой в одном окопе лежали. Говори прямо, без восточных узоров.','Farhad, we lay in the same trench. Speak plainly, without eastern flourishes.'),
+       say('farhad','Есть люди, которые хотят поссорить нас с тобой. Им это почти удалось.','There are people who want to turn us against each other. They almost did.'),
+       line(2,'А при чём тут Бутырка? Нас-то за что?','What does Butyrka have to do with it? What are we in for?'),
+       say('farhad','Там вас ждут. И там мне не простят старого долга.','They’re waiting for you there. And they won’t forgive my old debt.'),
+       line(0,'Тогда идём вместе. Долги отдадим, а потом поговорим по-мужски.','Then we go together. We settle debts, then talk man to man.')],
+      // 8. «Долг перед другом» — Лука и торговля оружием.
+      [say('luka','Молодой, дерзкий. Мне такие нужны. Пока нужны.','Young, bold. I need men like you. For now.'),
+       line(0,'Я не товар, чтобы быть нужным. Я партнёр.','I’m not goods to be needed. I’m a partner.'),
+       say('luka','Партнёр. Хорошее слово. Только партнёры не хоронят друзей бесплатно.','Partner. A nice word. Only partners don’t bury friends for free.'),
+       line(1,'Ты про Фархада? Тогда кто его сдал? Говори, Лука.','About Farhad? Then who sold him out? Speak, Luka.'),
+       say('luka','Найди — узнаешь. А пока у меня оружие и люди. Бери, пока дают.','Find out — you’ll know. For now I have guns and men. Take it while it’s offered.'),
+       line(0,'Оружие я не возьму. Но того, кто сдал Фархада, — найду.','I won’t take the guns. But whoever sold Farhad out — I’ll find.')],
+      // 9. «Цена встречи» — Каверин, больница и сын Саши.
+      [say('kaverin','Ты думал, я исчез? Я всегда рядом, Белов.','You thought I was gone? I’m always near, Belov.'),
+       line(0,'Ты убил Луку. Или это твой снайпер сделал за тебя грязную работу?','You killed Luka. Or was it your sniper doing the dirty work for you?'),
+       say('kaverin','Я всего лишь убрал того, кто держал твоего сына под прицелом. Поблагодари.','I merely removed the man holding your son at gunpoint. Say thank you.'),
+       line(1,'Мы тебе не доверяем, ни на грош. Ты слишком чисто выходишь из грязи.','We don’t trust you, not an inch. You come out of the mud too clean.'),
+       say('kaverin','Правильно. Доверяй только тем, кто стреляет рядом с тобой. Остальное — условия.','Right. Trust only those who shoot beside you. The rest — conditions.'),
+       line(0,'Ваня у меня. Всё остальное решим потом, когда город уснёт.','Ivan’s with me. We’ll settle the rest later, when the city sleeps.')],
+      // 10. «Признание» — Космос и правда о Мухе.
+      [line(1,'Это я стрелял тогда. На арене. Я не хотел… так вышло.','That was me shooting at the arena. I didn’t want it… it just happened.'),
+       line(0,'Муха погиб от твоей руки. Ты понимаешь, что это значит?','Mukha died by your hand. Do you understand what that means?'),
+       line(1,'Понимаю. Поэтому и говорю. Хватит жить в этом. Хватит молчать.','I understand. That’s why I’m telling you. Enough living in it. Enough silence.'),
+       line(3,'Космос… мы же все там были. И все могли нажать.','Kosmos… we were all there. Any of us could have pulled the trigger.'),
+       line(0,'Поставку мы останавливаем. А этот разговор — не закрыт. Ни сегодня, ни завтра.','We stop the shipment. And this conversation isn’t over. Not today, not tomorrow.'),
+       line(1,'Спасибо, что не прогнал. Для меня и это — много.','Thanks for not turning me away. For me even that is a lot.')],
+      // 11. «Дорога в аэропорт» — Пчёла, взрыв и подозрения.
+      [line(2,'Белый, я не подкладывал бомбу. Хочешь — Оля подтвердит.','Bely, I didn’t plant that bomb. Olga can back me up if you want.'),
+       line(0,'Фил в реанимации. Сейчас я не хочу никому верить. Даже себе.','Phil is in intensive care. Right now I don’t want to believe anyone. Even myself.'),
+       line(2,'Понял. Тогда ищи правду сам, я не обижусь. Мне скрывать нечего.','Understood. Find the truth yourself, I won’t be offended. I’ve nothing to hide.'),
+       line(1,'Слишком всё складно у тебя выходит, Пчёла. Слишком чисто.','It all works out too neatly for you, Pchyola. Too clean.'),
+       line(2,'Складно? Я живу как все, Космос. Без схем. Ты меня знаешь десять лет.','Neatly? I live like everyone, Kosmos. No schemes. You’ve known me ten years.'),
+       line(0,'Разберёмся. Но до тех пор держитесь друг от друга подальше. И от меня.','We’ll sort it out. Until then, keep away from each other. And from me.')],
+      // 12. «Видеокассета» — Оля, кассета и правда о Кордоне.
+      [say('olga','Я вернулась. И лучше бы мне не знать того, что я узнала.','I came back. I wish I didn’t know what I’ve learned.'),
+       line(0,'Показывай. Теперь уже поздно не знать. Правда нужна всем.','Show it. It’s too late not to know now. Everyone needs the truth.'),
+       say('olga','На кассете — Кордон. Он и подложил бомбу. Ты был прав не верить Пчёле.','The tape shows Kordon. He planted the bomb. You were right not to believe Pchyola.'),
+       line(1,'Значит, Космос с Пчёлой сидят ни за что. Из-за чужой подлости.','So Kosmos and Pchyola are sitting for nothing. Because of someone else’s vileness.'),
+       line(3,'Кордон? Продюсер? Зачем ему взрывать людей? Что он с этого имеет?','Kordon? The producer? Why would he blow people up? What does he gain?'),
+       line(0,'Узнаем, когда он будет в наших руках. А он будет.','We’ll find out when he’s in our hands. And he will be.')],
+      // 13. «Новые соперники» — Оля уходит, Каверин идёт в Думу, Макс рядом.
+      [say('kaverin','Твои друзья — твоя слабость. Я это использую.','Your friends are your weakness. I’ll use it.'),
+       say('maks','Всё чисто, Белый. Можешь ехать. Машина у подъезда.','All clear, Bely. You can go. The car’s by the entrance.'),
+       line(0,'Оля забрала Ваню. И когда она успела решить за нас обоих?','Olga took Ivan. When did she decide for the both of us?'),
+       line(1,'Не горячись. Может, так оно и лучше — пока всё не уляжется.','Don’t be rash. Maybe it’s even better — until things settle.'),
+       say('kaverin','Ты идёшь в депутаты, Белов? Тогда мы встретимся в другой комнате. Без свидетелей.','You’re running for office, Belov? Then we’ll meet in another room. Without witnesses.'),
+       line(0,'Значит, встретимся. И там уже не будет стволов. Только слова.','Then we’ll meet. And there will be no guns there. Only words.')],
+      // 14. «Выборы» — штаб Зорина, компромат и дебаты.
+      [say('zorin','Кампания — это война без выстрелов. Пока без выстрелов.','A campaign is war without shots. For now without shots.'),
+       line(0,'Нам нужна не война. Нам нужны голоса. Мы не за этим всё начинали.','We don’t need a war. We need votes. This isn’t what we started it for.'),
+       say('zorin','Голоса дают тем, кого боятся чуть меньше, чем любят. Держите баланс.','Votes go to those feared a little less than they are loved. Keep the balance.'),
+       line(1,'А компромат на Каверина у нас есть? Наверняка есть, с его биографией.','And do we have dirt on Kaverin? Surely we do, with his record.'),
+       say('zorin','Есть. Но лучше бы он остался в столе. Иногда правда бьёт по своим.','We do. But better it stays in the drawer. Sometimes the truth hits your own.'),
+       line(0,'На дебатах решим, что показывать. И решим это вместе.','We’ll decide at the debates what to show. And we’ll decide it together.')],
+      // 15. «Прощание» — финальная сцена, Макс, Иншаков и последний долг.
+      [say('kaverin','Всё кончится здесь, Белов. Между нами.','It ends here, Belov. Between us.'),
+       say('vvedensky','Александр Николаевич, Макс с девяносто первого работал на Каверина. Девять лет.','Aleksandr Nikolaevich, Maks has worked for Kaverin since ninety-one. Nine years.'),
+       line(0,'Девять лет. А я его за своего держал. За брата.','Nine years. And I held him as one of us. As a brother.'),
+       line(1,'Он же рядом был, когда Фила хоронили. Стоял и молчал.','He stood right there when we buried Phil. Stood and said nothing.'),
+       say('kaverin','Каждый из твоих людей мог оказаться моим. Ты просто понял это поздно.','Any of your men could turn out to be mine. You just understood it late.'),
+       line(0,'Тогда закончим это сами. Без свидетелей и без лишних слов.','Then we finish it ourselves. Without witnesses and without extra words.'),
+       say('inshakov','Белый, у нас один выход — сделать так, чтобы тебя похоронили раньше срока.','Bely, there’s one way out — make them bury you ahead of time.')]
     ];
     // Дополнительные сцены внутри глав: перестрелки и разборки там, где сюжет их требует.
     // Боевая сцена всегда стоит после «доехать до места»: противники появляются вокруг
@@ -4973,12 +5421,19 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       1: [
         {poi:'gorky', type:'reach', intro:[
           line(1,'Каверина на арене не было. Его люди ушли в лесопарк.','Kaverin wasn’t at the arena. His men went to the forest park.'),
-          line(0,'Значит, поговорим с ними там.','Then we’ll talk to them there.')
+          line(0,'Значит, поговорим с ними там.','Then we’ll talk to them there.'),
+          line(2,'В лесопарке темно и тихо. Самое место для засады.','The forest park is dark and quiet. Just the place for an ambush.')
         ]},
         {poi:'gorky', type:'kill', count:3, reward:300,
           objective:{ru:'Разобраться с людьми Каверина в лесопарке',en:'Deal with Kaverin’s men in the forest park'},
-          intro:[line(1,'Вон они, между деревьями. Смотри, чтобы не обошли.','There they are, between the trees. Don’t let them flank us.')],
-          outro:[line(-1,'Лесопарк стих. Каверин снова ушёл, но его людей больше нет.','The forest park fell silent. Kaverin slipped away again, but his men are gone.')]}
+          intro:[
+            line(1,'Вон они, между деревьями. Смотри, чтобы не обошли.','There they are, between the trees. Don’t let them flank us.'),
+            line(3,'Я прикрою слева. Только не подставляйся.','I’ll cover the left. Just don’t get yourself killed.')
+          ],
+          outro:[
+            line(-1,'Лесопарк стих. Каверин снова ушёл, но его людей больше нет.','The forest park fell silent. Kaverin slipped away again, but his men are gone.'),
+            line(0,'Ушёл — значит, ещё встретимся.','He got away — which means we’ll meet again.')
+          ]}
       ],
       // 5. «Свадебный подарок»: по дороге к новоселью на бригаду нападают люди Каверина.
       4: [
@@ -4986,9 +5441,13 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           objective:{ru:'Отбить нападение у новостройки',en:'Beat back the ambush by the new building'},
           intro:[
             line(3,'Машина с «гостями» притормозила у подъезда. Это люди Каверина.','A car full of “guests” pulled up by the entrance. Kaverin’s men.'),
-            line(0,'Значит, встретим их до того, как они войдут.','Then we meet them before they get inside.')
+            line(0,'Значит, встретим их до того, как они войдут.','Then we meet them before they get inside.'),
+            line(2,'Оля с детьми наверху. Если они войдут — не выйдет никто.','Olga and the kids are upstairs. If they get in, nobody walks out.')
           ],
-          outro:[line(-1,'Нападение отбили. Теперь — к молодым.','Ambush repelled. Now — to the newlyweds.')]}
+          outro:[
+            line(-1,'Нападение отбили. Теперь — к молодым.','Ambush repelled. Now — to the newlyweds.'),
+            line(0,'Свадьба без стрельбы. Редкость в этом городе.','A wedding without shooting. A rarity in this city.')
+          ]}
       ],
       // 7. «Октябрь»: разборка в Бутырке, где «Бригада» впервые встречает Каверина.
       6: [
@@ -4996,9 +5455,13 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           objective:{ru:'Разнять разборку в Бутырке',en:'Break up the brawl in Butyrka'},
           intro:[
             line(1,'В Бутырке свои законы. Но не для Каверина.','Butyrka has its own laws. But not for Kaverin.'),
-            line(0,'Только без стволов. Иначе нам отсюда не выйти.','No guns. Otherwise we won’t walk out of here.')
+            line(0,'Только без стволов. Иначе нам отсюда не выйти.','No guns. Otherwise we won’t walk out of here.'),
+            line(3,'Кулаки и бита. Больше ничего не достаём.','Fists and a bat. Nothing else comes out.')
           ],
-          outro:[line(-1,'Драка стихла. Каверин получил своё — на время.','The brawl died down. Kaverin got what he had coming — for a while.')]}
+          outro:[
+            line(-1,'Драка стихла. Каверин получил своё — на время.','The brawl died down. Kaverin got what he had coming — for a while.'),
+            line(1,'Он запомнит. И вернётся. Такие всегда возвращаются.','He’ll remember. And he’ll be back. His kind always come back.')
+          ]}
       ],
       // 9. «Цена встречи»: больницу с сыном Саши держит Лука.
       8: [
@@ -5006,31 +5469,49 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           objective:{ru:'Освободить больницу от людей Луки',en:'Clear the hospital of Luka’s men'},
           intro:[
             line(0,'Ваня на втором этаже. Лука держит палату.','Ivan is on the second floor. Luka is holding the ward.'),
-            line(3,'Значит, идём снизу и не останавливаемся.','Then we go in from below and don’t stop.')
+            line(3,'Значит, идём снизу и не останавливаемся.','Then we go in from below and don’t stop.'),
+            line(1,'Люди Луки не станут стрелять в больнице. Слишком громко.','Luka’s men won’t shoot in a hospital. Too loud.')
           ],
-          outro:[line(-1,'Палату удержали. Лука отступил — но ненадолго.','The ward held. Luka pulled back — but not for long.')]}
+          outro:[
+            line(-1,'Палату удержали. Лука отступил — но ненадолго.','The ward held. Luka pulled back — but not for long.'),
+            line(0,'Ваня жив. Всё остальное потом.','Ivan is alive. Everything else comes later.')
+          ]}
       ],
       // 10. «Признание»: поставку оружия в порту приходится отбивать с боем.
       9: [
         {poi:'port', type:'reach', intro:[
           line(2,'Машины с оружием уже в порту. Уйдут — уйдут навсегда.','The weapon trucks are already at the port. If they leave, they’re gone for good.'),
-          line(0,'Работаем быстро. Охрану снимаем, груз не трогаем.','We move fast. Take out the guards, leave the cargo.')
+          line(0,'Работаем быстро. Охрану снимаем, груз не трогаем.','We move fast. Take out the guards, leave the cargo.'),
+          line(1,'Кто-то из своих сдал маршрут. Разберёмся после.','Someone on our side leaked the route. We’ll sort that out after.')
         ]},
         {poi:'port', type:'kill', count:4, weapon:'tt', reward:400,
           objective:{ru:'Сорвать поставку оружия в порту',en:'Stop the arms shipment at the port'},
-          intro:[line(1,'Охрана по периметру. Сначала те, что у ворот.','Guards around the perimeter. The ones at the gate first.')],
-          outro:[line(-1,'Поставка сорвана. Введенский этого не забудет.','The shipment is stopped. Vvedensky won’t forget this.')]}
+          intro:[
+            line(1,'Охрана по периметру. Сначала те, что у ворот.','Guards around the perimeter. The ones at the gate first.'),
+            line(3,'Груз не поджигаем. Он нам ещё пригодится.','Don’t torch the cargo. We may still need it.')
+          ],
+          outro:[
+            line(-1,'Поставка сорвана. Введенский этого не забудет.','The shipment is stopped. Vvedensky won’t forget this.'),
+            line(0,'Стволы забираем с собой. Не пропадать же добру.','We take the guns with us. Good stuff shouldn’t go to waste.')
+          ]}
       ],
       // 12. «Видеокассета»: за Кордоном едут в видеосалон.
       11: [
         {poi:'video', type:'reach', intro:[
           say('olga','Кордон в видеосалоне. Одна я туда не пойду.','Kordon is in the video salon. I won’t go in alone.'),
-          line(0,'И не пойдёшь. Мы рядом.','And you won’t. We’re right there with you.')
+          line(0,'И не пойдёшь. Мы рядом.','And you won’t. We’re right there with you.'),
+          line(2,'Салон битком. Если начнём — пострадают люди.','The salon is packed. If we start shooting, civilians get hurt.')
         ]},
         {poi:'video', type:'kill', count:3, weapon:'tt', reward:300,
           objective:{ru:'Взять Кордона',en:'Take Kordon'},
-          intro:[line(0,'Кордон, выходи. Разговор будет коротким.','Kordon, come out. This will be a short conversation.')],
-          outro:[line(-1,'Кордона взяли в салоне. До допроса он не дожил — его убрали свои.','Kordon was taken in the salon. He never made it to questioning — his own men finished him.')]}
+          intro:[
+            line(0,'Кордон, выходи. Разговор будет коротким.','Kordon, come out. This will be a short conversation.'),
+            line(1,'Двери перекрыты. Через задний двор не уйдёт.','The doors are covered. He won’t slip out the back.')
+          ],
+          outro:[
+            line(-1,'Кордона взяли в салоне. До допроса он не дожил — его убрали свои.','Kordon was taken in the salon. He never made it to questioning — his own men finished him.'),
+            line(0,'Свои убрали своего. Значит, боялись, что заговорит.','His own people killed him. Which means they feared he’d talk.')
+          ]}
       ],
       // 6. «Старый сослуживец»: старые враги Фархада устраивают засаду в порту.
       5: [
@@ -5038,31 +5519,49 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           objective:{ru:'Отбить засаду на складах',en:'Fight off the ambush at the warehouses'},
           intro:[
             say('farhad','Саша, это не мои люди. Это те, кто пришёл за мной.','Sasha, those aren’t my men. They came for me.'),
-            line(0,'Тогда пусть останутся здесь.','Then they stay here.')
+            line(0,'Тогда пусть останутся здесь.','Then they stay here.'),
+            line(1,'Склады длинные. Держимся вместе, не разбегаемся.','The warehouses are long. We stick together, no splitting up.')
           ],
-          outro:[line(-1,'Склады затихли. Фархад жив, и это главное.','The warehouses went quiet. Farhad is alive — that’s what matters.')]}
+          outro:[
+            line(-1,'Склады затихли. Фархад жив, и это главное.','The warehouses went quiet. Farhad is alive — that’s what matters.'),
+            line(0,'Старые долги приходят за всеми. Даже сюда.','Old debts come for everyone. Even here.')
+          ]}
       ],
       // 13. «Новые соперники»: в клубе «Арбат» на бригаду наезжают новые хозяева.
       12: [
         {poi:'club', type:'reach', intro:[
           line(2,'В клубе какие-то новые с «крышей» из девяносто восьмых. Хотят долю.','Some new faces with ’98 muscle are at the club. They want a cut.'),
-          line(0,'Поговорим. Без стволов.','We’ll talk. No guns.')
+          line(0,'Поговорим. Без стволов.','We’ll talk. No guns.'),
+          line(1,'«Бык» у них один. Уберём его — остальные сдуются.','They’ve got one enforcer. Take him down and the rest fold.')
         ]},
         {poi:'club', type:'kill', count:2, duel:true, reward:250,
           objective:{ru:'Выставить новых хозяев из клуба',en:'Throw the new owners out of the club'},
-          intro:[line(3,'Вон тот, в пиджаке, и его «бык». Остальные не рыпнутся.','The one in the jacket and his enforcer. The rest won’t move.')],
-          outro:[line(-1,'Клуб снова наш. Пока.','The club is ours again. For now.')]}
+          intro:[
+            line(3,'Вон тот, в пиджаке, и его «бык». Остальные не рыпнутся.','The one in the jacket and his enforcer. The rest won’t move.'),
+            line(0,'Музыку не выключать. Пусть танцуют, пока мы работаем.','Keep the music on. Let them dance while we work.')
+          ],
+          outro:[
+            line(-1,'Клуб снова наш. Пока.','The club is ours again. For now.'),
+            line(2,'Девяносто восьмые не простят. Но это уже не наши проблемы.','The ’98 crowd won’t forgive this. But that’s not our problem now.')
+          ]}
       ],
       // 14. «Выборы»: штаб Белова пытаются разгромить люди Каверина.
       13: [
         {poi:'press', type:'reach', intro:[
           line(1,'Штаб. Погромщики уже внутри, охрана их не держит.','The HQ. The thugs are already inside, the guards can’t hold them.'),
-          line(0,'Едем. Кампания без выстрелов закончилась.','We’re going. The campaign without shots is over.')
+          line(0,'Едем. Кампания без выстрелов закончилась.','We’re going. The campaign without shots is over.'),
+          line(2,'Бумаги и списки — в первую очередь. Без них выборов нет.','Papers and voter lists first. Without them there’s no election.')
         ]},
         {poi:'press', type:'kill', count:4, weapon:'tt', reward:350,
           objective:{ru:'Защитить предвыборный штаб',en:'Defend the campaign headquarters'},
-          intro:[line(0,'Бумаги не трогать. Сначала — люди Каверина.','Don’t touch the papers. Kaverin’s people first.')],
-          outro:[line(-1,'Штаб устоял. Каверин проиграл ещё один раунд.','The HQ held. Kaverin lost another round.')]}
+          intro:[
+            line(0,'Бумаги не трогать. Сначала — люди Каверина.','Don’t touch the papers. Kaverin’s people first.'),
+            line(3,'Наверх не пускаем. Там архив.','Nobody goes upstairs. The archive is there.')
+          ],
+          outro:[
+            line(-1,'Штаб устоял. Каверин проиграл ещё один раунд.','The HQ held. Kaverin lost another round.'),
+            line(1,'Теперь это уже не бандитские разборки. Это политика.','This isn’t gang business any more. This is politics.')
+          ]}
       ]
     };
     const STORY = EPISODES.map(([year, ru, en, sr, se, start, end, action, er, ee], index) => {
@@ -5110,7 +5609,9 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     function showLine() {
       const l = scene.lines[scene.index];
       scene.line = l;
-      scene.timer = clamp((l.text.ru || '').length * 0.045, 1.8, 5.5);
+      // Реплики кат-сцен длинные и подробные — время на прочтение считаем по тексту,
+      // но верхнюю границу держим высокой, чтобы читать спокойно.
+      scene.timer = clamp((l.text.ru || '').length * 0.06, 2.8, 10);
       scene.skip = 0;
       scene.waiting = false;
       sceneProgress(0);
@@ -5352,6 +5853,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         }
         if (act < STORY.length - 1) {
           progress.act = act + 1; progress.chapter = 0;
+          // Каждая новая глава начинается днём; ночь придёт по ходу игры.
+          worldTime = 9;
           saveGame();
           B.notify(B.localized({ru:`Глава ${act + 2}: ${STORY[act + 1].title.ru}`, en:`Chapter ${act + 2}: ${STORY[act + 1].title.en}`}));
           applyChapter();
@@ -5373,6 +5876,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         return;
       }
       progress.chapter++;
+      // Следующая глава тоже начинается днём.
+      worldTime = 9;
       saveGame();
       applyChapter();
     }
@@ -5399,8 +5904,9 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       u.angle = Math.atan2(w.y - u.y, w.x - u.x);
     }
     function handleFiring(dt, u) {
-      if (u.dead || u.down || u.inVehicle || !combatAt(u.x,u.y)) { firePressed = false; return; }
-      const w = mission.def.duel ? WEAPONS.fists : unitWeapon(u);
+      // Стрелять можно и в свободном режиме, а не только в зоне боя.
+      if (u.dead || u.down || u.inVehicle) { firePressed = false; return; }
+      const w = (mission && mission.def && mission.def.duel) ? WEAPONS.fists : unitWeapon(u);
       const held = fireHeld || touchFire || input.padFire;
       if (!held) { firePressed = false; return; }
       if (w.melee || w.auto) {
@@ -5540,18 +6046,27 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       activeHero = heroAlive(activeHero) ? activeHero : (squad.findIndex((_, i) => heroAlive(i)) || 0);
     }
     function garageAction() {
-      const next = WEAPON_ORDER.find(id => !WEAPONS[id].melee && !ownedGuns.has(id) && WEAPONS[id].price > 0 && WEAPONS[id].price <= money);
+      // До 4-й главы новые стволы не продаются, но патроны продаются всегда.
+      const canBuyGuns = armorUnlocked();
+      // После 4-й главы можно докупить и холодное оружие, и стволы — но только не купленное ранее.
+      const forSale = id => WEAPONS[id].price > 0 && WEAPONS[id].price <= money
+        && (WEAPONS[id].melee ? !meleeOwned[id] : !ownedGuns.has(id));
+      const next = canBuyGuns ? WEAPON_ORDER.find(forSale) : null;
       if (next) {
         money -= WEAPONS[next].price;
-        giveWeapon(next, (WEAPONS[next].mag || 8) * 4);
+        giveWeapon(next, WEAPONS[next].melee ? 0 : (WEAPONS[next].mag || 8) * 4);
         Audio.play('lock', {gain:0.8});
         B.notify(B.localized({ru:`Куплено: ${WEAPONS[next].name.ru}`, en:`Bought: ${WEAPONS[next].name.en}`}));
         return;
       }
+      if (!canBuyGuns && WEAPON_ORDER.some(forSale)) {
+        B.notify(B.localized({ru:'Всё остальное оружие появится после 4-й главы — пока пополняем патроны', en:'The rest of the weapons appear after Chapter 4 — for now we restock ammo'}));
+      }
       const cost = 600;
       if (money >= cost) {
         money -= cost;
-        for (const id of ownedGuns) addAmmo(id, (WEAPONS[id].mag || 8) * 4);
+        // Каждому герою — в его личный боезапас.
+        restockSquadAmmo(4);
         loadout.grenades += 2;
         Audio.play('cash', {gain:0.8});
         B.notify(B.localized({ru:'Патроны и гранаты пополнены', en:'Ammo and grenades restocked'}));
@@ -5569,12 +6084,31 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       const u = currentHero();
       if (!u || u.dead || u.down) return;
       if (u.inVehicle) { exitVehicle(u); return; }
-      if (atStoryMeeting(u)) { mission.talked = true; updateStory(0); return; }
+      if (atStoryMeeting(u)) {
+        // Сюжетную сцену ведёт только тот герой, от которого она требуется.
+        if (!canLeadStoryTalk()) return;
+        mission.talked = true; updateStory(0); return;
+      }
       const npc = storyNpcAt(u);
-      if (npc) { talkStoryNpc(npc); return; }
+      if (npc) {
+        if (!canLeadStoryTalk(npc.npcLead)) return;
+        talkStoryNpc(npc); return;
+      }
       if (interactTarget && interactTarget.type === 'mate') { talkSquadMate(interactTarget.mate); return; }
       if (interactTarget && interactTarget.type === 'vehicle') { enterVehicle(u, interactTarget.v); return; }
       if (interactTarget && interactTarget.type === 'poi') usePoi(interactTarget.poi);
+    }
+    // Сюжетный диалог/кат-сцену может начать только нужный герой.
+    // Если за другого — звучит отказ: «Мне с ним поговорить надо, а не с тобой».
+    function storyLeadHero() {
+      const lead = mission && mission.def ? mission.def.lead : undefined;
+      return Number.isInteger(lead) ? lead : 0; // по сюжету ведёт Саша Белый
+    }
+    function canLeadStoryTalk(required) {
+      const need = Number.isInteger(required) ? required : storyLeadHero();
+      if (need < 0 || activeHero === need) return true;
+      B.notify(B.localized({ru:'Мне с ним поговорить надо, а не с тобой', en:'I need to talk to him, not you'}));
+      return false;
     }
     function atStoryMeeting(u) {
       return mission?.phase === 'active' && mission.def.type === 'meet' && mission.mark &&
@@ -5995,7 +6529,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         const cost = Math.round(400 * deal);
         if (money >= cost) {
           money -= cost;
-          for (const id of ownedGuns) addAmmo(id, (WEAPONS[id].mag || 8) * 2);
+          restockSquadAmmo(2);
           loadout.grenades += 1;
           Audio.play('cash', {gain:0.8});
           B.notify(B.localized({ru:'Патроны и граната куплены', en:'Ammo and a grenade bought'}));
@@ -6507,6 +7041,11 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       });
       u.ai.timer = Math.random() * 3;
       u.ai.provoked = false;
+      // Сразу встаём на тротуар своей улицы и идём вдоль него.
+      const ax = closestAxis(x, XC), ay = closestAxis(y, YC);
+      u.ai.alongY = Math.abs(x - ax) <= Math.abs(y - ay);
+      u.ai.side = u.ai.alongY ? (x >= ax ? 1 : -1) : (y >= ay ? 1 : -1);
+      u.ai.dir = Math.random() < 0.5 ? -1 : 1;
       u.sayCd = 5 + Math.random() * 30;
     }
     function spawnTraffic(x, y) {
@@ -6520,11 +7059,62 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         const hx=Math.cos(a), hy=Math.sin(a);
         if (![-64,0,140].every(d=>roadAt(px+hx*d,py+hy*d))) continue;
         if (vehicles.some(v=>dist(v.x,v.y,px,py)<145)) continue;
+        // Не спавним на перекрёстке: там машины поворачивают, места мало.
+        const icx = closestAxis(px, XC), icy = closestAxis(py, YC);
+        if (Math.abs(px-icx) < 96 && Math.abs(py-icy) < 96) continue;
+        // Полоса впереди должна быть свободна: новая машина не «вырастает» перед носом
+        // у идущей, иначе поток тут же бьёт по тормозам. Сзади — с запасом на разгон.
+        if (vehicles.some(v => {
+          const dx = v.x - px, dy = v.y - py;
+          const fwd = dx * hx + dy * hy;
+          const lat = Math.abs(-dx * hy + dy * hx);
+          return lat < 60 && fwd > -160 && fwd < 260;
+        })) continue;
+        const hero = currentHero();
+        if (hero) {
+          const c = unitCenter(hero);
+          if (dist(c.x, c.y, px, py) < 320) continue;
+        }
         const v=makeVehicle(pickCivilianModel(),px,py,a,{role:'traffic',parked:false,lights:true});
-        v.speed=130;
+        v.speed=112;
         return v;
       }
       return null;
+    }
+    // Свободные машины стоят и вдоль обочин, как в живом городе: параллельно дороге,
+    // за кромкой проезжей части, чтобы никому не мешать. Часть обочин остаётся пустой.
+    function spawnRoadsideCars() {
+      for (const vertical of [true, false]) {
+        const centers = vertical ? XC : YC;
+        for (const c of centers) {
+          for (let t = 200; t < WORLD - 200; t += 96) {
+            const along = t + (hash(c | 0, t | 0, vertical ? 81 : 82) - 0.5) * 44;
+            const rx = vertical ? c : along;
+            const ry = vertical ? along : c;
+            if (!roadAt(rx, ry)) continue;
+            // У перекрёстков не паркуемся — там поток поворачивает.
+            if (Math.abs(along - closestAxis(along, vertical ? YC : XC)) < 140) continue;
+            if (hash(rx | 0, ry | 0, vertical ? 83 : 84) < 0.5) continue;
+            const side = hash(rx | 0, ry | 0, 85) < 0.5 ? -1 : 1;
+            const off = 94;
+            const px = vertical ? c + side * off : rx;
+            const py = vertical ? ry : c + side * off;
+            const angle = vertical ? Math.PI / 2 : 0;
+            // Корпус должен целиком стоять на свободном месте, а не на проезжей части.
+            const pts = vertical
+              ? [[px - 23, py - 53], [px + 23, py - 53], [px - 23, py + 53], [px + 23, py + 53]]
+              : [[px - 53, py - 23], [px + 53, py - 23], [px - 53, py + 23], [px + 53, py + 23]];
+            if (pts.some(([x, y]) => blockedAt(x, y) || roadAt(x, y))) continue;
+            if (vehicles.some(v => dist(v.x, v.y, px, py) < 132)) continue;
+            // Киоски, баки, деревья и прочая уличная мебель — не место для парковки.
+            const propClash = props.some(o => !['parking','path','yard','park','runway','overpass','fence','neon','deck'].includes(o.type) &&
+              Math.abs(o.x + o.w / 2 - px) < (o.w + 106) / 2 &&
+              Math.abs(o.y + o.h / 2 - py) < (o.h + 45) / 2);
+            if (propClash) continue;
+            makeVehicle(pickCivilianModel(), px, py, angle, {parked:true, lights:false, role:'civilian'});
+          }
+        }
+      }
     }
     // Именные машины по сюжету сериала (данные о съёмках): в первых четырёх главах
     // Бригада ездит на Lincoln Town Car 1982 года Космоса, затем у Саши BMW E34,
@@ -6757,6 +7347,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           makeVehicle(pickCivilianModel(),px,py,0,{parked:true,lights:false,role:'civilian'});
         }
       }
+      spawnRoadsideCars();
       maintainAmbient(1, true);
     }
     function maintainAmbient(dt, force) {
@@ -6776,7 +7367,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       ambientTimer = 1.4;
       const cx = camera.x, cy = camera.y;
       const scale = B.settings.particles === 'low' ? 0.55 : 1;
-      const wantPeds = Math.round(26 * scale), wantTraffic = Math.round(14 * scale);
+      const wantPeds = Math.round(26 * scale), wantTraffic = Math.round(18 * scale);
       for (let i = units.length - 1; i >= 0; i--) {
         const u = units[i];
         if (u.team === 'ped' && !u.storyNpc && dist(u.x, u.y, cx, cy) > 3200) units.splice(i, 1);
@@ -6791,12 +7382,13 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       }
       for (const v of vehicles) if (v.role === 'traffic' && dist(v.x, v.y, cx, cy) < 3200) traffic++;
       for (let i = peds; i < wantPeds; i++) {
-        const p = roadPointNear(cx, cy, 700, 2200);
+        // Пешеходы появляются на тротуарах, а не посреди проезжей части.
+        const p = sidewalkPointNear(cx, cy, 500, 2100);
         if (!p) break;
-        const x=p.x+(Math.random()-.5)*120, y=p.y+(Math.random()-.5)*120;
-        if (!blockedAt(x,y)) spawnPed(x,y);
+        spawnPed(p.x, p.y);
       }
       for (let i = traffic; i < wantTraffic; i++) {
+        // В пределах «живой» зоны (дальше 2900 машин уже стоят).
         const p = roadPointNear(cx, cy, 900, 2600);
         if (!p) break;
         spawnTraffic(p.x, p.y);
@@ -6894,8 +7486,12 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           return;
         }
       }
-      worldTime += dt * (24 / 480);
-      if (worldTime >= 24) worldTime -= 24;
+      // Время суток идёт только в самой игре: на кат-сценах оно замирает,
+      // поэтому глава не «съедает» день на диалогах.
+      if (!scene) {
+        worldTime += dt * (24 / 480);
+        if (worldTime >= 24) worldTime -= 24;
+      }
       updateWeather(dt);
       const hero = currentHero();
       if (hero && !hero.dead && !hero.down) {
@@ -6991,7 +7587,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         money, worldTime, hero:activeHero,
         guns:[...ownedGuns], melee:{...meleeOwned}, ammo:{...loadout.ammo}, grenades:loadout.grenades,
         squad:squad.map(s => ({hp:Math.round(s.hp), armor:Math.round(s.armor), down:Boolean(s.down || s.dead),
-          outfit:s.outfit, weapon:s.weapon, mag:s.mag})),
+          outfit:s.outfit, weapon:s.weapon, mag:s.mag, arsenal:heroArsenal(s).slice(), ammo:{...s.ammoPool}})),
         x:u ? u.x : POI.yard.x, y:u ? u.y : POI.yard.y,
         territory:territoryHeld.slice()
       };
@@ -7031,7 +7627,21 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         u.hp = clamp(Number.isFinite(s.hp) ? s.hp : u.maxHp,1,u.maxHp);
         u.armor = armorUnlocked() ? clamp(Number.isFinite(s.armor) ? s.armor : 0, 0, 100) : 0; u.down = Boolean(s.down);
         equipOutfit(u,wardrobeOwned.has(s.outfit) ? s.outfit : 'original');
-        if (ownedGuns.has(s.weapon) || (Object.hasOwn(WEAPONS,s.weapon) && WEAPONS[s.weapon].melee)) {
+        // Личный арсенал и личные патроны героя.
+        u.ammoPool = {};
+        if (s.ammo && typeof s.ammo === 'object') {
+          for (const id in s.ammo) if (Object.hasOwn(WEAPONS,id)) u.ammoPool[id] = Math.max(0, s.ammo[id] | 0);
+        }
+        // У старых сохранений личного арсенала нет — выдаём стартовый набор героя.
+        if (Array.isArray(s.arsenal)) {
+          u.arsenal = s.arsenal.filter(id => Object.hasOwn(WEAPONS,id));
+        } else {
+          const kit = [['pm',32],['nagan',21],['knuckles',0],['bat',0]][i] || ['pm',32];
+          u.arsenal = ['fists', kit[0]];
+          if (!WEAPONS[kit[0]].melee && !u.ammoPool[kit[0]]) u.ammoPool[kit[0]] = kit[1];
+        }
+        if (!u.arsenal.includes('fists')) u.arsenal.unshift('fists');
+        if (u.arsenal.includes(s.weapon)) {
           u.weapon = s.weapon; u.mag = clamp(s.mag | 0,0,WEAPONS[u.weapon].mag || 0);
         }
         if (u.down) u.hp = 0;
@@ -7053,7 +7663,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       progress = {act:0, chapter:0, completed:[]};
       campaignFinished = false; replaySnapshot = null;
       spawnSquad(POI.yard.x, POI.yard.y);
-      worldTime = 8.5;
+      worldTime = 9;
       weather = {type:'clear', intensity:0, timer:30, storm:false, season:null};
       syncWeatherSeason(true);
       territoryHeld = [1, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -7220,6 +7830,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         el.addEventListener('lostpointercapture', up);
       };
       press('touch-fire', () => { touchFire = true; firePressed = true; }, () => { touchFire = false; });
+      press('touch-gas', () => { input.touchGas = true; }, () => { input.touchGas = false; });
+      press('touch-back', () => { input.touchBack = true; }, () => { input.touchBack = false; });
       const tap = (id, fn) => { const el = document.getElementById(id); if (el) el.addEventListener('click', event => { event.preventDefault(); fn(); }); };
       tap('touch-interact', interact);
       tap('touch-weapon', () => switchWeapon(1));
@@ -7228,7 +7840,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     }
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('keyup', onKeyUp);
-    window.addEventListener('blur', () => { keys.clear(); fireHeld = false; touchFire = false; resetPad(); });
+    window.addEventListener('blur', () => { keys.clear(); fireHeld = false; touchFire = false; input.touchGas = false; input.touchBack = false; resetPad(); });
     window.addEventListener('resize', () => { needResize = true; if (running) resizeRenderer(); });
     window.addEventListener('orientationchange', () => { needResize = true; setTimeout(() => { if (running) resizeRenderer(); }, 150); });
     window.visualViewport?.addEventListener('resize', () => { needResize = true; if (running) resizeRenderer(); });
@@ -7293,6 +7905,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         const pos = freePoint(POI[p].x,POI[p].y);
         progress = {act, chapter:0, completed:snapshot.completed.slice()};
         spawnSquad(pos.x,pos.y);
+        // Переигровка главы тоже начинается днём.
+        worldTime = 9;
         populateWorld();
         camera.x = pos.x; camera.y = pos.y;
         running = true; paused = false; lastTime = performance.now();
