@@ -11,8 +11,12 @@
 :root{color-scheme:dark;--ink:#07090b;--panel:#0d1215;--raised:#161d22;--line:#2c343a;--text:#ece7dd;--muted:#a4adb2;--gold:#d1b07b;--red:#7f2f25;--body-font:"Trebuchet MS","Verdana",sans-serif;--display-font:"Impact","Arial Narrow","Haettenschweiler",sans-serif}
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html,body{width:100%;height:100%;margin:0;overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
-body{background:var(--ink);color:var(--text);font:15px/1.5 var(--body-font);touch-action:manipulation}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;touch-action:pan-x pan-y;overscroll-behavior:none;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{background:var(--ink);color:var(--text);font:15px/1.5 var(--body-font)}
+/* Телефон: отключаем системную лупу, выделение и перетаскивание текста. */
+*{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
+input,textarea,select,[contenteditable="true"]{-webkit-user-select:text;user-select:text}
+::selection{background:transparent;color:inherit}
 canvas,img{-webkit-user-drag:none;-webkit-user-select:none;user-select:none}
 body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.22;background:repeating-linear-gradient(0deg,#0000 0 3px,#0003 3px 4px),repeating-linear-gradient(90deg,#0000 0 7px,#0002 7px 8px);mix-blend-mode:overlay}
 button,input,select{font:inherit}
@@ -196,11 +200,27 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
 .touch-zone{pointer-events:auto;touch-action:none}
 .joy{position:fixed;width:124px;height:124px;margin:-62px 0 0 -62px;border-radius:50%;border:2px solid #a9b3b93d;background:#c4ced316;box-shadow:inset 0 0 22px #0006;display:none}
 .joy .joy-knob{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:#dde5e93a;border:2px solid #ccd4d96b;transform:translate(var(--ox,0),var(--oy,0))}
-.touch-buttons{position:absolute;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:grid;gap:10px;justify-items:end}
-.touch-button{pointer-events:auto;min-width:64px;min-height:52px;padding:10px 14px;text-align:center;background:color-mix(in srgb,var(--ink) 88%,#000);border:1px solid #465058;color:var(--text);font-weight:800;letter-spacing:.08em}
-.touch-button:active{transform:translateY(1px)}
-@media(pointer:coarse){.touch-button{border-color:#53616a}}
-@media(max-width:760px){.touch-button{min-width:58px;min-height:46px;font-size:13px}.touch-buttons{grid-template-columns:repeat(2,minmax(56px,auto));gap:8px;right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px))}}
+.touch-buttons{position:absolute;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:grid;gap:8px;grid-template-columns:repeat(2,minmax(58px,1fr));grid-template-areas:"hero pause" "weapon interact" "fire fire";width:min(184px,46vw);justify-items:stretch;align-items:stretch}
+.touch-button{pointer-events:auto;touch-action:none;min-width:0;min-height:52px;padding:10px 8px;text-align:center;background:color-mix(in srgb,var(--ink) 88%,#000);border:1px solid #465058;color:var(--text);font-weight:800;letter-spacing:.08em}
+.touch-button:active{transform:translateY(1px);background:#2a343b}
+#touch-hero{grid-area:hero}
+#touch-pause{grid-area:pause;font-size:18px;line-height:1}
+#touch-weapon{grid-area:weapon}
+#touch-interact{grid-area:interact}
+#touch-fire{grid-area:fire;min-height:64px;font-size:15px;letter-spacing:.14em;border-color:var(--gold);background:color-mix(in srgb,var(--gold) 20%,var(--ink))}
+@media(pointer:coarse){
+  .touch-button{border-color:#53616a}
+  /* Левая зона: джойстик закреплён на месте и не «всплывает» под пальцем. */
+  #joy-left{display:block;left:calc(16px + env(safe-area-inset-left,0px));top:auto;bottom:calc(16px + env(safe-area-inset-bottom,0px));margin:0;width:132px;height:132px;background:#c4ced30f;border-color:#a9b3b92e;box-shadow:inset 0 0 26px #0007}
+  #joy-left .joy-knob{width:58px;height:58px;margin:-29px 0 0 -29px;background:#dde5e94d}
+  /* Правая зона остаётся сенсорной, но без всплывающего круга-«лупы». */
+  #joy-right{display:none!important}
+}
+@media(max-width:760px){
+  .touch-buttons{right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));width:min(176px,48vw)}
+  .touch-button{min-height:50px;font-size:13px}
+  #touch-fire{min-height:60px}
+}
 /* --- Кросс-платформенная адаптация: iPhone / iPad / Mac --- */
 @media(pointer:coarse){
   .hud-shortcuts{display:none}
@@ -280,6 +300,50 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
 }
 @media(pointer:coarse) and (orientation:landscape) and (max-height:480px){
   #interaction-prompt{bottom:calc(90px + env(safe-area-inset-bottom,0px));max-width:56vw;padding:8px 12px;font-size:11px}
+}
+/* --- Мобильный HUD: карта сверху справа, ресурсы под ней, джойстик и кнопки внизу --- */
+@media(max-width:760px){
+  #hud{padding:calc(8px + env(safe-area-inset-top,0px)) calc(8px + env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) calc(8px + env(safe-area-inset-left,0px))}
+  .hud-top{display:flex;flex-direction:column;align-items:flex-start;gap:6px;max-width:calc(100% - 122px)}
+  .status-panel{width:auto;max-width:100%}
+  .mission-panel{max-width:100%}
+  .hud-bottom{display:block}
+  .radar-panel{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));right:calc(8px + env(safe-area-inset-right,0px));z-index:4;padding:4px}
+  #minimap{width:104px;height:104px}
+  #district-name{font-size:8px;margin-top:3px}
+  .resources-panel{position:fixed;top:calc(146px + env(safe-area-inset-top,0px));right:calc(8px + env(safe-area-inset-right,0px));z-index:4;min-width:104px;max-width:40vw;padding:7px 9px}
+  .squad-status{position:fixed;left:calc(10px + env(safe-area-inset-left,0px));bottom:calc(162px + env(safe-area-inset-bottom,0px));z-index:4;flex-direction:column;gap:2px;padding:6px 9px;font-size:8px;max-width:46vw}
+  .hud-shortcuts{display:none!important}
+  #interaction-prompt{bottom:calc(224px + env(safe-area-inset-bottom,0px));max-width:64vw}
+  /* Панель машины — в правой колонке под ресурсами, чтобы не наезжать на кнопки. */
+  .vehicle-panel{position:fixed;top:calc(232px + env(safe-area-inset-top,0px));right:calc(8px + env(safe-area-inset-right,0px));bottom:auto;width:min(168px,44vw);padding:7px 9px;gap:2px 8px;grid-template-columns:44px 1fr}
+  .vehicle-panel label{grid-template-columns:32px 1fr 24px;font-size:7px}
+  .vehicle-panel meter{height:5px}
+  .vehicle-panel output{font-size:7px}
+  #vehicle-speed{font-size:22px}
+  #vehicle-name{font-size:9px}
+  #vehicle-class{font-size:7px}
+}
+@media(pointer:coarse) and (orientation:landscape) and (max-height:520px){
+  #hud{padding:calc(6px + env(safe-area-inset-top,0px)) calc(8px + env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) calc(8px + env(safe-area-inset-left,0px))}
+  .hud-top{max-width:calc(100% - 104px)}
+  .radar-panel{position:fixed;top:calc(6px + env(safe-area-inset-top,0px));right:calc(8px + env(safe-area-inset-right,0px));z-index:4;padding:3px}
+  #minimap{width:86px;height:86px}
+  .resources-panel{position:fixed;top:calc(124px + env(safe-area-inset-top,0px));right:calc(8px + env(safe-area-inset-right,0px));z-index:4;min-width:86px;padding:6px 8px}
+  .squad-status{position:fixed;left:50%;bottom:calc(8px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:4;padding:5px 8px;font-size:8px;gap:10px}
+  #interaction-prompt{bottom:calc(96px + env(safe-area-inset-bottom,0px));max-width:52vw}
+  .vehicle-panel{position:fixed;top:calc(198px + env(safe-area-inset-top,0px));right:calc(8px + env(safe-area-inset-right,0px));bottom:auto;width:min(150px,36vw);padding:6px 8px;gap:2px 6px;grid-template-columns:40px 1fr}
+  .vehicle-panel label{grid-template-columns:30px 1fr 22px;font-size:6px}
+  .vehicle-panel meter{height:4px}
+  .vehicle-panel output{font-size:6px}
+  #vehicle-speed{font-size:18px}
+  #vehicle-name{font-size:8px}
+  #vehicle-class{font-size:6px}
+  #joy-left{left:calc(10px + env(safe-area-inset-left,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));width:112px;height:112px}
+  #joy-left .joy-knob{width:50px;height:50px;margin:-25px 0 0 -25px}
+  .touch-buttons{right:calc(10px + env(safe-area-inset-right,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));width:min(154px,40vw);gap:6px}
+  .touch-button{min-height:44px;font-size:11px;padding:6px}
+  #touch-fire{min-height:52px;font-size:13px}
 }
 </style>
 </head>
@@ -1318,6 +1382,10 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     document.addEventListener('contextmenu', event => {
       if (playing || event.target.closest?.('#game-canvas, #cover-canvas, #hud, #touch-ui, #cutscene')) event.preventDefault();
     });
+    // Safari: запрет жестового зума двумя пальцами.
+    for (const type of ['gesturestart', 'gesturechange', 'gestureend']) {
+      document.addEventListener(type, event => { if (!isFormField(event)) event.preventDefault(); }, {passive:false});
+    }
 
     // The cover is painted into a cached canvas; only snow and reflected light animate.
     const canvas = $('cover-canvas'), ctx = canvas.getContext('2d', {alpha:false});
@@ -7089,7 +7157,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     function bindTouch() {
       const left = document.getElementById('touch-left');
       const right = document.getElementById('touch-right');
-      const stick = (el, joy, onMove, onEnd) => {
+      // fixed: джойстик закреплён на экране, направление считается от его центра.
+      const stick = (el, joy, onMove, onEnd, fixed = false) => {
         if (!el) return;
         el.style.touchAction = 'none';
         let active = null, ox = 0, oy = 0;
@@ -7108,19 +7177,34 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           if (active !== null) return;
           event.preventDefault();
           active = event.pointerId; el.setPointerCapture?.(event.pointerId);
-          ox = event.clientX; oy = event.clientY;
-          if (joy) { joy.style.left = `${ox}px`; joy.style.top = `${oy}px`; joy.style.setProperty('--ox', '0px'); joy.style.setProperty('--oy', '0px'); joy.style.display = 'block'; }
+          if (fixed && joy) {
+            const rect = joy.getBoundingClientRect();
+            ox = rect.left + rect.width / 2; oy = rect.top + rect.height / 2;
+            joy.style.setProperty('--ox', '0px'); joy.style.setProperty('--oy', '0px');
+          } else {
+            ox = event.clientX; oy = event.clientY;
+            if (joy) { joy.style.left = `${ox}px`; joy.style.top = `${oy}px`; joy.style.setProperty('--ox', '0px'); joy.style.setProperty('--oy', '0px'); joy.style.display = 'block'; }
+          }
           update(event);
         };
         el.addEventListener('pointerdown', start);
         el.addEventListener('pointermove', event => { if (active !== event.pointerId) return; event.preventDefault(); update(event); });
-        const end = event => { if (active !== event.pointerId) return; active = null; if (joy) joy.style.display = 'none'; onEnd(); };
+        const end = event => {
+          if (active !== event.pointerId) return;
+          active = null;
+          if (joy) {
+            if (fixed) { joy.style.setProperty('--ox', '0px'); joy.style.setProperty('--oy', '0px'); }
+            else joy.style.display = 'none';
+          }
+          onEnd();
+        };
         el.addEventListener('pointerup', end);
         el.addEventListener('pointercancel', end);
         el.addEventListener('lostpointercapture', end);
       };
-      stick(left, document.getElementById('joy-left'), (x, y) => { input.touchMove.x = x; input.touchMove.y = y; }, () => { input.touchMove.x = 0; input.touchMove.y = 0; });
-      stick(right, document.getElementById('joy-right'), (x, y) => {
+      // Слева — ходьба от закреплённого джойстика; справа — прицел без всплывающего круга.
+      stick(left, document.getElementById('joy-left'), (x, y) => { input.touchMove.x = x; input.touchMove.y = y; }, () => { input.touchMove.x = 0; input.touchMove.y = 0; }, true);
+      stick(right, null, (x, y) => {
         const aim = Math.hypot(x,y);
         input.touchAim = aim > .1 ? {x,y} : null;
         const firing = aim > .3;
