@@ -110,7 +110,13 @@ output{color:var(--gold);text-align:right;font-variant-numeric:tabular-nums;font
 .controls-list dd{margin:0;font-size:14px}
 .controls-list dt{color:var(--gold)}
 kbd{font:12px var(--body-font);color:var(--gold)}
-#hud{position:fixed;inset:0;z-index:3;padding:calc(22px + env(safe-area-inset-top,0px)) calc(22px + env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) calc(22px + env(safe-area-inset-left,0px));pointer-events:none;display:flex;flex-direction:column;justify-content:space-between}
+/* Переназначение клавиш: сама клавиша — кнопка, alt-клавиша показана подписью. */
+.controls-list dt{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+button.keybind{min-width:78px;min-height:34px;padding:6px 12px;text-align:center;text-transform:uppercase;font:12px var(--body-font);letter-spacing:.06em}
+button.keybind.capturing{background:var(--gold);color:#111315;border-color:var(--gold);font-weight:800}
+@media(max-width:520px){button.keybind{min-width:56px;padding:6px 8px}}
+.bind-alt{color:var(--muted);font-size:11px;letter-spacing:.08em}
+#hud{position:fixed;inset:0;z-index:3;padding:calc(clamp(10px,2.4vmin,22px) + env(safe-area-inset-top,0px)) calc(clamp(10px,2.4vmin,22px) + env(safe-area-inset-right,0px)) calc(clamp(10px,2.4vmin,22px) + env(safe-area-inset-bottom,0px)) calc(clamp(10px,2.4vmin,22px) + env(safe-area-inset-left,0px));pointer-events:none;display:flex;flex-direction:column;justify-content:space-between}
 .hud-top,.hud-bottom{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
 .hud-bottom{align-items:flex-end}
 .status-panel,.mission-panel,.resources-panel,.radar-panel,.squad-status{background:color-mix(in srgb,var(--ink) 92%,#000);border:1px solid var(--line);padding:12px 15px}
@@ -123,6 +129,8 @@ meter::-webkit-meter-optimum-value{background:#b5c29b}
 #armor-meter::-webkit-meter-optimum-value{background:#8da8b5}
 meter::-moz-meter-bar{background:#b5c29b}
 #armor-meter::-moz-meter-bar{background:#8da8b5}
+#stamina-meter::-webkit-meter-optimum-value{background:#3f9fd0}
+#stamina-meter::-moz-meter-bar{background:#3f9fd0}
 #hero-perk{display:block;color:var(--gold);font-size:10px;margin-top:6px;text-transform:uppercase;letter-spacing:.18em}
 .mission-panel{max-width:340px;padding:8px 12px}
 .mission-panel:has(#mission-title:empty){display:none}
@@ -139,7 +147,7 @@ meter::-moz-meter-bar{background:#b5c29b}
 #ammo-value{font-size:11px;color:var(--muted)}
 #money-value{font-variant-numeric:tabular-nums}
 .radar-panel{padding:6px}
-#minimap{width:180px;height:180px;background:#141b20}
+#minimap{width:clamp(96px,16vmin,180px);height:clamp(96px,16vmin,180px);background:#141b20}
 #district-name{font-size:10px;display:block;text-align:center;margin-top:5px;text-transform:uppercase;letter-spacing:.12em;color:#c0c8cb;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
 .squad-status{display:flex;gap:20px;font-size:11px;text-transform:uppercase;letter-spacing:.08em}
 .squad-status span{color:var(--muted)}
@@ -205,24 +213,24 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
 .touch-zone{pointer-events:auto;touch-action:none}
 .joy{position:fixed;width:124px;height:124px;margin:-62px 0 0 -62px;border-radius:50%;border:2px solid #a9b3b93d;background:#c4ced316;box-shadow:inset 0 0 22px #0006;display:none}
 .joy .joy-knob{position:absolute;left:50%;top:50%;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;background:#dde5e93a;border:2px solid #ccd4d96b;transform:translate(var(--ox,0),var(--oy,0))}
-.touch-buttons{position:absolute;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:grid;gap:8px;grid-template-columns:repeat(2,minmax(58px,1fr));grid-template-areas:"hero pause" "weapon interact" "fire fire";width:min(184px,46vw);justify-items:stretch;align-items:stretch}
+.touch-buttons{position:absolute;right:calc(14px + env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));display:grid;gap:8px;grid-template-columns:repeat(3,minmax(52px,1fr));grid-template-areas:"hero pause dash" "weapon interact fire";width:min(238px,58vw);justify-items:stretch;align-items:stretch}
 .touch-button{pointer-events:auto;touch-action:none;min-width:0;min-height:52px;padding:10px 8px;text-align:center;background:color-mix(in srgb,var(--ink) 88%,#000);border:1px solid #465058;color:var(--text);font-weight:800;letter-spacing:.08em}
 .touch-button:active{transform:translateY(1px);background:#2a343b}
 #touch-hero{grid-area:hero}
 #touch-pause{grid-area:pause}
+#touch-dash{grid-area:dash}
 #touch-weapon{grid-area:weapon}
 #touch-interact{grid-area:interact}
 #touch-fire{grid-area:fire;min-height:64px;border-color:var(--gold);background:color-mix(in srgb,var(--gold) 20%,var(--ink))}
 /* Подписи кнопок — мелким шрифтом, чтобы не занимать лишнюю площадь. */
 .touch-button .tb-label{display:block;font-size:10px;letter-spacing:.06em;font-weight:600;line-height:1.15}
-/* За рулём: газ, назад (тормоз), действие и меню. */
+/* За рулём: газ, назад (тормоз), ручник, действие и меню. */
 #touch-gas,#touch-back{display:none}
-.touch-buttons.driving{grid-template-areas:"menu back" "action gas"}
+.touch-buttons.driving{grid-template-areas:"pause back dash" "interact gas gas"}
 .touch-buttons.driving #touch-fire,.touch-buttons.driving #touch-weapon,.touch-buttons.driving #touch-hero{display:none}
 .touch-buttons.driving #touch-gas{display:block;grid-area:gas;min-height:64px;border-color:var(--gold);background:color-mix(in srgb,var(--gold) 20%,var(--ink))}
 .touch-buttons.driving #touch-back{display:block;grid-area:back}
-.touch-buttons.driving #touch-interact{grid-area:action}
-.touch-buttons.driving #touch-pause{grid-area:menu}
+.touch-buttons.driving #touch-interact{grid-area:interact}
 @media(pointer:coarse){
   .touch-button{border-color:#53616a}
   /* Левая зона: джойстик закреплён на месте и не «всплывает» под пальцем. */
@@ -407,6 +415,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         <div class="status-panel">
           <p id="hero-name">Саша Белый</p>
           <label><span data-i18n="health">Здоровье</span><meter id="health-meter" min="0" max="100" value="100"></meter><output id="health-value">100</output></label>
+          <label><span data-i18n="stamina">Силы</span><meter id="stamina-meter" min="0" max="100" value="100"></meter><output id="stamina-value">100</output></label>
           <label id="armor-row" hidden><span data-i18n="armor">Броня</span><meter id="armor-meter" min="0" max="100" value="0"></meter><output id="armor-value">0</output></label>
           <span id="hero-perk"></span>
         </div>
@@ -441,6 +450,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       <button id="touch-interact" class="touch-button"><span class="tb-label" data-i18n="touchAction">Действие</span></button>
       <button id="touch-weapon" class="touch-button"><span class="tb-label" data-i18n="touchWeapon">Оружие</span></button>
       <button id="touch-hero" class="touch-button"><span class="tb-label" data-i18n="touchHero">Персонаж</span></button>
+      <!-- Подпись меняется на «Ручник» за рулём: та же клавиша Пробел, другой контекст. -->
+      <button id="touch-dash" class="touch-button"><span class="tb-label" data-i18n="tbDash">Рывок</span></button>
       <button id="touch-pause" class="touch-button"><span class="tb-label" data-i18n="touchMenu">Меню</span></button>
       <button id="touch-gas" class="touch-button"><span class="tb-label" data-i18n="touchGas">Газ</span></button>
       <button id="touch-back" class="touch-button"><span class="tb-label" data-i18n="touchBrake">Назад</span></button>
@@ -505,21 +516,10 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
 
   <section id="controls-screen" class="screen panel-screen" hidden aria-labelledby="controls-title">
     <div class="panel"><header class="panel-header"><div><p class="eyebrow" data-i18n="fieldManual">ПАМЯТКА БРИГАДИРА</p><h2 id="controls-title" data-i18n="controls">Управление</h2></div><button class="back-button" data-back data-i18n="back">Назад</button></header>
-      <dl class="controls-list">
-        <div><dt><kbd>W A S D</kbd> / <kbd>↑ ← ↓ →</kbd></dt><dd data-i18n="move">Движение / управление машиной</dd></div>
-        <div><dt><kbd>Shift</kbd></dt><dd data-i18n="sprint">Бег</dd></div>
-        <div><dt data-i18n="mouseLeft">ЛКМ</dt><dd data-i18n="fire">Огонь / удар</dd></div>
-        <div><dt><kbd>R</kbd></dt><dd data-i18n="reload">Перезарядка</dd></div>
-        <div><dt><kbd>E</kbd></dt><dd data-i18n="interact">Взаимодействовать / сесть / выйти</dd></div>
-        <div><dt><kbd>1 2 3 4</kbd></dt><dd data-i18n="switchHero">Белый / Космос / Пчёла / Фил</dd></div>
-        <div><dt><kbd>Q</kbd></dt><dd data-i18n="switchWeapon">Сменить оружие</dd></div>
-        <div><dt><kbd>G</kbd></dt><dd data-i18n="grenade">Граната</dd></div>
-        <div><dt><kbd>Space</kbd></dt><dd data-i18n="spaceHelp">Ручник в машине / удерживать для пропуска сцены</dd></div>
-        <div><dt><kbd>M</kbd> / <kbd>Esc</kbd></dt><dd data-i18n="mapPause">Карта / пауза</dd></div>
-        <div><dt>Xbox / PS</dt><dd data-i18n="padHelp">Левый стик — движение, правый — прицел. RT/R2 — огонь, LT/L2 — ручник. A/✕ — действие, B/○ — граната, X/□ — перезарядка, Y/△ — оружие. LB/L1 — герой, RB/R1 — оружие. Start — пауза, Back — карта.</dd></div>
-        <div><dt>Touch</dt><dd data-i18n="touchHelp">Левый стик — движение, правый — прицел и огонь. Кнопки справа: огонь, действие, оружие и смена героя.</dd></div>
-      </dl>
+      <dl class="controls-list" id="controls-list"></dl>
+      <p class="muted" id="bind-note" data-i18n="bindHint">Нажмите кнопку с клавишей и введите новую. Escape отменяет. Назначения сохраняются в браузере.</p>
       <p class="muted" data-i18n="desktopNote">Играть можно с клавиатуры и мыши, с геймпадом Xbox или PlayStation, а также на телефоне и планшете.</p>
+      <div class="form-footer"><button type="button" id="reset-controls" data-i18n="resetControls">Сбросить управление</button></div>
     </div>
   </section>
 
@@ -989,8 +989,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         partNotice:'Часть I: обложка, интерфейс и звук. Кампания откроется после подключения движка и сюжета.',
         readyNotice:'Москва ждёт. Начните новую историю или продолжите сохранённую.',
         brothers:'БЕЛЫЙ / КОСМОС / ПЧЁЛА / ФИЛ', byline:'BY KOLOSOV',
-        hud:'Игровой интерфейс', health:'Здоровье', armor:'Броня', map:'Карта Москвы', pause:'Пауза', minimap:'Миникарта', gameWorld:'Игровой мир',
-        touchFire:'Огонь', touchAction:'Действие', touchWeapon:'Оружие', touchHero:'Персонаж', touchMenu:'Меню', touchGas:'Газ', touchBrake:'Назад',
+        hud:'Игровой интерфейс', health:'Здоровье', armor:'Броня', stamina:'Силы', map:'Карта Москвы', pause:'Пауза', minimap:'Миникарта', gameWorld:'Игровой мир',
+        touchFire:'Огонь', touchAction:'Действие', touchWeapon:'Оружие', touchHero:'Персонаж', touchMenu:'Меню', touchGas:'Газ', touchBrake:'Назад', tbDash:'Рывок', tbHand:'Ручник',
         vehicleHull:'Кузов', vehicleCrashes:'Аварии', kmh:'км/ч',
         hold:'ВРЕМЯ ОСТАНОВЛЕНО', resume:'Вернуться в игру', returnMenu:'В главное меню', saveNotice:'Сохранение прогресса доступно в безопасных зонах.',
         preferences:'ЛИЧНОЕ ДЕЛО / ПАРАМЕТРЫ', back:'Назад', sound:'Звук', music:'Музыка', effects:'Эффекты',
@@ -1009,6 +1009,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         mapCanvas:'Карта: нажмите, чтобы поставить метку', objective:'Цель', squad:'Бригада', police:'Милиция', safeZone:'Безопасная зона', waypoint:'Ваша метка', territory:'Контроль территории',
         mapHelp:'Щелчок или Enter: поставить метку. Стрелки: переместить указатель. Колесо или +/−: масштаб.',
         fieldManual:'ПАМЯТКА БРИГАДИРА', move:'Движение / управление машиной', sprint:'Бег', mouseLeft:'ЛКМ', fire:'Огонь / удар',
+        resetControls:'Сбросить управление', pressKey:'Ждём клавишу…', rebindKey:'Назначить клавишу',
+        bindHint:'Нажмите кнопку с клавишей и введите новую. Escape отменяет. Назначения сохраняются в браузере.',
         reload:'Перезарядка', interact:'Взаимодействовать / сесть / выйти', switchHero:'Белый / Космос / Пчёла / Фил',
         switchWeapon:'Сменить оружие', grenade:'Граната', spaceHelp:'Ручник в машине / удерживать для пропуска сцены', mapPause:'Карта / пауза',
         padHelp:'Левый стик — движение, правый — прицел. RT/R2 — огонь, LT/L2 — ручник. A/✕ — действие, B/○ — граната, X/□ — перезарядка, Y/△ — оружие. LB/L1 — герой, RB/R1 — оружие. Start — пауза, Back — карта.',
@@ -1028,8 +1030,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         partNotice:'Part I: cover, interface and audio. The campaign unlocks when the engine and story are installed.',
         readyNotice:'Moscow awaits. Begin a new story or continue your saved game.',
         brothers:'BELY / KOSMOS / PCHYOLA / PHIL', byline:'BY KOLOSOV',
-        hud:'Game interface', health:'Health', armor:'Armor', map:'Moscow map', pause:'Paused', minimap:'Minimap', gameWorld:'Game world',
-        touchFire:'Fire', touchAction:'Action', touchWeapon:'Weapon', touchHero:'Hero', touchMenu:'Menu', touchGas:'Gas', touchBrake:'Back',
+        hud:'Game interface', health:'Health', armor:'Armor', stamina:'Stamina', map:'Moscow map', pause:'Paused', minimap:'Minimap', gameWorld:'Game world',
+        touchFire:'Fire', touchAction:'Action', touchWeapon:'Weapon', touchHero:'Hero', touchMenu:'Menu', touchGas:'Gas', touchBrake:'Back', tbDash:'Dash', tbHand:'Handbrake',
         vehicleHull:'Body', vehicleCrashes:'Crashes', kmh:'km/h',
         hold:'TIME STANDS STILL', resume:'Return to game', returnMenu:'Main menu', saveNotice:'Progress can be saved in safe zones.',
         preferences:'PERSONAL FILE / PREFERENCES', back:'Back', sound:'Audio', music:'Music', effects:'Effects',
@@ -1048,6 +1050,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         mapCanvas:'Map: click to place a waypoint', objective:'Objective', squad:'Squad', police:'Police', safeZone:'Safe zone', waypoint:'Your waypoint', territory:'Territory control',
         mapHelp:'Click or Enter: place a waypoint. Arrows: move cursor. Wheel or +/−: zoom.',
         fieldManual:'FIELD MANUAL', move:'Move / drive', sprint:'Sprint', mouseLeft:'LMB', fire:'Fire / strike',
+        resetControls:'Reset controls', pressKey:'Press a key…', rebindKey:'Rebind key',
+        bindHint:'Click a key button and press a new key. Escape cancels. Bindings are saved in this browser.',
         reload:'Reload', interact:'Interact / enter / exit vehicle', switchHero:'Bely / Kosmos / Pchyola / Phil',
         switchWeapon:'Switch weapon', grenade:'Grenade', spaceHelp:'Handbrake while driving / hold to skip a scene', mapPause:'Map / pause',
         padHelp:'Left stick moves, right stick aims. RT/R2 fires, LT/L2 is the handbrake. A/✕ interacts, B/○ throws a grenade, X/□ reloads, Y/△ switches weapon. LB/L1 switches hero, RB/R1 switches weapon. Start pauses, Back opens the map.',
@@ -1158,7 +1162,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       $('game-canvas').setAttribute('aria-label', t('gameWorld'));
       $('language-toggle').textContent = settings.language === 'ru' ? 'EN' : 'RU';
       $('language-toggle').setAttribute('aria-label', settings.language === 'ru' ? 'Switch to English' : 'Переключить на русский');
-      refreshSoundButton(); refreshSettings(); refreshCampaign(); renderHUD(hudState);
+      refreshSoundButton(); refreshSettings(); refreshCampaign(); renderHUD(hudState); renderControlsList();
       emit('language', settings.language);
     }
     function refreshSoundButton() {
@@ -1257,6 +1261,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       $('armor-row').hidden = s.armorUnlocked === false;
       $('armor-meter').value = Math.max(0, Math.min(100, s.armor ?? 0));
       $('health-value').value = Math.ceil($('health-meter').value); $('armor-value').value = Math.ceil($('armor-meter').value);
+      $('stamina-meter').value = Math.max(0, Math.min(100, s.stamina ?? 100));
+      $('stamina-value').value = Math.ceil($('stamina-meter').value);
       const wanted = Math.max(0, Math.min(5, Math.floor(s.wanted ?? 0)));
       $('wanted-stars').textContent = '★'.repeat(wanted) + '☆'.repeat(5 - wanted);
       $('wanted-stars').setAttribute('aria-label', wanted ? t('wanted', {n:wanted}) : t('noWanted'));
@@ -1276,8 +1282,10 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       const veh = s.vehicle;
       const panel = $('vehicle-panel');
       panel.hidden = !veh;
-      // За рулём экранные кнопки меняются на «газ / назад / действие / меню».
+      // За рулём экранные кнопки меняются на «газ / назад / ручник / действие / меню».
       $('touch-buttons').classList.toggle('driving', Boolean(veh));
+      const dashLabel = $('touch-dash')?.querySelector('.tb-label');
+      if (dashLabel) dashLabel.textContent = t(veh ? 'tbHand' : 'tbDash');
       if (veh) {
         $('vehicle-name').textContent = localized(veh.name);
         $('vehicle-class').textContent = localized(veh.className);
@@ -1294,10 +1302,196 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         panel.classList.toggle('warn', !veh.stalled && !veh.wrecked && crashes >= 5);
       }
     }
+    // ---------- Управление: действия вместо кодов клавиш ----------
+    // Движок спрашивает смысл нажатия (held('sprint'), consume('act')), а не раскладку
+    // клавиатуры: одно действие назначают клавиши, геймпад и экранные кнопки.
+    // Назначения сохраняются в хранилище и меняются на экране «Управление».
+    const CONTROL_DEFAULTS = {
+      up:['KeyW','ArrowUp'], down:['KeyS','ArrowDown'], left:['KeyA','ArrowLeft'], right:['KeyD','ArrowRight'],
+      sprint:['ShiftLeft','ShiftRight'], sneak:['ControlLeft','ControlRight'], dash:['Space'],
+      fire:['KeyJ'], act:['KeyE'], reload:['KeyR'], weapon:['KeyQ'], grenade:['KeyG'],
+      hero1:['Digit1'], hero2:['Digit2'], hero3:['Digit3'], hero4:['Digit4'],
+      handbrake:['Space'], map:['KeyM'], pause:['Escape'], next:['Space','Enter']
+    };
+    const CONTROL_ORDER = Object.keys(CONTROL_DEFAULTS);
+    const CONTROL_LABELS = {
+      up:{ru:'Движение вперёд / газ', en:'Forward / throttle'},
+      down:{ru:'Назад / тормоз', en:'Back / brake'},
+      left:{ru:'Влево', en:'Left'},
+      right:{ru:'Вправо', en:'Right'},
+      sprint:{ru:'Бег', en:'Sprint'},
+      sneak:{ru:'Тихий шаг', en:'Sneak'},
+      dash:{ru:'Рывок', en:'Dash'},
+      fire:{ru:'Огонь / удар (кроме мыши)', en:'Fire / strike (besides mouse)'},
+      act:{ru:'Действие · сесть · выйти', en:'Interact · enter · exit'},
+      reload:{ru:'Перезарядка', en:'Reload'},
+      weapon:{ru:'Сменить оружие', en:'Switch weapon'},
+      grenade:{ru:'Граната', en:'Grenade'},
+      hero1:{ru:'Герой: Белый', en:'Hero: Bely'},
+      hero2:{ru:'Герой: Космос', en:'Hero: Kosmos'},
+      hero3:{ru:'Герой: Пчёла', en:'Hero: Pchyola'},
+      hero4:{ru:'Герой: Фил', en:'Hero: Phil'},
+      handbrake:{ru:'Ручной тормоз в машине', en:'Handbrake while driving'},
+      map:{ru:'Карта города', en:'City map'},
+      pause:{ru:'Пауза', en:'Pause'},
+      next:{ru:'Дальше в сцене (тап) · пропуск (удержание)', en:'Next line (tap) · skip scene (hold)'}
+    };
+    // Пробел занят тремя делами сразу: пешком — рывок, в машине — ручник, в сцене — шаг
+    // вперёд. Контекст выбирает один, конфликтов между действиями нет.
+    const KEY_NICE = {
+      Space:{ru:'Пробел', en:'Space'}, Enter:{ru:'Enter', en:'Enter'}, Escape:{ru:'Esc', en:'Esc'},
+      ShiftLeft:{ru:'Shift слева', en:'Left Shift'}, ShiftRight:{ru:'Shift справа', en:'Right Shift'},
+      ControlLeft:{ru:'Ctrl слева', en:'Left Ctrl'}, ControlRight:{ru:'Ctrl справа', en:'Right Ctrl'},
+      AltLeft:'Alt', AltRight:'Alt Gr', Backspace:'⌫', Delete:'Del', Tab:'Tab',
+      ArrowUp:'↑', ArrowDown:'↓', ArrowLeft:'←', ArrowRight:'→'
+    };
+    const CONTROL_FORBIDDEN = new Set(['Tab','F5','F12','MetaLeft','MetaRight']);
+    const keyName = code => {
+      const nice = KEY_NICE[code];
+      if (nice) return typeof nice === 'string' ? nice : nice[settings.language] || code;
+      return String(code).replace(/^Key/, '').replace(/^Digit/, '').replace(/^Numpad/, 'Num ');
+    };
+    const controls = {
+      binds: (() => {
+        let stored = null;
+        try { stored = JSON.parse(storage.get('controls.v1') || 'null'); } catch { stored = null; }
+        const binds = {};
+        for (const action of CONTROL_ORDER) {
+          const raw = Array.isArray(stored?.[action]) ? stored[action].filter(c => typeof c === 'string' && c.length > 1 && c.length < 24) : null;
+          binds[action] = raw && raw.length ? raw.slice(0, 3) : CONTROL_DEFAULTS[action].slice();
+        }
+        return binds;
+      })(),
+      down:new Set(), edge:new Set(), pad:new Set(), padEdge:new Set(), touch:new Set(), touchEdge:new Set(), capturing:null,
+      held: action => controls.down.has(action) || controls.pad.has(action) || controls.touch.has(action),
+      consume: action => controls.edge.delete(action) || controls.padEdge.delete(action) || controls.touchEdge.delete(action),
+      clearEdges() { controls.edge.clear(); controls.padEdge.clear(); controls.touchEdge.clear(); },
+      releaseAll() { controls.down.clear(); controls.pad.clear(); controls.touch.clear(); controls.edge.clear(); controls.padEdge.clear(); controls.touchEdge.clear(); heldBy.clear(); },
+      padHold(action, value) {
+        if (value) { if (!controls.pad.has(action)) controls.padEdge.add(action); controls.pad.add(action); }
+        else controls.pad.delete(action);
+      },
+      padPress: action => { controls.padEdge.add(action); },
+      // Экранные кнопки живут отдельно от геймпада: опрос контроллера перезаписывает
+      // свои флаги каждый кадр и не должен сбрасать то, что держит палец.
+      touchHold(action, value) {
+        if (value) { if (!controls.touch.has(action)) controls.touchEdge.add(action); controls.touch.add(action); }
+        else controls.touch.delete(action);
+      },
+      touchPress: action => { controls.touchEdge.add(action); },
+      isPauseKey: code => Boolean(code) && controls.binds.pause.includes(code),
+      isMapKey: code => Boolean(code) && controls.binds.map.includes(code)
+    };
+    const heldBy = new Map();
+    const codeIndex = new Map();
+    function rebuildCodeIndex() {
+      codeIndex.clear();
+      for (const action of CONTROL_ORDER) {
+        for (const code of controls.binds[action]) {
+          if (!codeIndex.has(code)) codeIndex.set(code, []);
+          codeIndex.get(code).push(action);
+        }
+      }
+      heldBy.clear();
+    }
+    function setCode(code, isDown) {
+      const acts = codeIndex.get(code);
+      if (!acts) return;
+      for (const action of acts) {
+        let set = heldBy.get(action);
+        if (!set) { set = new Set(); heldBy.set(action, set); }
+        if (isDown) {
+          if (!set.size) { controls.down.add(action); controls.edge.add(action); }
+          set.add(code);
+        } else {
+          set.delete(code);
+          if (!set.size) controls.down.delete(action);
+        }
+      }
+    }
+    function persistControls() { storage.set('controls.v1', JSON.stringify(controls.binds)); }
+    // Экран «Управление»: список собирается кодом, чтобы метки переводились вместе с игрой.
+    function renderControlsList() {
+      const list = $('controls-list');
+      if (!list) return;
+      list.replaceChildren();
+      const row = (dtNodes, text) => {
+        const div = document.createElement('div');
+        const dt = document.createElement('dt');
+        dt.append(...dtNodes);
+        const dd = document.createElement('dd');
+        dd.textContent = text;
+        div.append(dt, dd);
+        list.append(div);
+      };
+      for (const action of CONTROL_ORDER) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'keybind';
+        button.dataset.action = action;
+        button.textContent = controls.capturing === action ? t('pressKey') : keyName(controls.binds[action][0]);
+        if (controls.capturing === action) button.classList.add('capturing');
+        button.setAttribute('aria-label', `${t('rebindKey')}: ${localized(CONTROL_LABELS[action])}`);
+        const nodes = [button];
+        const extra = controls.binds[action].slice(1).map(keyName);
+        if (extra.length) {
+          const alt = document.createElement('span');
+          alt.className = 'bind-alt';
+          alt.textContent = `/ ${extra.join(' / ')}`;
+          nodes.push(alt);
+        }
+        row(nodes, localized(CONTROL_LABELS[action]));
+      }
+      row([document.createTextNode('Xbox / PS')], t('padHelp'));
+      row([document.createTextNode('Touch')], t('touchHelp'));
+    }
+    function startCapture(action) {
+      controls.capturing = action;
+      controls.releaseAll();
+      renderControlsList();
+    }
+    function finishCapture(code) {
+      const action = controls.capturing;
+      controls.capturing = null;
+      if (action && code && !CONTROL_FORBIDDEN.has(code)) {
+        const alt = CONTROL_DEFAULTS[action].includes(code) ? CONTROL_DEFAULTS[action].filter(c => c !== code) : [];
+        controls.binds[action] = [code, ...alt].slice(0, 3);
+        persistControls();
+        rebuildCodeIndex();
+      }
+      renderControlsList();
+    }
+    rebuildCodeIndex();
+    // Слушаем раньше обработчиков меню: во время ввода новой клавиши остальной ввод глушится.
+    window.addEventListener('keydown', event => {
+      const inField = ['INPUT', 'SELECT', 'TEXTAREA'].includes(event.target?.tagName);
+      if (controls.capturing) {
+        if (inField) return;
+        event.preventDefault(); event.stopPropagation();
+        if (event.key === 'Escape') finishCapture(null);
+        else if (!event.repeat) finishCapture(event.code);
+        return;
+      }
+      if (inField || event.repeat) return;
+      setCode(event.code, true);
+    }, {capture:true});
+    window.addEventListener('keyup', event => { if (!controls.capturing) setCode(event.code, false); });
+    window.addEventListener('blur', () => controls.releaseAll());
+    document.addEventListener('click', event => {
+      const button = event.target.closest?.('.keybind');
+      if (!button) return;
+      event.preventDefault();
+      startCapture(button.dataset.action);
+    });
+    $('reset-controls')?.addEventListener('click', () => {
+      for (const action of CONTROL_ORDER) controls.binds[action] = CONTROL_DEFAULTS[action].slice();
+      persistControls(); rebuildCodeIndex(); renderControlsList(); notify(t('savedAutomatically'));
+    });
+
     // Parts II and III register one adapter after world, engine and story are ready.
     // Map coordinates are normalized to [0,1]; simulation coordinates stay in the engine.
     window.Brigada = Object.freeze({
-      version:1, settings, storage, events, t, localized, notify, renderHUD, refreshCampaign,
+      version:1, settings, storage, events, t, localized, notify, renderHUD, refreshCampaign, controls,
       get audio() { return audio(); },
       get screen() { return screen; },
       get playing() { return playing; },
@@ -1395,12 +1589,13 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     document.addEventListener('keydown', e => {
       if ($('confirmation').open || e.repeat) return;
       if (['INPUT','SELECT','TEXTAREA'].includes(e.target.tagName) && e.key !== 'Escape') return;
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && screen) {
         e.preventDefault();
-        if (!screen && playing) showScreen('pause-screen', false);
-        else if (screen === 'pause-screen') window.Brigada.resume();
+        if (screen === 'pause-screen') window.Brigada.resume();
         else if (screen !== 'main-menu') back();
-      } else if (e.code === 'KeyM' && playing) {
+      } else if (playing && !screen && controls.isPauseKey(e.code)) {
+        e.preventDefault(); showScreen('pause-screen', false);
+      } else if (controls.isMapKey(e.code) && playing) {
         e.preventDefault(); if (screen === 'map-screen') back(); else showScreen('map-screen');
       } else if (screen === 'map-screen' && game && ['+','=','-','_'].includes(e.key)) {
         // +/− приближают и уменьшают карту, даже если фокус не на самом полотне.
@@ -1643,6 +1838,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
   (() => {
     const B = window.Brigada, Audio = window.BrigadaAudio;
     if (!B || !Audio) return;
+    // Слой ввода оболочки: движок оперирует действиями, а не кодами клавиш.
+    const C = B.controls;
     const clamp = (v, a, b) => (v < a ? a : v > b ? b : v);
     const lerp = (a, b, k) => a + (b - a) * k;
     const TAU = Math.PI * 2;
@@ -2265,26 +2462,26 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       {ru:'Работаем, мужики.', en:'Let’s work, boys.'}
     ];
 
-    // Все машины одного «стандартного» габарита (106×45): различаются не размером,
-    // а характером — классом, тягой, сцеплением и узнаваемыми деталями кузова.
+    // Габариты машин взяты из «Арзамаса 90-х»: разный класс — разный размер.
+    // Компактные «Жигули» короче, лимузины и грузовик длиннее, внедорожники шире.
     // tier: 1 — «классика» и рабочая техника, 5 — престижные машины.
     const CAR_MODELS = {
-      nine:     {name:{ru:'ВАЗ-2109 «Девятка»',en:'VAZ-2109'},      w:106, h:45, mass:1.0,  power:205, maxSpeed:300, grip:0.62, hp:180, color:'#7a2f2a', style:'hatch', tier:1, look:'vaz2109', lamps:'rect',  grille:'slats'},
-      kabina:   {name:{ru:'Mercedes-Benz 600 SEL «Кабан»',en:'Mercedes-Benz 600 SEL'}, w:106, h:45, mass:2.2, power:680, maxSpeed:390, grip:0.80, hp:520, color:'#14181c', style:'limo', tier:5, look:'w140', lamps:'rect', grille:'star', trim:true, armored:true},
-      bmw:      {name:{ru:'BMW E34',en:'BMW E34'},                  w:106, h:45, mass:1.4,  power:375, maxSpeed:400, grip:0.77, hp:320, color:'#1d2a3a', style:'sedan', tier:4, look:'e34', lamps:'quad', grille:'kidney'},
-      lincoln:  {name:{ru:'Lincoln Town Car (1982)',en:'Lincoln Town Car (1982)'}, w:106, h:45, mass:2.0, power:520, maxSpeed:345, grip:0.78, hp:420, color:'#2c2a26', style:'limo', tier:4, look:'towncar', lamps:'wide', grille:'chrome', trim:true},
-      uaz:      {name:{ru:'Милицейский УАЗ',en:'Police UAZ'},       w:106, h:45, mass:1.8,  power:300, maxSpeed:310, grip:0.68, hp:430, color:'#2b3a52', style:'suv', tier:2, look:'uaz', lamps:'round', grille:'mesh', police:true},
-      six:      {name:{ru:'ВАЗ-2106 ДПС',en:'VAZ-2106 DPS'},        w:106, h:45, mass:1.05, power:212, maxSpeed:305, grip:0.64, hp:240, color:'#8a8f4a', style:'sedan', tier:1, look:'vaz2106', lamps:'round', grille:'chrome', police:true},
-      truck:    {name:{ru:'Грузовик',en:'Truck'},                   w:106, h:45, mass:2.6,  power:260, maxSpeed:255, grip:0.72, hp:700, color:'#3d4a3d', style:'truck', tier:2, look:'truck', lamps:'rect', grille:'bar'},
-      cruiser:  {name:{ru:'Toyota Land Cruiser 80',en:'Toyota Land Cruiser 80'}, w:106, h:45, mass:2.2, power:560, maxSpeed:360, grip:0.74, hp:560, color:'#2a3326', style:'suv', tier:4, look:'lc80', lamps:'round', grille:'mesh', rack:true},
-      volga:    {name:{ru:'ГАЗ-3102 «Волга»',en:'GAZ-3102 Volga'},  w:106, h:45, mass:1.45, power:265, maxSpeed:325, grip:0.67, hp:300, color:'#3b4a45', style:'sedan', tier:2, look:'volga', lamps:'rect', grille:'chrome', trim:true},
-      niva:     {name:{ru:'ВАЗ-2121 «Нива»',en:'VAZ-2121 Niva'},     w:106, h:45, mass:1.25, power:215, maxSpeed:290, grip:0.66, hp:260, color:'#4a5a3a', style:'suv', tier:1, look:'niva', lamps:'round', grille:'slats', spare:true},
-      audi:     {name:{ru:'Audi 100',en:'Audi 100'},                 w:106, h:45, mass:1.35, power:330, maxSpeed:370, grip:0.72, hp:310, color:'#20252b', style:'sedan', tier:3, look:'audi100', lamps:'rect', grille:'wide'},
-      volvo:    {name:{ru:'Volvo 850 Estate',en:'Volvo 850 Estate'}, w:106, h:45, mass:1.45, power:330, maxSpeed:355, grip:0.73, hp:300, color:'#333b36', style:'wagon', tier:3, look:'volvo850', lamps:'rect', grille:'slash'},
-      w124:     {name:{ru:'Mercedes-Benz W124',en:'Mercedes-Benz W124'}, w:106, h:45, mass:1.45, power:345, maxSpeed:372, grip:0.75, hp:320, color:'#2e3436', style:'sedan', tier:3, look:'w124', lamps:'rect', grille:'star', trim:true},
-      lambo:    {name:{ru:'Lamborghini LM002',en:'Lamborghini LM002'}, w:106, h:45, mass:2.4, power:800, maxSpeed:400, grip:0.82, hp:600, color:'#4a4432', style:'suv', tier:5, look:'lm002', lamps:'round', grille:'mesh', rack:true, scoop:true},
-      van:      {name:{ru:'Фургон «Газель»',en:'GAZelle van'},       w:106, h:45, mass:1.6,  power:240, maxSpeed:295, grip:0.70, hp:480, color:'#5c5546', style:'van', tier:2, look:'gazelle', lamps:'rect', grille:'bar'},
-      wagon:    {name:{ru:'ВАЗ-2104',en:'VAZ-2104'},                 w:106, h:45, mass:1.05, power:198, maxSpeed:292, grip:0.62, hp:220, color:'#4c3a2c', style:'wagon', tier:1, look:'vaz2104', lamps:'round', grille:'chrome'}
+      nine:     {name:{ru:'ВАЗ-2109 «Девятка»',en:'VAZ-2109'},      w:96, h:43, mass:1.0,  power:205, maxSpeed:300, grip:0.62, hp:180, color:'#7a2f2a', style:'hatch', tier:1, look:'vaz2109', lamps:'rect',  grille:'slats'},
+      kabina:   {name:{ru:'Mercedes-Benz 600 SEL «Кабан»',en:'Mercedes-Benz 600 SEL'}, w:130, h:48, mass:2.2, power:680, maxSpeed:390, grip:0.80, hp:520, color:'#14181c', style:'limo', tier:5, look:'w140', lamps:'rect', grille:'star', trim:true, armored:true},
+      bmw:      {name:{ru:'BMW E34',en:'BMW E34'},                  w:108, h:46, mass:1.4,  power:375, maxSpeed:400, grip:0.77, hp:320, color:'#1d2a3a', style:'sedan', tier:4, look:'e34', lamps:'quad', grille:'kidney'},
+      lincoln:  {name:{ru:'Lincoln Town Car (1982)',en:'Lincoln Town Car (1982)'}, w:126, h:48, mass:2.0, power:520, maxSpeed:345, grip:0.78, hp:420, color:'#2c2a26', style:'limo', tier:4, look:'towncar', lamps:'wide', grille:'chrome', trim:true},
+      uaz:      {name:{ru:'Милицейский УАЗ',en:'Police UAZ'},       w:104, h:47, mass:1.8,  power:300, maxSpeed:310, grip:0.68, hp:430, color:'#d9dfe9', style:'suv', tier:2, look:'uaz', lamps:'round', grille:'mesh', police:true},
+      six:      {name:{ru:'ВАЗ-2106 ДПС',en:'VAZ-2106 DPS'},        w:100, h:44, mass:1.05, power:212, maxSpeed:305, grip:0.64, hp:240, color:'#dde3ec', style:'sedan', tier:1, look:'vaz2106', lamps:'round', grille:'chrome', police:true},
+      truck:    {name:{ru:'Грузовик',en:'Truck'},                   w:150, h:52, mass:2.6,  power:260, maxSpeed:255, grip:0.72, hp:700, color:'#3d4a3d', style:'truck', tier:2, look:'truck', lamps:'rect', grille:'bar'},
+      cruiser:  {name:{ru:'Toyota Land Cruiser 80',en:'Toyota Land Cruiser 80'}, w:112, h:49, mass:2.2, power:560, maxSpeed:360, grip:0.74, hp:560, color:'#2a3326', style:'suv', tier:4, look:'lc80', lamps:'round', grille:'mesh', rack:true},
+      volga:    {name:{ru:'ГАЗ-3102 «Волга»',en:'GAZ-3102 Volga'},  w:116, h:46, mass:1.45, power:265, maxSpeed:325, grip:0.67, hp:300, color:'#3b4a45', style:'sedan', tier:2, look:'volga', lamps:'rect', grille:'chrome', trim:true},
+      niva:     {name:{ru:'ВАЗ-2121 «Нива»',en:'VAZ-2121 Niva'},     w:98, h:46, mass:1.25, power:215, maxSpeed:290, grip:0.66, hp:260, color:'#4a5a3a', style:'suv', tier:1, look:'niva', lamps:'round', grille:'slats', spare:true},
+      audi:     {name:{ru:'Audi 100',en:'Audi 100'},                 w:108, h:46, mass:1.35, power:330, maxSpeed:370, grip:0.72, hp:310, color:'#20252b', style:'sedan', tier:3, look:'audi100', lamps:'rect', grille:'wide'},
+      volvo:    {name:{ru:'Volvo 850 Estate',en:'Volvo 850 Estate'}, w:110, h:47, mass:1.45, power:330, maxSpeed:355, grip:0.73, hp:300, color:'#333b36', style:'wagon', tier:3, look:'volvo850', lamps:'rect', grille:'slash'},
+      w124:     {name:{ru:'Mercedes-Benz W124',en:'Mercedes-Benz W124'}, w:108, h:46, mass:1.45, power:345, maxSpeed:372, grip:0.75, hp:320, color:'#2e3436', style:'sedan', tier:3, look:'w124', lamps:'rect', grille:'star', trim:true},
+      lambo:    {name:{ru:'Lamborghini LM002',en:'Lamborghini LM002'}, w:122, h:50, mass:2.4, power:800, maxSpeed:400, grip:0.82, hp:600, color:'#4a4432', style:'suv', tier:5, look:'lm002', lamps:'round', grille:'mesh', rack:true, scoop:true},
+      van:      {name:{ru:'Фургон «Газель»',en:'GAZelle van'},       w:124, h:48, mass:1.6,  power:240, maxSpeed:295, grip:0.70, hp:480, color:'#5c5546', style:'van', tier:2, look:'gazelle', lamps:'rect', grille:'bar'},
+      wagon:    {name:{ru:'ВАЗ-2104',en:'VAZ-2104'},                 w:102, h:45, mass:1.05, power:198, maxSpeed:292, grip:0.62, hp:220, color:'#4c3a2c', style:'wagon', tier:1, look:'vaz2104', lamps:'round', grille:'chrome'}
     };
     // Перевод игровых единиц скорости в км/ч для спидометра.
     const KMH_PER_UNIT = 0.5;
@@ -2300,8 +2497,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     const CRASH_SLOWED = 5, CRASH_STALL = 10;
     const CIVIL_CAR_COLORS = ['#6d3a30', '#2c3742', '#3f4a3d', '#5a5245', '#2b2f33', '#4a3a44', '#6a6252', '#37474f', '#513b2e', '#3a4b52'];
 
-    const keys = new Set();
-    const input = {mx:0, my:0, fire:false, autoAim:false, touchMove:{x:0,y:0}, touchAim:null, touchGas:false, touchBack:false, padMove:{x:0,y:0}, padAim:null, padFire:false, padHandbrake:false};
+    const input = {mx:0, my:0, fire:false, autoAim:false, touchMove:{x:0,y:0}, touchAim:null, touchGas:false, touchBack:false, padMove:{x:0,y:0}, padAim:null, padFire:false};
     const view = {w:960, h:540};
     const camera = {x:WORLD/2, y:WORLD/2, zoom:1, shake:0, sx:0, sy:0};
     const pointer = {x:0, y:0};
@@ -2330,6 +2526,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         hp:options.hp ?? 100, maxHp:options.hp ?? 100, armor:options.armor ?? 0,
         speed:options.speed ?? 132, weapon:options.weapon ?? 'pm', mag:0, reserve:0,
         cool:0, reloading:0, dead:false, down:false, inVehicle:null, hero:options.hero ?? -1,
+        // Силы на бег, отдельный канал отбрасывания от удара и тайм-аут рывка.
+        sta:100, kx:0, ky:0, dash:0, dashDir:0, dashCd:0, downTimer:0,
         ai:{state:'idle', path:null, pathIndex:0, repathTimer:0, target:null, timer:0, home:options.home ?? null, alert:0, strafe:1, wander:0, pause:false, provoked:false},
         recoil:0, muzzle:0, aim:0, hitTimer:0, stepTimer:0, kind:options.kind ?? 'civilian',
         coat:options.coat, shirt:options.shirt, pants:options.pants, skin:options.skin || SKIN_TONES[(Math.random() * SKIN_TONES.length) | 0],
@@ -2350,7 +2548,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         model:modelId, def:m, x, y, angle, speed:0, vx:0, vy:0, hp:m.hp, maxHp:m.hp,
         driver:null, passengers:[], steer:0, throttle:0, brake:0, handbrake:false,
         skid:0, wobble:0, lights:options.lights ?? true, siren:0, wrecked:false, burn:0, panic:0,
-        crashes:0, crashCool:0, stalled:false,
+        crashes:0, crashCool:0, stalled:false, runCool:0,
         gear:1, shift:0, rpm:0.2, kmhShown:0,
         color:paint, parked:options.parked ?? true, role:options.role ?? 'civilian', laneDir:options.laneDir ?? 0
       };
@@ -2602,8 +2800,9 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           if (dist(c.x, c.y, hx, hy) > w.reach * 0.9) continue;
           const facing = Math.cos(angle) * (c.x - u.x) + Math.sin(angle) * (c.y - u.y);
           if (facing < -10) continue;
-          let dmg = w.damage * (u.hero === 3 ? 1.9 : 1);
-          if (u.hero === 3) dmg = target.maxHp + 40;
+          // Фил бьёт сильнее всех, но не насмерть одним ударом: раньше урон приравнивался
+          // к запасу прочности цели, и любой встречный падал с одного взмаха.
+          const dmg = w.damage * (u.hero === 3 ? 1.9 : 1);
           damageUnit(target, dmg, u, angle);
           addShake(4);
           Audio.play('hit', {x:c.x, y:c.y, gain:0.8});
@@ -2625,21 +2824,28 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       const marksman = perkOf(u) === 'hotshot'; // Космос бьёт точнее и ровнее держит ствол.
       u.recoil = Math.min(1, u.recoil + (w.recoil ?? 0.4) * (u.hero === 3 ? 0.5 : 1) * (marksman ? 0.6 : 1));
       const pellets = w.pellets ?? 1;
+      // Отдача поднимает ствол: каждый следующий выстрел в серии уходит чуть шире,
+      // и осыпь успокаивается, как только u.recoil успевает погаснуть.
+      const bloom = 1 + u.recoil * 0.9;
       for (let p = 0; p < pellets; p++) {
-        const spread = (Math.random() - 0.5) * (w.spread ?? 0.05) * 2 * (marksman ? 0.45 : 1);
+        const spread = (Math.random() - 0.5) * (w.spread ?? 0.05) * 2 * (marksman ? 0.45 : 1) * bloom;
         const a = angle + spread;
         bullets.push({
           x:u.x + Math.cos(angle) * 18, y:u.y + Math.sin(angle) * 18,
           vx:Math.cos(a) * w.speed, vy:Math.sin(a) * w.speed,
-          life:0.9, damage:w.damage, owner:u, team:u.team, angle:a
+          life:0.9, damage:w.damage, owner:u, team:u.team, angle:a, bounces:0
         });
       }
       const fx = u.x + Math.cos(angle) * 20, fy = u.y + Math.sin(angle) * 20;
       spawnParticle('flash', fx, fy, 0, 0, 0.06, 26, '#ffe9b0');
       for (let i = 0; i < 2; i++) spawnParticle('smoke', fx, fy, Math.cos(angle) * 40 + (Math.random() - 0.5) * 40, Math.sin(angle) * 40 + (Math.random() - 0.5) * 40, 0.7, 9, 'rgba(160,160,160,0.4)');
-      spawnParticle('casing', u.x, u.y, Math.cos(angle + 1.9) * 90, Math.sin(angle + 1.9) * 90, 0.9, 2, '#d8b95a');
+      // Гильза летит вбок от ствола, и чем сильнее отдача, тем дальше её отбрасывает.
+      const eject = 70 + (w.recoil ?? 0.4) * 110;
+      const ejectA = angle + 1.9 + (Math.random() - 0.5) * 0.5;
+      spawnParticle('casing', u.x, u.y, Math.cos(ejectA) * eject, Math.sin(ejectA) * eject, 0.9, 2, '#d8b95a');
       Audio.play(w.sfx, {x:u.x, y:u.y, gain:0.9, pitch:0.94 + Math.random() * 0.12});
-      addShake(w.damage * 0.06);
+      // Тряска кадра — от отдачи ствола игрока, а не от каждой выстреленной рядом пули.
+      if (u.isPlayer) addShake((w.recoil ?? 0.4) * 2.2);
       if (u.isPlayer) crimeHeat += 0.05;
     }
     function reloadUnit(u) {
@@ -2670,12 +2876,13 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       u.hp -= dmg;
       u.hitTimer = 0.14;
       // Impact physics: a hit transfers momentum to the body, so people get shoved
-      // by bullets, bats and blasts instead of just losing health.
+      // by bullets, bats and blasts instead of just losing health. Удар идёт отдельным
+      // каналом: иначе инерция ходьбы гасит его за пару кадров.
       if (!u.inVehicle && Number.isFinite(angle) && amount > 0) {
         const sturdy = (u.hero >= 0 && HEROES[u.hero].perk === 'boxer') ? 0.45 : (u.isPlayer ? 0.65 : 1);
         const push = clamp(amount * 0.7, 16, 130) * sturdy;
-        u.vx += Math.cos(angle) * push;
-        u.vy += Math.sin(angle) * push;
+        u.kx += Math.cos(angle) * push;
+        u.ky += Math.sin(angle) * push;
       }
       if (u.team !== 'squad' && u.kind === 'civilian') u.aiFlee = 6;
       if (u.hp <= 0) killUnit(u, source, angle);
@@ -2712,7 +2919,11 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       for (let i = 0; i < 14; i++) spawnParticle('blood', c.x, c.y, (Math.random() - 0.5) * 260, (Math.random() - 0.5) * 260, 0.7, 3 + Math.random() * 3, '#6e0f13');
       Audio.play('hit', {x:c.x, y:c.y, gain:0.9});
       if (u.team === 'squad') {
+        // Вне финальной серии герой ранен, а не убит: он лежит и через полминуты
+        // приходит в себя. Раньше раненый напарник оставался на асфальте до конца миссии.
         u.down = true; u.hp = 0;
+        if (finaleAllowsHeroDeath()) u.dead = true;
+        else { u.dead = false; u.downTimer = 20 + Math.random() * 12; }
         B.notify(B.localized(finaleAllowsHeroDeath()
           ? {ru:`${HEROES[u.hero].name.ru} погиб`, en:`${HEROES[u.hero].name.en} is dead`}
           : {ru:`${HEROES[u.hero].name.ru} ранен`, en:`${HEROES[u.hero].name.en} is down`}));
@@ -2792,7 +3003,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       // Прочность кузова привязана к числу аварий: к десятой остаётся «на ходу», но еле живой.
       v.hp = Math.min(v.hp, v.maxHp * (1 - v.crashes / (CRASH_STALL + 1)));
       if (v.crashes === CRASH_SLOWED) {
-        B.notify(B.localized({ru:'Машина разбита: максимальная скорость вдвое ниже', en:'The car is battered: top speed halved'}));
+        B.notify(B.localized({ru:'Мотор троит: максимальная скорость вдвое ниже', en:'The engine misfires: top speed halved'}));
       } else if (v.crashes >= CRASH_STALL) {
         v.stalled = true;
         B.notify(B.localized({ru:'Двигатель заглох — машина больше не едет', en:'Engine dead — the car won’t drive anymore'}));
@@ -2849,11 +3060,16 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         u.vx = v.vx; u.vy = v.vy;
         return;
       }
-      u.x += u.vx * dt; u.y += u.vy * dt;
+      u.x += (u.vx + u.kx) * dt; u.y += (u.vy + u.ky) * dt;
+      // Отбрасывание гаснет само: толчок от пули или биты не превращается в новую скорость.
+      const kd = Math.exp(-5 * dt);
+      u.kx *= kd; u.ky *= kd;
+      if (Math.abs(u.kx) < 2) u.kx = 0;
+      if (Math.abs(u.ky) < 2) u.ky = 0;
       u.x = clamp(u.x, 20, WORLD - 20); u.y = clamp(u.y, 20, WORLD - 20);
       const res = resolveCircle(u.x, u.y, u.r);
       u.x = res.x; u.y = res.y;
-      if (res.hit) { u.vx *= 0.4; u.vy *= 0.4; }
+      if (res.hit) { u.vx *= 0.4; u.vy *= 0.4; u.kx *= 0.3; u.ky *= 0.3; }
       if (Math.abs(u.vx) + Math.abs(u.vy) > 20) {
         u.stepTimer -= dt;
         const moving = Math.hypot(u.vx, u.vy) > 30;
@@ -2922,11 +3138,22 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           const vn = u.vx * wx + u.vy * wy;
           if (vn < 0) { u.vx -= wx * vn; u.vy -= wy * vn; }
           const speed = Math.hypot(v.vx, v.vy);
-          if (speed > 130 && u.team !== (v.driver ? v.driver.team : 'none')) {
-            damageUnit(u, speed * 0.24, v.driver, v.angle);
+          // Переезд: до 70 единиц скорости пешехода лишь отталкивает от бампера, с
+          // разгона — сбивает с ног и утаскивает за машиной. Удар в один корпус
+          // засчитывается раз в полсекунды: раньше урон капал каждый кадр проезда,
+          // и человек умирал ещё не долетев до асфальта. Тяжёлый кузов на полном
+          // ходу добивает сразу — так же, как в жизни.
+          if (speed > 70 && (v.runCool ?? 0) <= 0 && u.team !== (v.driver ? v.driver.team : 'none')) {
+            v.runCool = 0.5;
+            const heavy = v.def.mass >= 1.8;
+            const lethal = speed > (heavy ? 155 : 235);
+            damageUnit(u, lethal ? u.hp + 30 : clamp(speed * 0.3, 16, 88), v.driver, v.angle);
             spawnParticle('blood', u.x, u.y, 0, 0, 0.5, 5, '#7d1116');
-            u.vx += Math.cos(v.angle) * speed * 0.18;
-            u.vy += Math.sin(v.angle) * speed * 0.18;
+            if (!u.dead) {
+              const kick = clamp(speed * 0.5, 30, 210);
+              u.kx += Math.cos(v.angle) * kick;
+              u.ky += Math.sin(v.angle) * kick;
+            }
           }
         }
         // Вытолкнуло в стену или ствол — не оставляем пешехода внутри препятствия.
@@ -2945,15 +3172,15 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       if (!u) { v.throttle = lerp(v.throttle, 0, 1 - Math.exp(-6 * dt)); v.steer = lerp(v.steer, 0, 1 - Math.exp(-8 * dt)); return; }
       if (u.isPlayer) {
         const pad = input.padMove, stick = input.touchMove;
-        const up = keys.has('KeyW') || keys.has('ArrowUp') || pad.y < -0.25 || stick.y < -0.3 || input.touchGas;
-        const down = keys.has('KeyS') || keys.has('ArrowDown') || pad.y > 0.25 || stick.y > 0.3 || input.touchBack;
-        const left = keys.has('KeyA') || keys.has('ArrowLeft') || pad.x < -0.25 || stick.x < -0.25;
-        const right = keys.has('KeyD') || keys.has('ArrowRight') || pad.x > 0.25 || stick.x > 0.25;
+        const up = C.held('up') || pad.y < -0.25 || stick.y < -0.3 || input.touchGas;
+        const down = C.held('down') || pad.y > 0.25 || stick.y > 0.3 || input.touchBack;
+        const left = C.held('left') || pad.x < -0.25 || stick.x < -0.25;
+        const right = C.held('right') || pad.x > 0.25 || stick.x > 0.25;
         v.throttle = (up ? 1 : 0) - (down ? 1 : 0);
         // Руль доворачивается с лёгкой инерцией — аркадная манера GTA 1–2.
         v.steer = lerp(v.steer, (right ? 1 : 0) - (left ? 1 : 0), 1 - Math.exp(-11 * dt));
         v.brake = down ? 1 : 0;
-        v.handbrake = keys.has('Space') || input.padHandbrake;
+        v.handbrake = C.held('handbrake');
       } else {
         v.throttle = u.aiThrottle ?? 0.7;
         v.steer = lerp(v.steer, u.aiSteer ?? 0, 1 - Math.exp(-12 * dt));
@@ -2977,6 +3204,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       const d = v.def;
       if (v.gear === undefined) { v.gear = 1; v.shift = 0; v.rpm = 0.2; v.kmhShown = 0; }
       if (v.crashCool > 0) v.crashCool = Math.max(0, v.crashCool - dt);
+      if (v.runCool > 0) v.runCool = Math.max(0, v.runCool - dt);
       if (!v.wrecked) vehicleControl(v, dt);
       const hot = v.driver && v.driver.hero === 1;
       const engineDead = v.stalled || v.hp <= 0;
@@ -2986,6 +3214,16 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       const gripBase = d.grip * surface * (hot ? 1.22 : 1);
       const power = d.power * (hot ? 1.14 : 1);
       const limit = Math.max(40, d.maxSpeed * (hot ? 1.12 : 1) * crashPenalty);
+      // Между пятой и десятой аварией мотор «троит»: тяга проваливается короткими
+      // спотыканиями, машину дёргает и из выхлопной трубы валит сизый дым — ровно
+      // так же двигатель умирал в «Арзамасе», прежде чем встать совсем.
+      let cough = 1;
+      if (!v.wrecked && !v.stalled && v.crashes >= CRASH_SLOWED) {
+        v.mis = (v.mis ?? 0) - dt;
+        if (v.mis <= 0) { v.mis = 0.22 + Math.random() * 0.4; v.misOn = Math.random() < 0.5; }
+        if (v.misOn) { cough = 0.15; v.wobble = Math.min(0.55, (v.wobble || 0) + dt * 1.4); }
+        v.misfire = v.misOn ? 1 : Math.max(0, (v.misfire || 0) - dt * 4);
+      } else v.misfire = 0;
       if (!v.wrecked) {
         const throttle = engineDead || v.brake ? 0 : v.throttle;
         const speedRatio = clamp(Math.max(0, v.speed) / limit, 0, 1);
@@ -3000,7 +3238,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         v.gear = gear;
         const powerMul = GEAR_POWER[gear - 1] * (v.shift > 0 ? 0.18 : 1);
         // Тяга падает с ростом скорости; у мощных машин разгон заметно бодрее.
-        if (throttle > 0) v.speed += power * powerMul * (1 - speedRatio * 0.9) / d.mass * throttle * dt;
+        if (throttle > 0) v.speed += power * powerMul * (1 - speedRatio * 0.9) / d.mass * throttle * dt * cough;
         // Тормоз: сначала гасим ход, только потом включается задний ход.
         if (v.brake) {
           if (v.speed > 0.5) v.speed = Math.max(0, v.speed - 540 * dt);
@@ -3037,7 +3275,13 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       // а зима и дождь делают заносы заметно длиннее.
       const grip = v.handbrake ? gripBase * 1.5 : gripBase * 15.5;
       const newLat = lat * Math.exp(-grip * dt);
-      const newFwd = lerp(fwd, v.speed, 1 - Math.exp(-7 * dt));
+      // Продольная скорость: кузов догоняет то, что дал мотор. Разгон и восстановление
+      // после тычка — быстро (λ8), а лишний ход, полученный от удара бампером, гаснет
+      // медленно: машину заметно выбрасывает вперёд, и она катится, а не останавливается
+      // в тот же миг, как в прежней формуле с постоянным lerp.
+      const excess = fwd - v.speed;
+      const relax = excess > 0 ? (v.wrecked || v.stalled ? 1.2 : 2.4) : 8;
+      const newFwd = v.speed + excess * Math.exp(-relax * dt);
       v.vx = hx * newFwd - hy * newLat;
       v.vy = hy * newFwd + hx * newLat;
       v.skid = clamp(Math.abs(newLat) / 85, 0, 1) * (v.handbrake ? 1 : 0.9);
@@ -3091,8 +3335,27 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
           Audio.play('crash', {x:(v.x + o.x) / 2, y:(v.y + o.y) / 2, gain:clamp(rel / 420, 0.2, 1)});
           if (v.driver && v.driver.isPlayer) addShake(clamp(rel / 70, 1, 8));
         }
-        const kb = 40;
-        v.vx -= nx * kb; v.vy -= ny * kb; o.vx += nx * kb; o.vy += ny * kb;
+        // Отбой удара — импульс по нормали, взвешенный по массе: тяжёлый фургон
+        // почти не чувствует тычка «копейки», а та отскакивает заметно. Прежний
+        // постоянный пинок в 40 единиц был одинаков для всех и разгонял стоящие
+        // в ряд машины, пока они не разъехались.
+        const nvn = (v.vx - o.vx) * nx + (v.vy - o.vy) * ny;
+        if (nvn < 0) {
+          // Неподвижный корпус (припаркован, разбит, оглушён) считаем бесконечно тяжёлым.
+          const movable = x => movesOnOwn(x) || Boolean(x.driver);
+          const im1 = movable(v) ? 1 / v.def.mass : 0;
+          const im2 = movable(o) ? 1 / o.def.mass : 0;
+          const sum = im1 + im2;
+          if (sum > 0) {
+            const j = -1.35 * nvn / sum;
+            v.vx += nx * j * im1; v.vy += ny * j * im1;
+            o.vx -= nx * j * im2; o.vy -= ny * j * im2;
+            // То, что корпус получил пинок вбок, двигатель не отменяет: продольная
+            // скорость живёт своей жизнью и после удара машина катится дальше.
+            const fwdN = Math.cos(v.angle) * nx + Math.sin(v.angle) * ny;
+            v.speed = clamp(v.speed + j * im1 * fwdN * 0.6, -limit * 0.34, limit);
+          }
+        }
       }
       // Skid marks and tyre sound.
       if (v.skid > 0.25 && Math.hypot(v.vx, v.vy) > 90) {
@@ -3101,6 +3364,10 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       // Заглохший мотор дымит из-под капота.
       if (v.stalled && !v.wrecked && Math.random() < 0.3) {
         spawnParticle('smoke', v.x + Math.cos(v.angle) * d.w * 0.32, v.y + Math.sin(v.angle) * d.w * 0.32, (Math.random() - 0.5) * 20, -22 - Math.random() * 16, 1.3, 11, 'rgba(70,70,74,0.55)');
+      }
+      // Троящий мотор плюётся дымом из-за заднего бампера.
+      if (v.misfire > 0.4 && !v.wrecked && Math.random() < 0.35) {
+        spawnParticle('smoke', v.x - Math.cos(v.angle) * d.w * 0.5, v.y - Math.sin(v.angle) * d.w * 0.5, -Math.cos(v.angle) * 24, -14 - Math.random() * 12, 0.8, 8, 'rgba(104,104,110,0.4)');
       }
       // Стрелка спидометра догоняет реальную скорость плавно и неспешно: цифры в HUD
       // растут заметно медленнее, чем машина реально набирает ход.
@@ -3114,19 +3381,50 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     }
 
     // ---------- Bullets, grenades, pickups ----------
+    // Пуля рикошетит от твёрдой поверхности. Нормаль берём по той оси, по которой
+    // снаряд вошёл в плитку: лобовое попадание гасится, скользящее уходит в сторону
+    // с потерей скорости и урона. Не больше двух отражений.
+    function bulletBounce(b, px, py, rest) {
+      const sp = Math.hypot(b.vx, b.vy);
+      if (sp < 1) return false;
+      const xIn = tileAt(b.x, py), yIn = tileAt(px, b.y);
+      let nx = 0, ny = 0;
+      if (xIn && !yIn) nx = -Math.sign(b.vx);
+      else if (yIn && !xIn) ny = -Math.sign(b.vy);
+      else if (Math.abs(b.vx) >= Math.abs(b.vy)) nx = -Math.sign(b.vx);
+      else ny = -Math.sign(b.vy);
+      const dot = b.vx * nx + b.vy * ny;
+      if (-dot > sp * 0.5) return false;
+      b.vx = (b.vx - 2 * dot * nx) * rest;
+      b.vy = (b.vy - 2 * dot * ny) * rest;
+      b.damage *= 0.5;
+      b.bounces = (b.bounces || 0) + 1;
+      b.x = px + nx * 3; b.y = py + ny * 3;
+      b.angle = Math.atan2(b.vy, b.vx);
+      return b.bounces <= 2 && Math.hypot(b.vx, b.vy) > 140;
+    }
     function updateBullets(dt) {
       for (let i = bullets.length - 1; i >= 0; i--) {
         const b = bullets[i];
         b.life -= dt;
         if (b.life <= 0) { bullets.splice(i, 1); continue; }
-        const steps = 3;
+        // Шаг не длиннее 8 px: на большом dt винтовка иначе проскакивает человека
+        // и угол дома, а на 60 Гц счёт шагов остаётся прежним.
+        const travel = Math.hypot(b.vx, b.vy) * dt;
+        const steps = Math.max(1, Math.min(8, Math.ceil(travel / 8)));
         let removed = false;
         for (let s = 0; s < steps && !removed; s++) {
+          const px = b.x, py = b.y;
           b.x += (b.vx * dt) / steps; b.y += (b.vy * dt) / steps;
           if (tileAt(b.x, b.y) || waterAt(b.x, b.y)) {
+            const keep = !waterAt(b.x, b.y) && bulletBounce(b, px, py, 0.48);
             spawnParticle('spark', b.x, b.y, (Math.random() - 0.5) * 90, (Math.random() - 0.5) * 90, 0.22, 2, '#ffd27a');
-            for (let k = 0; k < 3; k++) spawnParticle('smoke', b.x, b.y, (Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30, 0.35, 4, 'rgba(170,170,170,0.4)');
-            bullets.splice(i, 1); removed = true; break;
+            if (keep) Audio.play('casing', {x:b.x, y:b.y, gain:0.2});
+            else {
+              for (let k = 0; k < 3; k++) spawnParticle('smoke', b.x, b.y, (Math.random() - 0.5) * 30, (Math.random() - 0.5) * 30, 0.35, 4, 'rgba(170,170,170,0.4)');
+              removed = true;
+            }
+            break;
           }
           for (const u of units) {
             if (u.dead || u === b.owner || u.team === b.team) continue;
@@ -3135,7 +3433,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
             damageUnit(u, b.damage, b.owner, b.angle);
             for (let k = 0; k < 5; k++) spawnParticle('blood', c.x, c.y, Math.cos(b.angle + (Math.random() - 0.5)) * 110, Math.sin(b.angle + (Math.random() - 0.5)) * 110, 0.45, 3, '#7d1116');
             if (u.team !== 'squad') alertPolice(c.x, c.y, 300);
-            bullets.splice(i, 1); removed = true; break;
+            removed = true; break;
           }
           if (removed) break;
           for (const v of vehicles) {
@@ -3148,9 +3446,24 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
             if (vdx * vdx + vdy * vdy > (vrad + 3) * (vrad + 3)) continue;
             damageVehicle(v, b.damage * 0.55, b.x, b.y);
             if (b.team !== 'squad') commitCrime(0.6, undefined, undefined, true);
-            bullets.splice(i, 1); removed = true; break;
+            // Сталь кузова отбивает скользящие пули чаще, чем кирпич.
+            const dl = Math.hypot(vdx, vdy) || 1, nx = vdx / dl, ny = vdy / dl;
+            const sp = Math.hypot(b.vx, b.vy), dot = b.vx * nx + b.vy * ny;
+            const sx = v.x + vca * vt + nx * (vrad + 4), sy = v.y + vsa * vt + ny * (vrad + 4);
+            if (-dot < sp * 0.5 && (b.bounces || 0) < 2 && Math.abs(dot) > 1) {
+              b.vx = (b.vx - 2 * dot * nx) * 0.68;
+              b.vy = (b.vy - 2 * dot * ny) * 0.68;
+              b.damage *= 0.5;
+              b.bounces = (b.bounces || 0) + 1;
+              b.x = sx; b.y = sy;
+              b.angle = Math.atan2(b.vy, b.vx);
+              spawnParticle('spark', sx, sy, (Math.random() - 0.5) * 120, (Math.random() - 0.5) * 120, 0.2, 2, '#ffd27a');
+              Audio.play('casing', {x:sx, y:sy, gain:0.24});
+            } else removed = true;
+            break;
           }
         }
+        if (removed) bullets.splice(i, 1);
       }
     }
     function updateGrenades(dt) {
@@ -3194,6 +3507,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         if (p.life <= 0) { particles.splice(i, 1); continue; }
         p.x += p.vx * dt; p.y += p.vy * dt;
         if (p.type !== 'ring' && p.type !== 'flash') { p.vx *= 1 - 2.4 * dt; p.vy *= 1 - 2.4 * dt; }
+        // Гильза тяжёлая и короткая: падает почти у ног, а не скользит через весь двор.
+        if (p.type === 'casing') { p.vx *= 1 - 5 * dt; p.vy *= 1 - 5 * dt; }
         if (p.type === 'smoke') { p.vy -= 10 * dt; p.size += dt * 12; }
       }
       for (let i = decals.length - 1; i >= 0; i--) {
@@ -3962,6 +4277,21 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         if (u.sayTimer > 0) u.sayTimer -= dt;
         if (u.sayCd > 0) u.sayCd -= dt;
         if (u.recoil > 0) u.recoil = Math.max(0, u.recoil - dt * 3);
+        if (u.inVehicle && !u.down) u.sta = clamp(u.sta + 16 * dt, 0, 100);
+        if (u.down && !u.dead && u.team === 'squad') {
+          // Лежащий герой не двигается сам: скорость гаснет, как в «Арзамасе», и только
+          // потом он поднимается с остатком сил.
+          const stop = Math.exp(-5 * dt);
+          u.vx *= stop; u.vy *= stop;
+          if (u.downTimer <= 0) u.downTimer = 20 + Math.random() * 12;
+          u.downTimer -= dt;
+          if (u.downTimer <= 0) {
+            u.down = false;
+            u.hp = Math.max(30, Math.round(u.maxHp * 0.45));
+            u.sta = 40;
+            if (u.hero >= 0) B.notify(B.localized({ru:`${HEROES[u.hero].name.ru} поднялся`, en:`${HEROES[u.hero].name.en} is back up`}));
+          }
+        }
         if (u.team === 'squad' && u.hp > 0 && u.hp < u.maxHp && (u.hero === 0 || squadHasPerk('authority'))) {
           u.hp = Math.min(u.maxHp, u.hp + dt * (u.hero === 0 ? 5 : 2.4));
         }
@@ -3974,10 +4304,15 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     const lightCanvas = document.createElement('canvas');
     const lctx = lightCanvas.getContext('2d');
     let dpr = 1;
+    // Базовый зум кадра: world-height держим постоянным, как в «Арзамасе» (там H=320).
+    let baseZoom = 0.82;
     function resizeRenderer() {
       const w = Math.max(320, window.innerWidth), h = Math.max(240, window.innerHeight);
       view.w = w; view.h = h;
       dpr = 0.5;
+      // Широкие экраны показывают больше города по бокам, узкие — обрезают края;
+      // высота кадра в мир-единицах остаётся примерно постоянной.
+      baseZoom = Math.max(0.62, Math.min(1.15, h / 1200));
       gameCanvas.width = Math.round(w * dpr); gameCanvas.height = Math.round(h * dpr);
       lightCanvas.width = gameCanvas.width; lightCanvas.height = gameCanvas.height;
       gctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -4255,7 +4590,9 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       c.fillStyle = 'rgba(0,0,0,0.38)';
       c.beginPath(); c.ellipse(2.5, 3.5, 13 * build, 10 * build, 0, 0, TAU); c.fill();
       c.rotate(u.angle + Math.PI / 2);
-      const moving = Math.hypot(u.vx, u.vy) > 25;
+      // Раненый лежит: тот же корпус, повёрнутый на бок и приплюснутый к земле.
+      if (u.down) { c.rotate(Math.PI * 0.5); c.scale(1, 0.62); }
+      const moving = !u.down && Math.hypot(u.vx, u.vy) > 25;
       const gait = moving ? Math.sin(time * 11 + u.hero * 2) : 0;
       const coat = flash ? '#f0d8d8' : (u.coat || '#2a3038');
       const shirt = u.shirt || '#3d4750';
@@ -4323,6 +4660,13 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         c.fillRect(5 * build, 5 * build - armSwing, 5 * build, 3);
       }
       if (gunLen) {
+        // Изготовка, как в «Арзамасе»: предплечья сводятся вперёд, кисти держат ствол.
+        c.fillStyle = coat;
+        c.fillRect(-7 * build, -20 * build, 5 * build, 12 * build);
+        c.fillRect(2 * build, -20 * build, 5 * build, 12 * build);
+        c.fillStyle = flash ? '#f0c9bd' : (u.skin || HERO_SKIN);
+        c.fillRect(-3.4 * build, -24 * build, 3.6, 5.5);
+        c.fillRect(-0.2 * build, -26 * build, 3.6, 5.5);
         c.fillStyle = '#171a1d';
         c.fillRect(-2.5, -26 - gunLen, 5, gunLen + 12);
         c.fillStyle = '#2b2f33';
@@ -4628,9 +4972,26 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         }
       }
       if (v.role === 'police' || (def.police && v.driver && v.driver.team === 'police')) {
+        if (!wrecked) {
+          // Бело-синяя ливрея милиции: синяя полоса вдоль бортов и широкая
+          // синяя панель на дверях — на белом кузове читается как патрульная.
+          c.fillStyle = '#2f5fd0';
+          c.fillRect(-len * 0.40, -wid / 2 + 1.5, len * 0.80, 3.4);
+          c.fillRect(-len * 0.40, wid / 2 - 4.9, len * 0.80, 3.4);
+          c.fillStyle = 'rgba(47,95,208,0.92)';
+          c.fillRect(-len * 0.16, -wid / 2 + 4, len * 0.30, wid - 8);
+          c.fillStyle = 'rgba(255,255,255,0.55)';
+          c.font = 'bold ' + (wid * 0.30) + 'px "Trebuchet MS", sans-serif';
+          c.textAlign = 'center'; c.textBaseline = 'middle';
+          c.fillText('М', -len * 0.01, 0);
+        }
+        // Светобара на крыше: синий и красный мигают в противофазе.
         const blink = Math.sin(gameTime * 9) > 0;
-        c.fillStyle = blink ? '#2f6bd8' : '#c8302c';
-        c.fillRect(-len * 0.06, -wid / 2 - 3, len * 0.12, 8);
+        const bx = -len * 0.10, bw = len * 0.20, bh = wid * 0.34;
+        c.fillStyle = blink ? '#5a93ff' : '#153a78';
+        c.fillRect(bx, -bh, bw * 0.5, bh * 2);
+        c.fillStyle = !blink ? '#ff5a46' : '#7a1a16';
+        c.fillRect(bx + bw * 0.5, -bh, bw * 0.5, bh * 2);
       }
       if (v.wobble > 0.05 && !wrecked) {
         c.strokeStyle = `rgba(20,20,22,${v.wobble * 0.5})`; c.lineWidth = 3;
@@ -4831,15 +5192,22 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       lines.forEach((l, i) => c.fillText(l, x, by + 5 + lh * (i + 0.5)));
       c.restore();
     }
+    // Начало кадра округляем до половины пикселя растра: при дробном зуме иначе
+    // пиксельная сетка асфальта «дрожит» на каждом кадре.
+    function applyCameraTransform(g) {
+      const q = 2 / dpr;
+      const ox = view.w / 2 + camera.sx - camera.zoom * camera.x;
+      const oy = view.h / 2 + camera.sy - camera.zoom * camera.y;
+      g.translate(Math.round(ox * q) / q, Math.round(oy * q) / q);
+      g.scale(camera.zoom, camera.zoom);
+    }
     function renderWorld(dt) {
       const halfW = view.w / (2 * camera.zoom) + 70, halfH = view.h / (2 * camera.zoom) + 70;
       const x0 = camera.x - halfW, x1 = camera.x + halfW, y0 = camera.y - halfH, y1 = camera.y + halfH;
       gctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       gctx.fillStyle = '#0d1114'; gctx.fillRect(0, 0, view.w, view.h);
       gctx.save();
-      gctx.translate(view.w / 2 + camera.sx, view.h / 2 + camera.sy);
-      gctx.scale(camera.zoom, camera.zoom);
-      gctx.translate(-camera.x, -camera.y);
+      applyCameraTransform(gctx);
       drawGround(gctx, x0, y0, x1, y1);
       drawRoads(gctx, x0, y0, x1, y1);
       drawProps(gctx, x0, y0, x1, y1);
@@ -5249,7 +5617,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     // Игра когда-либо пройдена. Не сбрасывается новой историей и переигровкой глав.
     let storyBeaten = false;
     let lastTime = performance.now(), hudTimer = 0, ambientTimer = 0, streetAggroTimer = 60, sirenSeq = 0, audioEngineOn = false;
-    let fireHeld = false, firePressed = false, touchFire = false;
+    let fireHeld = false, firePressed = false, touchFire = false, dashReq = false;
     let promptText = null, interactTarget = null, objectiveMark = null;
     let scene = null, replaySnapshot = null, wiped = false, wipedTimer = 0;
     // Задержание милицией: таймер КПЗ, пауза между задержаниями и флаг открытой сцены.
@@ -5613,6 +5981,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       // но верхнюю границу держим высокой, чтобы читать спокойно.
       scene.timer = clamp((l.text.ru || '').length * 0.06, 2.8, 10);
       scene.skip = 0;
+      scene.tap = false;
       scene.waiting = false;
       sceneProgress(0);
       if (l.who >= 0) drawPortrait(l.who);
@@ -5635,20 +6004,39 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     }
     function playScene(lines, done, onChoice) {
       if (!lines || !lines.length) { if (typeof done === 'function') done(); return; }
-      scene = {lines, index:0, timer:0, skip:0, done, waiting:false, line:null, onChoice:onChoice || null};
+      scene = {lines, index:0, timer:0, skip:0, tap:false, done, waiting:false, line:null, onChoice:onChoice || null};
       showLine();
       updateHud();
     }
+    // Сцена листается как в «Арзамасе»: короткое нажатие «Дальше» — следующая реплика,
+    // удержание — пропуск всей сцены. Таймер автопрокрутки остаётся запасным и
+    // останавливается, пока игрок держит клавишу или выбирает вариант ответа.
     function updateScene(dt) {
       if (!scene) return;
-      if (scene.waiting) return;
-      if (keys.has('Space')) {
+      // Мир во время сцены стоит, но камеру всё же ведём: наводим её на героя и
+      // держим в границах города, как это делает обычная игровая камера.
+      if (!interior) sceneCamera(dt);
+      const holding = C.held('next');
+      if (holding) {
+        if (C.consume('next')) scene.tap = true;
         scene.skip += dt;
         sceneProgress(scene.skip / 1.3);
-        if (scene.skip >= 1.3) finishScene();
+        if (scene.skip >= 1.3) { scene.tap = false; finishScene(); return; }
+      } else {
+        if (scene.tap) { scene.tap = false; advanceScene(); return; }
+        if (scene.skip > 0) { scene.skip = Math.max(0, scene.skip - dt * 2); sceneProgress(scene.skip / 1.3); }
+      }
+      if (scene.waiting) {
+        // Ветку диалога можно выбрать и с клавиатуры: цифры 1–4 соответствуют кнопкам.
+        const buttons = document.querySelectorAll('#dialogue-choices button');
+        if (buttons.length) {
+          for (let i = 0; i < buttons.length && i < 4; i++) {
+            if (C.consume(['hero1','hero2','hero3','hero4'][i])) { buttons[i].click(); break; }
+          }
+        }
         return;
       }
-      if (scene.skip > 0) { scene.skip = Math.max(0, scene.skip - dt * 2); sceneProgress(scene.skip / 1.3); }
+      if (holding) return;
       scene.timer -= dt;
       if (scene.timer <= 0) advanceScene();
     }
@@ -5919,26 +6307,50 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     }
     function updatePlayer(u, dt) {
       let mx = 0, my = 0;
-      if (keys.has('KeyW') || keys.has('ArrowUp')) my--;
-      if (keys.has('KeyS') || keys.has('ArrowDown')) my++;
-      if (keys.has('KeyA') || keys.has('ArrowLeft')) mx--;
-      if (keys.has('KeyD') || keys.has('ArrowRight')) mx++;
+      if (C.held('up')) my--;
+      if (C.held('down')) my++;
+      if (C.held('left')) mx--;
+      if (C.held('right')) mx++;
       mx += input.touchMove.x + input.padMove.x; my += input.touchMove.y + input.padMove.y;
       // В КПЗ герой сидит в камере и не ходит, пока не выйдет срок.
       if (jailTimer > 0) { mx = 0; my = 0; }
       const len = Math.hypot(mx, my);
       if (len > 1) { mx /= len; my /= len; }
-      const sprint = keys.has('ShiftLeft') || keys.has('ShiftRight') || Math.hypot(input.padMove.x, input.padMove.y) > 0.85;
-      // Обычная ходьба на 15% медленнее прежней, Shift возвращает скорость к прежней.
-      const speed = u.speed * (sprint ? 1 : 0.85) * (B.settings.difficulty === 'rookie' ? 1.05 : 1);
-      const k = 1 - Math.exp(-14 * dt);
-      u.vx = lerp(u.vx, mx * speed, k);
-      u.vy = lerp(u.vy, my * speed, k);
+      walkModel(u, dt, mx, my, len);
       // На ходу герой поворачивается туда, куда идёт; мышь и огонь продолжают работать.
       const aiming = fireHeld || touchFire || input.padFire || input.touchAim || input.padAim;
-      if (len > 0.01 && !aiming) u.angle = Math.atan2(my, mx);
+      if (len > 0.01 && !aiming) turnUnit(u, Math.atan2(my, mx), dt, 16);
       else updateAim(u);
       handleFiring(dt, u);
+    }
+    // Ходьба по модели «Арзамаса»: три режима скорости, силы на бег и короткий рывок.
+    // Разгон и остановка идут разными коэффициентами — тело отзывается сразу, но не встаёт
+    // вбок по щелчку, а проскальзывает полкадра.
+    function walkModel(u, dt, mx, my, len) {
+      const sneak = C.held('sneak');
+      const spr = !sneak && (C.held('sprint') || Math.hypot(input.padMove.x, input.padMove.y) > 0.85) && u.sta > 5 && len > 0.1;
+      u.sta = clamp(u.sta + (spr ? -22 : 16) * dt, 0, 100);
+      if (dashReq && u.dash <= 0 && u.dashCd <= 0 && u.sta >= 30 && !u.down) {
+        u.dash = 0.2; u.dashCd = 1;
+        u.dashDir = len > 0.1 ? Math.atan2(my, mx) : u.angle;
+        Audio.play('step', {x:u.x, y:u.y, gain:0.18});
+      }
+      dashReq = false;
+      if (u.dashCd > 0) u.dashCd = Math.max(0, u.dashCd - dt);
+      const base = u.speed * (B.settings.difficulty === 'rookie' ? 1.05 : 1);
+      if (u.dash > 0) {
+        // Рывок — отдельный импульс: он не зависит от того, куда игрок смотрит.
+        u.dash -= dt;
+        u.sta = Math.max(0, u.sta - Math.min(u.sta, 150 * dt));
+        const ds = base * 2.6;
+        u.vx = Math.cos(u.dashDir) * ds;
+        u.vy = Math.sin(u.dashDir) * ds;
+        return;
+      }
+      const tv = base * (sneak ? 0.42 : spr ? 1.3 : 0.85);
+      const k = 1 - Math.exp(-(len > 0.05 ? 6.5 : 9) * dt);
+      u.vx += (mx * tv - u.vx) * k;
+      u.vy += (my * tv - u.vy) * k;
     }
     // В свободном режиме герой стоит на своём посту, а не бегает за игроком.
     function updateSquadPost(u, dt) {
@@ -6023,18 +6435,58 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       Audio.play('lock', {x:u.x, y:u.y, gain:0.6});
       B.notify(B.localized({ru:'Поехали', en:'Let’s ride'}));
     }
+    // Точка высадки не всегда свободна: рядом встал другой борт, в двух шагах стена.
+    // Выталкиваем пешехода из корпуса по короткой оси, иначе герой «влезает» в
+    // припаркованную машину и стоит в ней до первого шага.
+    function clearFromCars(u, skip) {
+      for (let k = 0; k < 3; k++) {
+        let moved = false;
+        for (const o of vehicles) {
+          if (o === skip) continue;
+          const hw = o.def.w * 0.5 + u.r, hh = o.def.h * 0.5 + u.r;
+          const cos = Math.cos(o.angle), sin = Math.sin(o.angle);
+          const dx = u.x - o.x, dy = u.y - o.y;
+          const lx = dx * cos + dy * sin, ly = -dx * sin + dy * cos;
+          if (Math.abs(lx) >= hw || Math.abs(ly) >= hh) continue;
+          const ex = hw - Math.abs(lx), ey = hh - Math.abs(ly);
+          const nx = ex < ey ? (lx >= 0 ? 1 : -1) : 0;
+          const ny = ex < ey ? 0 : (ly >= 0 ? 1 : -1);
+          const depth = Math.min(ex, ey);
+          u.x += (nx * cos - ny * sin) * depth; u.y += (nx * sin + ny * cos) * depth;
+          moved = true;
+        }
+        if (!moved) break;
+      }
+    }
     function exitVehicle(u) {
       const v = u.inVehicle;
       if (!v) return;
-      u.x = v.x + Math.cos(v.angle + Math.PI / 2) * (v.def.h * 0.5 + 18);
-      u.y = v.y + Math.sin(v.angle + Math.PI / 2) * (v.def.h * 0.5 + 18);
-      const r = resolveCircle(u.x, u.y, u.r); u.x = r.x; u.y = r.y;
-      u.inVehicle = null; u.seatOffset = 0; u.vx = 0; u.vy = 0;
-      v.driver = null; v.parked = true;
-      for (const p of v.passengers) {
+      const driving = v.driver === u;
+      const side = v.angle + Math.PI / 2;
+      const hx = Math.cos(v.angle), hy = Math.sin(v.angle);
+      const putOut = (p, back) => {
+        // Дверь по левую ходу, пассажиры — с шагом назад вдоль кузова, чтобы вся
+        // бригада не вывалилась в одну точку.
+        p.x = v.x + Math.cos(side) * (v.def.h * 0.5 + 17) + hx * ((p.seatOffset || 0) - back);
+        p.y = v.y + Math.sin(side) * (v.def.h * 0.5 + 17) + hy * ((p.seatOffset || 0) - back);
+        clearFromCars(p, v);
+        const r = resolveCircle(p.x, p.y, p.r); p.x = r.x; p.y = r.y;
         p.inVehicle = null; p.seatOffset = 0; p.vx = 0; p.vy = 0;
-        p.x = v.x + Math.random() * 50 - 25; p.y = v.y - 40 - Math.random() * 24;
+        // Инерция никуда не девается: выпрыгнуть на ходу — значит пробежать ещё
+        // пару шагов по инерции, а не вкопаться в асфальт.
+        if (Math.hypot(v.vx, v.vy) > 60) { p.kx = v.vx * 0.5; p.ky = v.vy * 0.5; }
+      };
+      putOut(u, 0);
+      if (!driving) {
+        // Водитель на месте и машина его ждёт: выходит только тот, за кого играли.
+        const i = v.passengers.indexOf(u);
+        if (i >= 0) v.passengers.splice(i, 1);
+        Audio.play('lock', {x:u.x, y:u.y, gain:0.5});
+        return;
       }
+      v.driver = null; v.parked = true;
+      v.speed *= 0.2;
+      for (let i = 0; i < v.passengers.length; i++) putOut(v.passengers[i], i * 26);
       v.passengers.length = 0;
       Audio.play('lock', {x:u.x, y:u.y, gain:0.5});
     }
@@ -6672,17 +7124,34 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       if (!hero || hero.dead || hero.down) { exitInterior(); return; }
       const it = interior;
       let mx = 0, my = 0;
-      if (keys.has('KeyW') || keys.has('ArrowUp')) my--;
-      if (keys.has('KeyS') || keys.has('ArrowDown')) my++;
-      if (keys.has('KeyA') || keys.has('ArrowLeft')) mx--;
-      if (keys.has('KeyD') || keys.has('ArrowRight')) mx++;
+      if (C.held('up')) my--;
+      if (C.held('down')) my++;
+      if (C.held('left')) mx--;
+      if (C.held('right')) mx++;
       mx += input.touchMove.x + input.padMove.x; my += input.touchMove.y + input.padMove.y;
       const len = Math.hypot(mx, my);
       if (len > 1) { mx /= len; my /= len; }
-      const sprint = keys.has('ShiftLeft') || keys.has('ShiftRight');
-      const sp = hero.speed * (sprint ? 1.25 : 0.72);
-      const k = 1 - Math.exp(-14 * dt);
-      it.vx = lerp(it.vx, mx * sp, k); it.vy = lerp(it.vy, my * sp, k);
+      const sneak = C.held('sneak');
+      // В помещении тоже есть шаг и бег: тихий шаг почти бесшумен, бег шумит и садит силы.
+      const spr = !sneak && C.held('sprint') && hero.sta > 5 && len > 0.1;
+      hero.sta = clamp(hero.sta + (spr ? -22 : 16) * dt, 0, 100);
+      if (dashReq && hero.dash <= 0 && hero.dashCd <= 0 && hero.sta >= 30) {
+        hero.dash = 0.2; hero.dashCd = 1;
+        hero.dashDir = len > 0.1 ? Math.atan2(my, mx) : hero.angle;
+      }
+      dashReq = false;
+      if (hero.dashCd > 0) hero.dashCd = Math.max(0, hero.dashCd - dt);
+      const sp = hero.speed * (sneak ? 0.42 : spr ? 1.25 : 0.72);
+      const k = 1 - Math.exp(-(len > 0.05 ? 6.5 : 9) * dt);
+      if (hero.dash > 0) {
+        hero.dash -= dt;
+        hero.sta = Math.max(0, hero.sta - Math.min(hero.sta, 150 * dt));
+        it.vx = Math.cos(hero.dashDir) * hero.speed * 2.2;
+        it.vy = Math.sin(hero.dashDir) * hero.speed * 2.2;
+      } else {
+        it.vx += (mx * sp - it.vx) * k;
+        it.vy += (my * sp - it.vy) * k;
+      }
       it.px += it.vx * dt; it.py += it.vy * dt;
       it.px = clamp(it.px, INT_T + 14, it.w - INT_T - 14);
       const inDoor = it.px > it.door.x - 26 && it.px < it.door.x + it.door.w + 26;
@@ -6911,9 +7380,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       g.setTransform(dpr, 0, 0, dpr, 0, 0);
       g.fillStyle = '#06080a'; g.fillRect(0, 0, view.w, view.h);
       g.save();
-      g.translate(view.w / 2 + camera.sx, view.h / 2 + camera.sy);
-      g.scale(camera.zoom, camera.zoom);
-      g.translate(-camera.x, -camera.y);
+      applyCameraTransform(g);
       drawInteriorFloor(g, it);
       for (const f of it.furn) if (f.type === 'dancefloor' || f.type === 'cell') drawInteriorProp(g, f);
       for (const w of it.walls) {
@@ -6946,19 +7413,54 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     }
 
     // ---------- Camera, weather, audio ----------
+    // Край мира не должен попадать в кадр: отступ считаем от текущего зума,
+    // иначе на скорости за машиной проступает пустота.
+    function clampCamera(x, y, zoom) {
+      const cz = Math.max(0.35, Math.min(camera.zoom, zoom));
+      const hw = view.w / (2 * cz), hh = view.h / (2 * cz);
+      return {
+        x: WORLD <= hw * 2 ? WORLD / 2 : clamp(x, hw, WORLD - hw),
+        y: WORLD <= hh * 2 ? WORLD / 2 : clamp(y, hh, WORLD - hh)
+      };
+    }
     function updateCamera(dt) {
       const u = currentHero();
+      const veh = u ? u.inVehicle : null;
       const tgt = u ? unitCenter(u) : {x:camera.x, y:camera.y};
+      // Масштаб как в «Арзамасе»: пешком кадр постоянный, за рулём камера отдаляется
+      // по скорости, а не по одному факту «сидим в машине».
+      const wantZoom = veh ? baseZoom * (1 - 0.28 * clamp(Math.abs(veh.speed) / Math.max(40, veh.def.maxSpeed), 0, 1)) : baseZoom;
+      // Опереджение по вектору скорости: стоя на месте камера не уезжает в сторону,
+      // как это делало постоянное смещение по углу взгляда.
       let lx = 0, ly = 0;
-      if (u && !B.settings.reducedMotion) { lx = Math.cos(u.angle) * 62; ly = Math.sin(u.angle) * 62; }
-      const k = 1 - Math.exp(-7 * dt);
-      camera.x = lerp(camera.x, tgt.x + lx, k);
-      camera.y = lerp(camera.y, tgt.y + ly, k);
-      const wantZoom = u && u.inVehicle ? 0.92 : 1;
-      camera.zoom = lerp(camera.zoom, wantZoom, 1 - Math.exp(-3 * dt));
+      if (u && !B.settings.reducedMotion) {
+        lx = (veh ? Math.cos(veh.angle) * veh.speed : u.vx) * 0.35;
+        ly = (veh ? Math.sin(veh.angle) * veh.speed : u.vy) * 0.35;
+        const m = Math.hypot(lx, ly);
+        if (m > 95) { lx = lx / m * 95; ly = ly / m * 95; }
+      }
+      const edge = clampCamera(tgt.x + lx, tgt.y + ly, wantZoom);
+      const k = 1 - Math.exp(-(veh ? 9 : 13) * dt);
+      camera.x = lerp(camera.x, edge.x, k);
+      camera.y = lerp(camera.y, edge.y, k);
+      camera.zoom = lerp(camera.zoom, wantZoom, 1 - Math.exp(-4 * dt));
       if (camera.shake > 0) camera.shake = Math.max(0, camera.shake - dt * 22);
       camera.sx = (Math.random() - 0.5) * camera.shake;
       camera.sy = (Math.random() - 0.5) * camera.shake;
+    }
+    // Камера кат-сцены: мир заморожен, но кадр наводим на героя — иначе интро главы
+    // показывает случайный угол карты, а после сцены кадр «прыгает».
+    function sceneCamera(dt) {
+      const u = currentHero();
+      if (!u) return;
+      const p = unitCenter(u);
+      const edge = clampCamera(p.x, p.y, baseZoom);
+      const k = 1 - Math.exp(-8 * dt);
+      camera.x = lerp(camera.x, edge.x, k);
+      camera.y = lerp(camera.y, edge.y, k);
+      camera.zoom = lerp(camera.zoom, baseZoom, k);
+      camera.shake = Math.max(0, camera.shake - dt * 22);
+      camera.sx = camera.sy = 0;
     }
     // Сезон привязан к сюжету: снег возможен только зимой, летом его не бывает.
     const ACT_SEASONS = ['summer','summer','summer','autumn','autumn','summer','autumn','winter','winter','autumn','summer','winter','autumn','autumn','winter'];
@@ -7367,20 +7869,20 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       ambientTimer = 1.4;
       const cx = camera.x, cy = camera.y;
       const scale = B.settings.particles === 'low' ? 0.55 : 1;
-      const wantPeds = Math.round(26 * scale), wantTraffic = Math.round(18 * scale);
+      const wantPeds = Math.round(26 * scale), wantTraffic = Math.round(30 * scale);
       for (let i = units.length - 1; i >= 0; i--) {
         const u = units[i];
         if (u.team === 'ped' && !u.storyNpc && dist(u.x, u.y, cx, cy) > 3200) units.splice(i, 1);
       }
       for (let i = vehicles.length - 1; i >= 0; i--) {
         const v = vehicles[i];
-        if (v.role === 'traffic' && dist(v.x, v.y, cx, cy) > 3400) vehicles.splice(i, 1);
+        if (v.role === 'traffic' && dist(v.x, v.y, cx, cy) > 3100) vehicles.splice(i, 1);
       }
       let peds = 0, traffic = 0;
       for (const u of units) {
         if (!u.dead && u.team === 'ped' && !u.storyNpc && dist(u.x, u.y, cx, cy) < 3000) peds++;
       }
-      for (const v of vehicles) if (v.role === 'traffic' && dist(v.x, v.y, cx, cy) < 3200) traffic++;
+      for (const v of vehicles) if (v.role === 'traffic' && dist(v.x, v.y, cx, cy) < 2700) traffic++;
       for (let i = peds; i < wantPeds; i++) {
         // Пешеходы появляются на тротуарах, а не посреди проезжей части.
         const p = sidewalkPointNear(cx, cy, 500, 2100);
@@ -7388,8 +7890,8 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         spawnPed(p.x, p.y);
       }
       for (let i = traffic; i < wantTraffic; i++) {
-        // В пределах «живой» зоны (дальше 2900 машин уже стоят).
-        const p = roadPointNear(cx, cy, 900, 2600);
+        // В пределах «живой» зоны: держим поток плотнее и ближе к игроку, как в «Арзамасе».
+        const p = roadPointNear(cx, cy, 700, 2250);
         if (!p) break;
         spawnTraffic(p.x, p.y);
       }
@@ -7419,7 +7921,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
         let state;
         if (pv.wrecked) state = {ru:'Уничтожена', en:'Wrecked'};
         else if (pv.stalled) state = {ru:'Двигатель заглох', en:'Engine dead'};
-        else if (pv.crashes >= CRASH_SLOWED) state = {ru:'Сильно разбита — скорость вдвое ниже', en:'Badly damaged — half speed'};
+        else if (pv.crashes >= CRASH_SLOWED) state = {ru:'Мотор троит — скорость вдвое ниже', en:'Engine misfires — half speed'};
         else if (hullRatio < 0.5) state = {ru:'Повреждена', en:'Damaged'};
         else state = {ru:'Исправна', en:'In good shape'};
         vehicle = {
@@ -7436,6 +7938,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       B.renderHUD({
         hero:activeHero,
         health:u ? u.hp : 0,
+        stamina:u ? Math.round(u.sta ?? 100) : 100,
         maxHealth:u ? u.maxHp : 100,
         armor:u ? u.armor : 0,
         armorUnlocked:armorUnlocked(),
@@ -7473,6 +7976,7 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     // ---------- Main loop ----------
     function update(dt) {
       gameTime += dt;
+      handleActions();
       if (interior) {
         // Срок в КПЗ истекает сам — милиция выпускает героя на улицу.
         if (jailTimer > 0) {
@@ -7570,10 +8074,10 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       requestAnimationFrame(loop);
       const dt = Math.min(0.05, Math.max(0, (now - lastTime) / 1000));
       lastTime = now;
-      if (!running) return;
+      if (!running) { C.clearEdges(); return; }
       pollGamepads();
-      if (paused) return;
-      if (scene) { updateScene(dt); renderFrame(dt); return; }
+      if (paused) { C.clearEdges(); return; }
+      if (scene) { updateScene(dt); C.clearEdges(); renderFrame(dt); return; }
       update(dt);
       renderFrame(dt);
     }
@@ -7676,24 +8180,25 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     // ---------- Input ----------
     function onKeyDown(event) {
       if (['INPUT', 'SELECT', 'TEXTAREA'].includes(event.target.tagName)) return;
-      if (running && !paused && (event.code === 'Space' || event.code.startsWith('Arrow'))) event.preventDefault();
-      if (!running) return;
-      keys.add(event.code);
-      if (event.repeat || paused || scene) return;
-      if (B.screen) return;
-      switch (event.code) {
-        case 'KeyR': { const u = currentHero(); if (u && !u.inVehicle) reloadUnit(u); break; }
-        case 'KeyQ': switchWeapon(1); break;
-        case 'KeyE': interact(); break;
-        case 'KeyG': throwGrenade(); break;
-        case 'Digit1': switchHero(0); break;
-        case 'Digit2': switchHero(1); break;
-        case 'Digit3': switchHero(2); break;
-        case 'Digit4': switchHero(3); break;
-        default: break;
-      }
+      // Клавиши игры не должны прокручивать страницу и «щёлкать» фокусной кнопкой меню.
+      if (running && !paused && !B.screen && (event.code === 'Space' || event.code.startsWith('Arrow'))) event.preventDefault();
     }
-    function onKeyUp(event) { keys.delete(event.code); }
+    // Одиночные действия приходят из слоя ввода оболочки: клавиатура, геймпад и экранные
+    // кнопки дают одно и то же событие, поэтому разбор сделан один раз за кадр.
+    function handleActions() {
+      // Пробел за рулём — ручник, а не рывок: иначе после выхода из машины герой
+      // самопроизвольно дёргается.
+      if (C.consume('dash')) { const h = currentHero(); if (h && !h.inVehicle && !h.down) dashReq = true; }
+      if (C.consume('act')) interact();
+      if (C.consume('reload')) { const u = currentHero(); if (u && !u.inVehicle) reloadUnit(u); }
+      if (C.consume('weapon')) switchWeapon(1);
+      if (C.consume('grenade')) throwGrenade();
+      if (C.consume('hero1')) switchHero(0);
+      if (C.consume('hero2')) switchHero(1);
+      if (C.consume('hero3')) switchHero(2);
+      if (C.consume('hero4')) switchHero(3);
+      C.clearEdges();
+    }
 
     // ---------- Gamepad (Xbox / PlayStation) ----------
     // Both families use the standard mapping: A/✕=0, B/○=1, X/□=2, Y/△=3, LB/L1=4, RB/R1=5,
@@ -7704,12 +8209,14 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
     const padValue = (pad, i) => { const b = pad.buttons[i]; return b ? (typeof b === 'object' ? (b.pressed ? 1 : b.value) : b) : 0; };
     function resetPad() {
       input.padMove.x = 0; input.padMove.y = 0; input.padAim = null;
-      input.padFire = false; input.padHandbrake = false;
+      input.padFire = false;
+      C.padHold('handbrake', false); C.padHold('sprint', false);
       padButtons = {}; padPrevFire = false;
     }
     function pollGamepads() {
       input.padMove.x = input.padMove.y = 0; input.padAim = null;
-      input.padFire = input.padHandbrake = false;
+      input.padFire = false;
+      C.padHold('handbrake', false);
       if (typeof navigator.getGamepads !== 'function') return;
       let pad = null;
       for (const p of navigator.getGamepads()) { if (p && p.connected && p.buttons && p.axes) { pad = p; break; } }
@@ -7730,20 +8237,21 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       if (Math.hypot(rx, ry) >= PAD_DEAD) input.padAim = {x:rx, y:ry};
       // fire on RT / R2, handbrake on LT / L2
       input.padFire = padValue(pad, 7) > 0.4;
-      input.padHandbrake = padValue(pad, 6) > 0.4;
+      C.padHold('handbrake', padValue(pad, 6) > 0.4);
+      C.padHold('sprint', Boolean(next[10]));
       if (input.padFire && !padPrevFire) firePressed = true;
       padPrevFire = input.padFire;
-      // one-shot actions fire only while genuinely playing, never behind a screen or a scene
+      // one-shot actions enter the same queue as the keyboard, so a pad press and a key
+      // press are read once per frame by handleActions() and updateScene().
       const busy = paused || B.screen || scene;
       if (!busy) {
-        if (hit(0)) interact();
+        if (hit(0)) C.padPress('act');
         if (hit(8)) B.openScreen('map-screen');
         if (!interior) {
-          if (hit(1)) throwGrenade();
-          if (hit(2)) { const u = currentHero(); if (u && !u.inVehicle) reloadUnit(u); }
-          if (hit(3)) switchWeapon(1);
+          if (hit(1)) C.padPress('grenade');
+          if (hit(2)) C.padPress('reload');
+          if (hit(3) || hit(5)) C.padPress('weapon');
           if (hit(4)) cycleHero();
-          if (hit(5)) switchWeapon(1);
         }
       }
       padButtons = next;
@@ -7833,14 +8341,17 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       press('touch-gas', () => { input.touchGas = true; }, () => { input.touchGas = false; });
       press('touch-back', () => { input.touchBack = true; }, () => { input.touchBack = false; });
       const tap = (id, fn) => { const el = document.getElementById(id); if (el) el.addEventListener('click', event => { event.preventDefault(); fn(); }); };
-      tap('touch-interact', interact);
-      tap('touch-weapon', () => switchWeapon(1));
+      tap('touch-interact', () => C.touchPress('act'));
+      // Пробел в игре двойной: рывок пешком и ручник за рулём. Кнопка держит оба действия,
+      // контекст выбирает нужный — ровно так же, как клавиатура.
+      press('touch-dash', () => { C.touchHold('dash', true); C.touchHold('handbrake', true); },
+        () => { C.touchHold('dash', false); C.touchHold('handbrake', false); });
+      tap('touch-weapon', () => C.touchPress('weapon'));
       tap('touch-hero', cycleHero);
       tap('touch-pause', () => B.openScreen('pause-screen'));
     }
     window.addEventListener('keydown', onKeyDown);
-    window.addEventListener('keyup', onKeyUp);
-    window.addEventListener('blur', () => { keys.clear(); fireHeld = false; touchFire = false; input.touchGas = false; input.touchBack = false; resetPad(); });
+    window.addEventListener('blur', () => { C.releaseAll(); fireHeld = false; touchFire = false; input.touchGas = false; input.touchBack = false; resetPad(); });
     window.addEventListener('resize', () => { needResize = true; if (running) resizeRenderer(); });
     window.addEventListener('orientationchange', () => { needResize = true; setTimeout(() => { if (running) resizeRenderer(); }, 150); });
     window.visualViewport?.addEventListener('resize', () => { needResize = true; if (running) resizeRenderer(); });
@@ -7915,14 +8426,14 @@ noscript{position:fixed;inset:0;z-index:100;display:grid;place-items:center;back
       },
       setPaused(value) {
         paused = Boolean(value);
-        if (paused) { keys.clear(); fireHeld = false; touchFire = false; resetPad(); }
+        if (paused) { C.releaseAll(); fireHeld = false; touchFire = false; resetPad(); }
         else lastTime = performance.now();
       },
       returnToMenu() {
         running = false; paused = true;
         scene = null; mission = null; objectiveMark = null;
         B.setCutscene({visible:false});
-        keys.clear(); fireHeld = false; touchFire = false;
+        C.releaseAll(); fireHeld = false; touchFire = false;
         input.touchAim = null; input.touchMove.x = 0; input.touchMove.y = 0;
         resetPad();
         if (Audio) { Audio.stopEngine('player'); for (const v of vehicles) if (v.audioId) Audio.stopSiren(v.audioId); }
